@@ -4,12 +4,12 @@
 </HEAD>
 <BODY BGCOLOR="FFFFFF">
 
-<H1>Dallas shooting topic modelling</H1>
+<H1>Louisiana, Maryland and Dallas shooting topic modelling</H1>
 
 This is visualisation of <a href="http://www.vu.nl/en/">VU Amsterdam</a>
  summer school course "Big Data in Society" final project. 
-Data about <a href="https://en.wikipedia.org/wiki/2016_shooting_of_Dallas_police_officers">Dallas shooting</a> was gathered from New York Times Twitter, 
-Facebook page and articles. After data cleaning topic modelling was used. Topic models are here:
+Data about <a href="https://en.wikipedia.org/wiki/2016_shooting_of_Dallas_police_officers">Dallas shooting</a> (and shootings that were previous to it) 
+was gathered from New York Times Twitter, Facebook page and articles. After data cleaning topic modelling was used. Topic models are here:
 <ul>
   <li><a href="http://rristo.github.io/Twitter/index.html">Twitter</a></li> 
   <li><a href="http://rristo.github.io/Facebook/index.html">Facebook</a></li>
@@ -20,6 +20,63 @@ Facebook page and articles. After data cleaning topic modelling was used. Topic 
   <p> <p/>
  <img src="timetopic.png" alt="Topics popularity in time" style="width:800px;height:443px;">
 <p> <p/>
+
+Facebook (left) and NYT (right) corpora comparison:
+  <p> <p/>
+ <img src="plots/CorporaCompareFbvsNYT.png" alt="Facebook and NYT corpora comparison" style="width:800px;height:443px;">
+<p> <p/>
+
+Facebook (left) and Twitter (right) corpora comparison:
+  <p> <p/>
+ <img src="plots/CorporaCompareFbvsTw.png" alt="Facebook and Twitter corpora comparison" style="width:800px;height:443px;">
+<p> <p/>
+
+Twitter (left) and NYT (right) corpora comparison:
+  <p> <p/>
+ <img src="plots/CorporaCompareTwvsNYT.png" alt="Twitter and NYT corpora comparison" style="width:800px;height:443px;">
+<p> <p/>
+
+
+Cosine similarity of Facebook and NYT topics: 
+  <p> <p/>
+ <img src="plots/CosineSimFbVsNYT.png" alt="Cosine similarity of Facebook and NYT topics" style="width:800px;height:443px;">
+<p> <p/>
+
+Cosine similarity of Facebook and Twitter topics: 
+  <p> <p/>
+ <img src="plots/CosineSimTwitterVsFb.png" alt="Cosine similarity of Facebook and Twitter topics" style="width:800px;height:443px;">
+<p> <p/>
+
+Cosine similarity of NYT and Twitter topics: 
+  <p> <p/>
+ <img src="plots/CosineSimTwitterVsNYT.png" alt="Cosine similarity of NYT and Twitter topics" style="width:800px;height:443px;">
+<p> <p/>
+
+Sentiment dataset per dataset (boxplot): 
+  <p> <p/>
+ <img src="plots/SentientScoreDatasetBoxplot.png" alt="Sentiment dataset per dataset" style="width:800px;height:443px;">
+<p> <p/>
+
+Sentiment dataset per dataset (density plot): 
+  <p> <p/>
+ <img src="plots/SentimentScoreDatasetDensity.png" alt="Sentiment dataset per dataset" style="width:800px;height:443px;">
+<p> <p/>
+
+Sentiment dataset per dataset and topic(boxplot): 
+  <p> <p/>
+ <img src="plots/SentimentScoreTopicDataBoxplot.png" alt="Sentiment dataset per dataset topic" style="width:800px;height:443px;">
+<p> <p/>
+
+Sentiment dataset per dataset and topic(density plot): 
+  <p> <p/>
+ <img src="plots/SentimentScoreTopicDatasetDensity.png" alt="Sentiment dataset per dataset topic" style="width:800px;height:443px;">
+<p> <p/>
+
+Topics network: 
+  <p> <p/>
+ <img src="plots/topicNetwork.png" alt="Topics network" style="width:800px;height:443px;">
+<p> <p/>
+
  Code for the project is <a href="https://github.com/RRisto/Summer-school-course-project">here</a>.
  Authors: Pablo De Juan Bernabéu and <a href="http://ristohinno.com/">Risto Hinno</a>.
  <!--
