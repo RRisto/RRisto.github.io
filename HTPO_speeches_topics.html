@@ -78,6 +78,15 @@ h6 {
 
 <body>
 
+<div id="fb-root"></div> <!--for fb share button-->
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=851813434878402";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <style type="text/css">
 .main-container {
   max-width: 940px;
@@ -221,7 +230,7 @@ div.tocify {
 <h4 class="date"><em>august 2016</em></h4>
 
 </div>
-
+<div class="fb-share-button" data-href="http://rristo.github.io/HTPO_speeches_topics.html" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Frristo.github.io%2FHTPO_speeches_topics.html&amp;src=sdkpreparse">Share</a></div>
 
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
@@ -325,7 +334,7 @@ dtmOb &lt;- DocumentTermMatrix(docsOb) </code></pre>
 <li>alpha - how “clear” topics do we want (the smaller the number the “clearer” the topics are)</li>
 </ul>
 <p>For the purpose of gaining clear topics alpha was chosen to be 0.3 (it could be at minimum 0, at maximum 1). Number of topics were chosen based on visualization using package <code>LDAvis</code> and clarity of topics. K was chosen to be minimum number of topics in which topics did not overlap in LDAvis visualization or if in that case topics seemed to be mixed (containing many topics), number of topics was increased by one. This is also a step which is very subjective and might be easily criticize. There are also other, more mathematical <a href="https://cran.r-project.org/web/packages/ldatuning/vignettes/topics.html">ways</a> to calculate number of topics. In reality they estimate too many topics to interpret them in practice.</p>
-<p>LDAvis produces .html interactive visualisations which could be open with browser. Visualisations for this anaysis are <a href="http://rristo.github.io/HTPO_topics.html">here</a>.</p>
+<p>LDAvis produces .html interactive visualisations which could be open with browser. Links to visualisations are provided in the text.</p>
 <p>For Hitler speeches K=5 was biggest value when topics did not overlap. 10 most popular words representing topics are following:</p>
 <pre class="r"><code>library(corpustools) 
 set.seed(1)  
@@ -353,7 +362,7 @@ as.data.frame(terms(ldaH,10)) </code></pre>
 ## 8   polish   peopl      work      may    live
 ## 9     thus    will     world interest   parti
 ## 10  govern     now necessari    exist   never</code></pre>
-<p>For Hitler topics names were chosen to be as following:</p>
+<p>LDAvis visualisation for his topics is <a href="http://rristo.github.io/HTPO_topics/Hitler%20ldavis/index.html">here</a>. For Hitler topics names were chosen to be as following:</p>
 <pre class="r"><code>Htopics=c(&quot;German army&quot;, &quot;War&quot;, &quot;Life/work&quot;, &quot;State/economy&quot;, &quot;People can&quot;)</code></pre>
 <p>This is also one weakness of topic modelling. You don’t know the names of the topics and knowing background of the text might help you to understand and name the topics more accurately.</p>
 <p>For Trump K=4 was maximum which satisfied non overlapping condition. 10 most popular words representing topics are following:</p>
@@ -378,7 +387,7 @@ as.data.frame(terms(ldaTr,10))</code></pre>
 ## 8     deal   build    even   presid
 ## 9     ever    like    time     alli
 ## 10   obama     one     can    state</code></pre>
-<p>His topics were named as following:</p>
+<p>LDAvis visualisation for his topics is <a href="http://rristo.github.io/HTPO_topics/Trump%20ldavis/index.html">here</a>. His topics were named as following:</p>
 <pre class="r"><code>Trtopics=c(&quot;Elections&quot;, &quot;People know&quot;,&quot;Make America great&quot;, &quot;Foreign policy&quot;)</code></pre>
 <p>For Putin K=3 was maximum which satisfied non overlapping condition, but as his topics were mixed (two topics talking about Ukraine), number of topics was chosen to be 4. 10 most popular words representing topics are following:</p>
 <pre class="r"><code>set.seed(1)
@@ -401,7 +410,7 @@ as.data.frame(terms(ldaPt,10))</code></pre>
 ## 8      time   world    know  includ
 ## 9     today   howev  econom    need
 ## 10 interest  situat    issu   feder</code></pre>
-<p>His topics were named as following:</p>
+<p>LDAvis visualisations for Putin’s topics is <a href="http://rristo.github.io/HTPO_topics/Putin%20ldavis/index.html">here</a>. His topics were named as following:</p>
 <pre class="r"><code>Pttopics=c(&quot;Ukraine&quot;,&quot;State/nation&quot;,&quot;Internal issues&quot;, &quot;Busy year&quot;)</code></pre>
 <p>For Obama K=3 was maximum which satisfied non overlapping condition, but again this included topics that were sharing common theme, K was cosen to be 4. 10 most popular words representing topics are following:</p>
 <pre class="r"><code>set.seed(1)
@@ -424,7 +433,7 @@ as.data.frame(terms(ldaOb,10))</code></pre>
 ## 8    thing   chang     got     that
 ## 9   nation   right     kid      let
 ## 10    keep    time    vote     back</code></pre>
-<p>His topics were named as following:</p>
+<p>LDAvis visualisation for Obama’s topics is <a href="http://rristo.github.io/HTPO_topics/Obama%20ldavis/index.html">here</a>. His topics were named as following:</p>
 <pre class="r"><code>Obtopics=c(&quot;Internal issues&quot;, &quot;Work for change&quot;, &quot;Elections&quot;, &quot;Foreign issues&quot;) </code></pre>
 </div>
 <div id="dynamics-of-hitlers-topics" class="section level2">
