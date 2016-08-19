@@ -232,6 +232,7 @@ div.tocify {
 <div id="data" class="section level2">
 <h2>Data</h2>
 <p>Speeches of Hitler are taken from <a href="http://www.worldfuturefund.org/wffmaster/Reading/Hitler%20Speeches/Hitler%20Key%20Speeches%20Index.htm">here</a> and <a href="http://www.hitler.org/speeches/">here</a>, speeches of Putin <a href="http://en.kremlin.ru/events/president/transcripts">here</a>, speeches of Trump <a href="http://www.politico.com/story/2016/07/full-transcript-donald-trump-nomination-acceptance-speech-at-rnc-225974">here</a>, <a href="http://www.p2016.org/photos15/summit/trump012415spt.html">here</a> and <a href="https://www.donaldjtrump.com/press-releases/donald-j.-trump-foreign-policy-speech">here</a>. Speeches of Obama are taken from <a href="http://www.americanrhetoric.com/barackobamaspeeches.htm">here</a>.</p>
+<p>All the data for analysis is <a href="Apocalypse%20The%20Second%20World%20War%20Soundtrack%20-%20Rise%20Of%20Nazism%20-%2018">here</a></p>
 <p>Speeches of Hitler are following:</p>
 <pre class="r"><code>library(tm)
 docsH &lt;- Corpus(DirSource(&quot;./data/Hitler speeches&quot;))
@@ -353,7 +354,7 @@ as.data.frame(terms(ldaH,10)) </code></pre>
 ## 8   polish   peopl      work      may    live
 ## 9     thus    will     world interest   parti
 ## 10  govern     now necessari    exist   never</code></pre>
-<p>LDAvis visualisation for his topics is <a href="http://rristo.github.io/HTPO_topics/Hitler%20ldavis/index.html">here</a>. For Hitler topics names were chosen to be as following:</p>
+<p>LDAvis visualisation for his topics is <a href="http://rristo.github.io/HTPO/HTPO_topics/Hitler%20ldavis/index.html">here</a>. For Hitler topics names were chosen to be as following:</p>
 <pre class="r"><code>Htopics=c(&quot;German army&quot;, &quot;War&quot;, &quot;Life/work&quot;, &quot;State/economy&quot;, &quot;People can&quot;)</code></pre>
 <p>This is also one weakness of topic modelling. You don’t know the names of the topics and knowing background of the text might help you to understand (if topics are clear or fuzzy) and name the topics more accurately.</p>
 <p>For Trump K=6 was maximum which satisfied non overlapping condition. 10 most popular words representing topics are following:</p>
@@ -378,7 +379,7 @@ as.data.frame(terms(ldaTr,10))</code></pre>
 ## 8      one    dont    want  countri     goal      new
 ## 9    china   secur     big     deal     look    state
 ## 10   thing    talk    that     time     also    alway</code></pre>
-<p>LDAvis visualisation for his topics is <a href="http://rristo.github.io/HTPO_topics/Trump%20ldavis/index.html">here</a>. His topics were named as following:</p>
+<p>LDAvis visualisation for his topics is <a href="http://rristo.github.io/HTPO/HTPO_topics/Trump%20ldavis/index.html">here</a>. His topics were named as following:</p>
 <pre class="r"><code>Trtopics=c(&quot;People know&quot;,&quot;Elections&quot;, &quot;Security&quot;,&quot;Make America great&quot;, &quot;Foreign policy&quot;, &quot;World&quot;) </code></pre>
 <p>For Putin K=3 was maximum which satisfied non overlapping condition, but as his topics were mixed (two topics talking about Ukraine), number of topics was chosen to be 4. 10 most popular words representing topics are following:</p>
 <pre class="r"><code>set.seed(1)
@@ -401,7 +402,7 @@ as.data.frame(terms(ldaPt,10))</code></pre>
 ## 8      time   world    know  includ
 ## 9     today   howev  econom    need
 ## 10 interest  situat    issu   feder</code></pre>
-<p>LDAvis visualisations for Putin’s topics is <a href="http://rristo.github.io/HTPO_topics/Putin%20ldavis/index.html">here</a>. His topics were named as following:</p>
+<p>LDAvis visualisations for Putin’s topics is <a href="http://rristo.github.io/HTPO/HTPO_topics/Putin%20ldavis/index.html">here</a>. His topics were named as following:</p>
 <pre class="r"><code>Pttopics=c(&quot;Ukraine&quot;,&quot;State/nation&quot;,&quot;Internal issues&quot;, &quot;Busy year&quot;)</code></pre>
 <p>For Obama K=3 was maximum which satisfied non overlapping condition, but again this included topics that were sharing common theme, K was cosen to be 4. 10 most popular words representing topics are following:</p>
 <pre class="r"><code>set.seed(1)
@@ -424,7 +425,7 @@ as.data.frame(terms(ldaOb,10))</code></pre>
 ## 8    thing   chang     got     that
 ## 9   nation   right     kid      let
 ## 10    keep    time    vote     back</code></pre>
-<p>LDAvis visualisation for Obama’s topics is <a href="http://rristo.github.io/HTPO_topics/Obama%20ldavis/index.html">here</a>. His topics were named as following:</p>
+<p>LDAvis visualisation for Obama’s topics is <a href="http://rristo.github.io/HTPO/HTPO_topics/Obama%20ldavis/index.html">here</a>. His topics were named as following:</p>
 <pre class="r"><code>Obtopics=c(&quot;Internal issues&quot;, &quot;Work for change&quot;, &quot;Elections&quot;, &quot;Foreign issues&quot;) </code></pre>
 </div>
 <div id="dynamics-of-hitlers-topics" class="section level2">
@@ -703,7 +704,7 @@ ggplotly(p)</code></pre>
 <div id="conclusions" class="section level2">
 <h2>Conclusions</h2>
 <p>Topics and corpuses of Hitler, Trump, Putin and Obama’s speeches were analysed. Hitler’s topics popularity in time was plotted and as seen from the plot, topics varied over the years. For example topic “War” was mentioned more in Hitler’s speeches during the World War II.</p>
-<p>Topics of speeches from speakers were not highly similar, but there was variety in similarity scores and some topics could be identified as more similar. But corpuses of different speakers were more similar than separate topics. It is reasonable because corpus contains all the words used with their frequencies. Topic models give higher probability for a word in certain topc if this word is used mostly in this topic (common words which are used in every topic get lower probability). But overall we couldn’t say that Hitler, Putin and Trump have more similar topics/corpuses than Obama. They are quite similar. But we could say that some topics of different authors are more similar than others. Most similar topics are Hitler’s “People can” and Trump’s “People know” (cosine similarity=0.5). This was the most interesting finding. Such high similarity might be explained by the idea that they use similar words to talk about people and encourage them (which is a bit scary).</p>
+<p>Topics of speeches from speakers were not highly similar, but there was variety in similarity scores and some topics could be identified as more similar. But corpuses of different speakers were more similar than separate topics. It is reasonable because corpus contains all the words used with their frequencies. Topic models give higher probability for a word in certain topc if this word is used mostly in this topic (common words which are used in every topic get lower probability). But overall we couldn’t say that Hitler, Putin and Trump have more similar topics/corpuses than Obama. They are quite similar. But we could say that some topics of different authors are more similar than others. Most similar topics are Hitler’s “People can” and Trump’s “People know” (cosine similarity=0.5). This was the most interesting finding. Such high similarity might be explained by the idea that they use many similar words to talk about people and to encourage them (which is a bit scary).</p>
 <p>Finally sentiment analysis was used. Only two topics (Hitler’s “German army” and Trump’s “Elections”) had overall negative sentiment. Other topics (included all other speakers) had positive sentiment. But sentiment had more variability than had similarity measure. Overall all the corpuses had positive sentiment and some variability in it.</p>
 <p>Note for caution. All the texts were not natively in English so translation and words used might have an impact on results. Also sentiment analysis is tricky because we just measure if word is positive or negative without understanding context (for example sarcasm). Not to mention that positive and negative are the terms which are subjective. Hitler might have used positive words to speak about most of his topics, but today they have negative aura. So no way is this study and complete, on the countrary it has many caveats. Because topic modelling is unseupervised machine learning method it is difficult to really name the topics and to ind out why some topics are more similar than others. Most of the time only guesses could be made. But used with caution it might serve you well.</p>
 </div>
