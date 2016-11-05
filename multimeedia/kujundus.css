@@ -1,3 +1,12 @@
+#container {
+	width:700px;
+}
+#header {
+	background-color:#FFA500;
+}
+#content {
+	background-color:#EEEEEE;
+}
 h1 {
     color: blue;
     text-align: center;
