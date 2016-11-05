@@ -1,5 +1,5 @@
 * {
-	font-size: 20px;
+	font-size: 12px;
 	font-family: 'Raleway';
 	margin:0;
 }
@@ -25,11 +25,13 @@ h1 {
     color: blue;
     text-align: center;
 	margin-bottom:0px;
-	font-size: bold;
+	font-size:18px;
+	font-weight: bold;
 }
 
 h2 {
 	margin-top:0px;
+	font-size:17px;
 }
 
 p {
