@@ -8,11 +8,9 @@ a:hover {
 	color:red;
 	text-decoration:none;
 }
-/*https://designshack.net/articles/css/joshuajohnson-2/ grow */
-.grow img {
-  height: 150px;
-  width: 650px;
- 
+/*https://designshack.net/articles/css/joshuajohnson-2/ brighten */
+.brighten img {
+  -webkit-filter: brightness(-65%);
   -webkit-transition: all 1s ease;
      -moz-transition: all 1s ease;
        -o-transition: all 1s ease;
@@ -20,9 +18,8 @@ a:hover {
           transition: all 1s ease;
 }
  
-.grow img:hover {
-  width: 700px;
-  height: 200px;
+.brighten img:hover {
+  -webkit-filter: brightness(0%);
 }
 /*https://designshack.net/articles/css/joshuajohnson-2/ focus */
 .focus {
@@ -32,9 +29,6 @@ a:hover {
       -ms-transition: all 1s ease;
           transition: all 1s ease;
 		   background-color:white;
-			   	 margin-left:auto; 
-				margin-right:auto; 
-					display:block;
 }
  
 .focus:hover {
