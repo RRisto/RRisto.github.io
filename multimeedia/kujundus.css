@@ -1,24 +1,30 @@
 #container {
 	width:700px;
 }
+
 #header {
 	background-color:#FFA500;
 }
+
 #content {
 	background-color:#EEEEEE;
 }
+
 #footer {
 	text-align:center;
 	background-color:#FFA500;
 }
+
 h1 {
     color: blue;
     text-align: center;
 	margin-bottom:0px;
 }
+
 h2 {
 	margin-top:0px;
 }
+
 p {
 	margin-bottom:0px;
 }
