@@ -35,8 +35,8 @@ a:hover {
 }
  
 .focus:hover {
-  border: 70px solid blue;
-  border-radius: 50%;
+  border: 70px solid #94baf7;
+  border-radius: 70%;
 }
 
 #container {
