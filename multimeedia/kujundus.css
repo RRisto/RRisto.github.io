@@ -36,7 +36,34 @@ a:hover {
   border: 70px solid #94baf7;
   border-radius: 70%;
 }
+/*süda*/
+.heart {
+	margin:100px;
+	height:100px;
+	width:100px;
+	background:salmon;
+	position:relative;
+}
 
+.heart:before {
+content:"";
+height:100px;
+width:100px;
+background:red;
+border-radius:50%;
+position:absolute;
+top:-50px;	
+}
+
+.heart:after {
+	content:"";
+	height:100px;
+	width:100px;
+	background:blue;
+	border-radius:50%;
+	position:absolute;
+	left:-50px;
+}
 #container {
 	width:700px;
 }
