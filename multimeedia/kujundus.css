@@ -6,7 +6,6 @@
 
 #container {
 	width:700px;
-	padding-left:10px;
 }
 
 #header {
@@ -28,13 +27,16 @@ h1 {
 	margin-bottom:0px;
 	font-size:18px;
 	font-weight: bold;
+	padding-left:10px;
 }
 
 h2 {
 	margin-top:0px;
 	font-size:17px;
+	padding-left:10px;
 }
 
 p {
 	margin-bottom:0px;
+	padding-left:10px;
 }
