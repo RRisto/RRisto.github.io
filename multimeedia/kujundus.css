@@ -4,6 +4,11 @@
 	margin:0;
 }
 
+a:hover {
+	color:red;
+	text-decoration:none;
+}
+
 #container {
 	width:700px;
 }
