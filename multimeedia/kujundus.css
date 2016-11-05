@@ -9,6 +9,22 @@ a:hover {
 	text-decoration:none;
 }
 
+.grow img {
+  height: 200px;
+  width: 650px;
+ 
+  -webkit-transition: all 1s ease;
+     -moz-transition: all 1s ease;
+       -o-transition: all 1s ease;
+      -ms-transition: all 1s ease;
+          transition: all 1s ease;
+}
+ 
+.grow img:hover {
+  width: 400px;
+  height: 400px;
+}
+
 #container {
 	width:700px;
 }
