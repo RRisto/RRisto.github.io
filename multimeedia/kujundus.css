@@ -32,17 +32,14 @@ a:hover {
       -ms-transition: all 1s ease;
           transition: all 1s ease;
 		  background-color:white;
+		  margin-left:auto; 
+		margin-right:auto; 
+		display:block;
 }
  
 .focus:hover {
   border: 70px solid #94baf7;
   border-radius: 70%;
-}
-
-#svgMain {
-	margin-left:auto; 
-	margin-right:auto; 
-	display:block;
 }
 
 #container {
