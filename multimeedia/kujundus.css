@@ -21,8 +21,8 @@ a:hover {
 }
  
 .grow img:hover {
-  width: 200px;
-  height: 700px;
+  width: 700px;
+  height: 200px;
 }
 
 #container {
