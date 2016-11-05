@@ -50,6 +50,8 @@ a:hover {
 	border-top: 120px solid blue;
 	border-left: 60px solid transparent;
 	border-right: 60px solid transparent;
+	background:salmon;
+	position:relative;
 }
 
 .heart:before {
