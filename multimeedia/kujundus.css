@@ -28,11 +28,13 @@ h1 {
 	margin-bottom:0px;
 	font-size:18px;
 	font-weight: bold;
+	padding-bottom:10px;
 }
 
 h2 {
 	margin-top:0px;
 	font-size:17px;
+	padding-bottom:5px
 }
 
 p {
