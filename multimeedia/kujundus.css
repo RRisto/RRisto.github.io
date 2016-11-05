@@ -8,7 +8,7 @@ a:hover {
 	color:red;
 	text-decoration:none;
 }
-
+/*https://designshack.net/articles/css/joshuajohnson-2/ grow */
 .grow img {
   height: 150px;
   width: 650px;
@@ -23,6 +23,19 @@ a:hover {
 .grow img:hover {
   width: 700px;
   height: 200px;
+}
+/*https://designshack.net/articles/css/joshuajohnson-2/ focus */
+.focus {
+  -webkit-transition: all 1s ease;
+     -moz-transition: all 1s ease;
+       -o-transition: all 1s ease;
+      -ms-transition: all 1s ease;
+          transition: all 1s ease;
+}
+ 
+.focus:hover {
+  border: 70px solid #000;
+  border-radius: 50%;
 }
 
 #container {
