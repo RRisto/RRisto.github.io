@@ -45,34 +45,58 @@ a:hover {
 	position:relative;
 }*/
 .heart {
+	animation-name: syda_loogid;
+	animation-duration:1.5s;
+	animation-delay: 3s;
+	animation-iteration-count:infinite;
+	margin-top:50px;
+	padding-bottom:20px;
 	width: 0; 
 	height: 0;
-	border-top: 120px solid blue;
+	border-top: 80px solid red;
 	border-left: 60px solid transparent;
 	border-right: 60px solid transparent;
-	background:salmon;
+	background:none;
 	position:relative;
 }
 
 .heart:before {
-content:"";
-height:0px;
-width:0px;
-background:red;
-border-radius:50%;
-position:absolute;
-top:-50px;	
+	content:"";
+	height:64px;
+	width:64px;
+	background:red;
+	border-radius:50%;
+	position:absolute;
+	top:-122px;	
+	left:-3px;
 }
 
 .heart:after {
 	content:"";
-	height:100px;
-	width:100px;
-	background:blue;
+	height:64px;
+	width:64px;
+	background:red;
 	border-radius:50%;
 	position:absolute;
-	left:-50px;
+	left:-61px;
+	top:-122px;
 }
+
+@keyframes syda_loogid { 
+0% {
+       transform: scale(none);
+      -webkit-transform: scale(none);
+}
+20% {
+      transform: scale(1.2);
+      -webkit-transform: scale(1.2);
+}
+30% {
+      transform: scale(1.05);
+      -webkit-transform: scale(1.05);
+}
+}
+
 #container {
 	width:700px;
 }
