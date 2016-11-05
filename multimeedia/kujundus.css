@@ -37,12 +37,19 @@ a:hover {
   border-radius: 70%;
 }
 /*süda*/
-.heart {
+/*.heart {
 	margin:100px;
 	height:100px;
 	width:100px;
 	background:salmon;
 	position:relative;
+}*/
+.heart {
+	width: 0; 
+	height: 0;
+	border-top: 120px solid blue;
+	border-left: 60px solid transparent;
+	border-right: 60px solid transparent;
 }
 
 .heart:before {
