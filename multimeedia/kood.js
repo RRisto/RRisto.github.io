@@ -37,5 +37,4 @@ function animation() {
 	requestAnimationFrame(animation);
 }
 animation()
-/*cxt.fillStyle="#FF0000";  ristkülik on punast värvi*/
-/*cxt.fillRect(0,0,150,75); joonistame ristküliku suurusega 150x70, alustades vasakult ülevalt*/
+
