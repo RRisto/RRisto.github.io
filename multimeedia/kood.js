@@ -1,16 +1,16 @@
 var c=document.getElementById("kanvas"); /*JavaScript kasutab identifikaatorit id (mitte class) selleks, et leida õige element canvas*/
 var cxt=c.getContext("2d"); /* HTML5 sisse ehitatud objekt getContext("2d") erinevate meetoditega sisu joonistamiseks (joone, ristkülikuid, ringe, sümboleid jne)*/
 var canvasWidth=c.width;
-var canvasHeight=c.Height;
+var canvasHeight=c.height;
 var x=0;
 var requestAnimationFrame=window.requestAnimationFrame ||
-	window.mozRequestAnmationFrame ||
-	window.webkitReqRequestAnmationFrame ||
-	window.msRequestAnmationFrame ||
+	window.mozRequestAnimationFrame ||
+	window.webkitRequestAnimationFrame ||
+	window.msRequestAnimationFrame;
 function animation() {
 	cxt.clearRect(0,0, canvasWidth, canvasHeight);
 	if (this.x<100) {x=x+0.5;}
-	else {x=0;}
+		else {x=0;}
 	cxt.fillStyle="#FF0000";
 	cxt.fillRect(x, 0,150,75);
 	requestAnimationFrame(animation);
