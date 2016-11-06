@@ -58,6 +58,7 @@ a:hover {
 	border-right: 60px solid transparent;
 	background:none;
 	position:relative;
+	padding-bottom:100px;
 }
 
 .heart:before {
@@ -80,6 +81,62 @@ a:hover {
 	position:absolute;
 	left:-61px;
 	top:-122px;
+}
+/*pilv */
+.cloud_base {
+	/*padding-top:70px;*/
+	/*padding-bottom:70px;*/
+	background: white;
+	height: 100px;
+	width: 300px;
+	border-radius: 50px;
+	position: relative;
+	top: 10px;
+	box-shadow:inset 5px -9px 5px rgba(225, 245, 253, 0.5),0px 0px 10px 6px rgba(240, 240, 240, 0.7);
+		/* animatsiooni jaoks*/
+	-webkit-transition: 0.5s ease-in all;
+	-moz-transition: 0.5s ease-in all;
+	transition: 0.5s ease-in all;
+}
+.cloud_base:hover {
+	left: 33%;
+}
+.rounds {
+	width: 300px;
+	border-radius: 50%; /* ring */
+	position: absolute;
+	bottom: -30px;	
+	-webkit-box-shadow: 0 0 25px 8px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 0 25px 8px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 0 25px 8px rgba(0, 0, 0, 0.2);	
+	-webkit-transition: 0.5s ease-in all;
+	-moz-transition: 0.5s ease-in all;
+	transition: 0.5s ease-in all;
+}
+.rounds:before, .rounds:after{
+	content: '';
+	position: absolute;
+	background: #fff;
+}
+.rounds:after{
+	height: 100px;
+	width: 100px;
+	border-radius: 50%; /* ring */	
+	top: -180px;
+	left: 170px;
+	box-shadow:
+		inset 3px 2px 2px rgba(230, 230, 230, 0.5),
+		0px -10px 15px rgba(255, 255, 255, 0.4);
+}
+.rounds:before {
+	height: 180px;
+	width: 180px;
+	border-radius: 50%; /* ring */
+	top: -220px;
+	left: 30px;
+	box-shadow:
+		inset 2px 4px 2px rgba(230, 230, 230, 0.5),
+		0px -10px 15px rgba(255, 255, 255, 0.4);
 }
 
 @keyframes syda_loogid { 
