@@ -1,0 +1,196 @@
+* {
+	font-size:12px;
+	font-family: 'Raleway', sans-serif;
+	margin:0;
+}
+
+a:hover {
+	color:red;
+	text-decoration:none;
+}
+/*https://designshack.net/articles/css/joshuajohnson-2/ blur */
+.blur img {
+	height:150px;
+	width:650px;
+  -webkit-transition: all 1s ease;
+     -moz-transition: all 1s ease;
+       -o-transition: all 1s ease;
+      -ms-transition: all 1s ease;
+          transition: all 1s ease;
+}
+ 
+.blur img:hover {
+  -webkit-filter: blur(5px);
+}
+/*https://designshack.net/articles/css/joshuajohnson-2/ focus */
+.focus {
+  -webkit-transition: all 1s ease;
+     -moz-transition: all 1s ease;
+       -o-transition: all 1s ease;
+      -ms-transition: all 1s ease;
+          transition: all 1s ease;
+		   background-color:white;
+}
+ 
+.focus:hover {
+  border: 70px solid #94baf7;
+  border-radius: 70%;
+}
+/*süda*/
+/*.heart {
+	margin:100px;
+	height:100px;
+	width:100px;
+	background:salmon;
+	position:relative;
+}*/
+.heart {
+	animation-name: syda_loogid;
+	animation-duration:1.5s;
+	animation-delay: 3s;
+	animation-iteration-count:infinite;
+	margin-top:50px;
+	padding-bottom:20px;
+	width: 0; 
+	height: 0;
+	border-top: 80px solid red;
+	border-left: 60px solid transparent;
+	border-right: 60px solid transparent;
+	background:none;
+	position:relative;
+	padding-bottom:100px;
+}
+
+.heart:before {
+	content:"";
+	height:64px;
+	width:64px;
+	background:red;
+	border-radius:50%;
+	position:absolute;
+	top:-122px;	
+	left:-3px;
+}
+
+.heart:after {
+	content:"";
+	height:64px;
+	width:64px;
+	background:red;
+	border-radius:50%;
+	position:absolute;
+	left:-61px;
+	top:-122px;
+}
+/*pilv */
+.cloud_base {
+	/*padding-top:70px;*/
+	/*padding-bottom:70px;*/
+	background: white;
+	height: 100px;
+	width: 300px;
+	border-radius: 50px;
+	position: relative;
+	top: 10px;
+	box-shadow:inset 5px -9px 5px rgba(225, 245, 253, 0.5),0px 0px 10px 6px rgba(240, 240, 240, 0.7);
+		/* animatsiooni jaoks*/
+	-webkit-transition: 0.5s ease-in all;
+	-moz-transition: 0.5s ease-in all;
+	transition: 0.5s ease-in all;
+}
+.cloud_base:hover {
+	left: 33%;
+}
+.rounds {
+	width: 300px;
+	border-radius: 50%; /* ring */
+	position: absolute;
+	bottom: -30px;	
+	-webkit-box-shadow: 0 0 25px 8px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 0 25px 8px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 0 25px 8px rgba(0, 0, 0, 0.2);	
+	-webkit-transition: 0.5s ease-in all;
+	-moz-transition: 0.5s ease-in all;
+	transition: 0.5s ease-in all;
+}
+.rounds:before, .rounds:after{
+	content: '';
+	position: absolute;
+	background: #fff;
+}
+.rounds:after{
+	height: 100px;
+	width: 100px;
+	border-radius: 50%; /* ring */	
+	top: -180px;
+	left: 170px;
+	box-shadow:
+		inset 3px 2px 2px rgba(230, 230, 230, 0.5),
+		0px -10px 15px rgba(255, 255, 255, 0.4);
+}
+.rounds:before {
+	height: 180px;
+	width: 180px;
+	border-radius: 50%; /* ring */
+	top: -220px;
+	left: 30px;
+	box-shadow:
+		inset 2px 4px 2px rgba(230, 230, 230, 0.5),
+		0px -10px 15px rgba(255, 255, 255, 0.4);
+}
+
+@keyframes syda_loogid { 
+0% {
+       transform: scale(none);
+      -webkit-transform: scale(none);
+}
+20% {
+      transform: scale(1.2);
+      -webkit-transform: scale(1.2);
+}
+30% {
+      transform: scale(1.05);
+      -webkit-transform: scale(1.05);
+}
+}
+
+#container {
+	width:700px;
+}
+
+#header {
+	background-color:#FFA500;
+}
+
+#content {
+	background-image: url('pildid/taust.png');
+	padding-left:20px;
+	padding-right:10px;
+}
+
+#footer {
+	text-align:center;
+	background-color:#FFA500;
+}
+
+h1 {
+    color: blue;
+    text-align: center;
+	margin-bottom:0px;
+	font-size:18px;
+	font-weight: bold;
+	padding-top:10px;
+}
+
+h2 {
+	margin-top:0px;
+	font-size:17px;
+	padding-top:10px
+}
+
+p {
+	margin-bottom:0px;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
