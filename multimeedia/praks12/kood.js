@@ -20,10 +20,10 @@ function animation() {
 	cxt.clearRect(0,0, 800,800); /* kustutab eelnevad ringid ära*/
 	/*if (this.x<450) {x=x+0.5; y=x+100}
 		else {x=50;y=500;}*/
-	if (this.x<750) {x=x+0.5;y=Math.pow(x-375,2)*0.3/100+250;}
+	if (this.x<750) {x=x+0.5;y=Math.pow(x-375,2)*0.3/100+50;}
 		else {x=50;y=525;}
 	/*cxt.fillStyle="#FF0000";*/
-	cxt.fillStyle=rgb(255, 600-y, 0);
+	cxt.fillStyle=rgb(255, 400-y, 0);
 	/*cxt.fillRect(x, 0,150,75);*/
 	cxt.beginPath();
 	cxt.arc(x,y,50,0,2*Math.PI);
