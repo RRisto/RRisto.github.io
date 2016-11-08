@@ -23,7 +23,7 @@ function animation() {
 	if (this.x<750) {x=x+0.5;y=Math.pow(x-375,2)*0.3/100+50;}
 		else {x=50;y=525;}
 	/*cxt.fillStyle="#FF0000";*/
-	cxt.fillStyle=rgb(255, 400-y, 0);
+	cxt.fillStyle=rgb(255, Math.max(100,450-y), 0);
 	/*cxt.fillRect(x, 0,150,75);*/
 	cxt.beginPath();
 	cxt.arc(x,y,50,0,2*Math.PI);
