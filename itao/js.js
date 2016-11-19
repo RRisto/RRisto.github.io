@@ -20,3 +20,7 @@ function openCity(evt, cityName) {
 }
 document.getElementById("defaultOpen").click();
 
+window.onload = function() {
+   document.getElementById("defaultOpen").click();
+  }
+
