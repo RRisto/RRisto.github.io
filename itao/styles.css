@@ -1,3 +1,4 @@
+ /* see osa on tabide jaoks*/
  /* Style the list */
 ul.tab {
     list-style-type: none;
@@ -34,4 +35,34 @@ ul.tab li a:focus, .active {background-color: #ccc;}
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
+}
+/* tabi sisu jaoks */
+#tabcontent {
+	background-image: url('pildid/school.png');
+	padding-left:20px;
+	padding-right:10px;
+}
+/*font */
+* {
+	font-size:20px;
+	font-family: 'Raleway', sans-serif;
+	margin:0;
+}
+h1 {
+    color: blue;
+    text-align: center;
+	margin-bottom:0px;
+	font-size:18px;
+	font-weight: bold;
+	padding-top:10px;
+}
+h2 {
+	margin-top:0px;
+	font-size:17px;
+	padding-top:10px
+}
+p {
+	margin-bottom:0px;
+	padding-top:5px;
+	padding-bottom:5px;
 }
