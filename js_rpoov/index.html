@@ -14,8 +14,10 @@
 The value of the cookie should be <input name="cookievalue">
 </p></form>
 
-<a href="javascript:saveIt('ppkcookie1')" class="page">Create cookie 1</a>
-<a href="javascript:readIt('ppkcookie1')" class="page">Read cookie 1</a>
+<a href="javascript:saveIt('kupsis')" class="page">Create cookie 1</a>
+<a href="javascript:createCookie('kupsis')" class="page">js Create cookie 1</a>
+<a href="javascript:readIt('kupsis')" class="page">Read cookie 1</a>
+<a href="javascript:readIt2('kupsis')" class="page">Loe cookie 1</a>
 
 <div style="background-color:white;color:grey;padding:20px;">
 <button>Change user</button>
@@ -25,15 +27,20 @@ The value of the cookie should be <input name="cookievalue">
 
 <script type="text/javascript">
 <!--
+var Cookies = [];
 
 function saveIt(name) {
 	var x = document.forms['cookieform'].cookievalue.value;
 	if (!x)
 		alert('Please fill in a value in the input box.');
 	else {
-		Cookies.create(name,x,7);
+		Cookies.createCookie(name,x,7);
 		alert('Cookie created');
 	}
+}
+
+function readIt2(name) {
+	alert('The value of the cookie is ' + readCookie(name));
 }
 
 function readIt(name) {
