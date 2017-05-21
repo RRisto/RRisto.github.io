@@ -19,15 +19,11 @@ function readCookie(name) {
         var c = ca[i];
         while (c.charAt(0) == ' ')
             c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0)
+        if (c.indexOf(nameEQ) == 0) {
             alert('The value of the cookie is ' + c.substring(nameEQ.length, c.length));
-            // return c.substring(nameEQ.length, c.length);
+        } 
     }
-    // return null;
-    alert('The value of the cookie is null');
 }
-
-
 
 function eraseCookie(name) {
     createCookie(name, "", -1);
