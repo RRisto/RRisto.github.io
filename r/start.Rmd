@@ -8,7 +8,7 @@ output: html_document
 
 Käsitletavad teemad:
 
- - [andmetüübid]("1.1_andmet%C3%BC%C3%BCbid")
+ - [andmetüübid](1.1_andmet%C3%BC%C3%BCbid)
  - [tingimuslause ja tsükkel]("http://rristo.github.io/r/1.2_tingimuslause_tsykkel")
  - [paketid]("http://rristo.github.io/r/1.3_paketid")
  - [andmete sisselugemine]("http://rristo.github.io/r/2.1_andmete_lugemine")
