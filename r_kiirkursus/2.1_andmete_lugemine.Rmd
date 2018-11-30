@@ -1,0 +1,123 @@
+---
+title: "Andmete sisselugemine"
+output:
+  pdf_document: default
+  pdf: default
+---
+## Andmete lugemine
+
+Andmeid on võimalik sisse lugeda erinevas formaadis. Lihtsam viis on excel, vsc, txt jms failid
+```{r}
+states=read.csv('data/states.csv')
+class(states)
+dim(states)
+```
+Muutujate kirjeldus:
+```{r}
+str(states)
+```
+
+Alati kontrolli, kas asjad on korras:
+```{r}
+head(states)
+```
+```{r}
+tail(states)
+```
+Kiire ülevaade muutujatest:
+```{r}
+summary(states)
+```
+
+Sisselugemise juures on oluline:
+
+      - mis on eraldusmärk (kui see erineb arvuti sinu vaikimise märgist,
+      tuleb see ette anda argumendina näiteks: sep=";")
+      - kas read ja veerud on korrektsed, csv-s võivad need lappama minna,
+      kui csv on loodud mõnes teises operatsioonisüsteemis!
+      - vael aitab read_csv2, kui read_csv-ga asjad untsu lähevad
+      
+Exceli sisselugemine on sarnane:
+```{r}
+library(readxl)
+hdi=read_excel("data/HDIdat.xls.xlsx")
+```
+```{r}
+head(hdi, 20)
+```
+
+Siin on mure, excelist on ka palju muud peale andmete. Peaksime mõned read algusest vahele jätma.
+
+```{r}
+hdi_orig=read_excel("data/HDIdat.xls.xlsx", skip = 19)
+head(hdi_orig)
+```
+
+```{r}
+tail(hdi_orig,15)
+```
+Ka lõpus on sama jama.
+```{r}
+nrow(hdi_orig)
+hdi=hdi_orig[-c((nrow(hdi_orig)-10):nrow(hdi_orig)),]
+tail(hdi)
+
+```
+```{r}
+dim(hdi)
+```
+
+```{r}
+#võime ka kohe ala ette anda
+hdi=read_excel("data/HDIdat.xls.xlsx", range = "HDIdat!A20:Y218")
+dim(hdi)
+```
+```{r}
+head(hdi)
+```
+```{r}
+tail(hdi)
+```
+
+
+##  Mida veel tähele panna
+
+Üldjuhul saab argumentidena ette anda mitmeid väärtusi. Olulisemad on neist seotud ka puuduvate väärtustega. Tühjad lahtrid saavad väärtuseks NA-not available. Kui puuduvat väärtust tähistab midagi muu, tuleb see ette öelda. Milline argument seda teeb, tuleb iga funktsiooni dokumentatsioonist vaadata (read_exceli puhul on selleks na, näiteks na="puuduv väärtus").
+
+## Muud allikad
+
+Internet:
+```{r, eval=FALSE}
+library(httr)
+url='https://evs.nci.nih.gov/ftp1/CDISC/SDTM/SDTM%20Terminology.xls'
+#tõmbab faili alla, teeb ajutise faili, leob sisse
+GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
+df <- read_excel(tf, 2L)
+```
+Mis on eeltoodud näidise miinuseks?
+
+Muud formaadid: https://www.statmethods.net/input/importingdata.html
+
+## Andmete salvestamine
+Excel
+```{r}
+library("openxlsx")
+write.xlsx(hdi, file = "data/hdi_example.xlsx", colNames = TRUE, borders = "columns")
+```
+
+CSV
+
+```{r}
+write.csv(hdi, file="data/hdi_example.csv")
+```
+
+RDS formaat, suhteliselt efektiivne ja kiire.
+
+```{r}
+saveRDS(hdi, file = "data/hdi.rds")
+```
+```{r}
+hdi2=readRDS(file = "data/hdi.rds")
+identical(hdi,hdi2)
+```
+

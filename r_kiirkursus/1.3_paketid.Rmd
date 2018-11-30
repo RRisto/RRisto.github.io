@@ -1,0 +1,39 @@
+---
+title: "Paketid"
+output:
+  pdf_document: default
+  pdf: default
+---
+
+Pakett on jagatav koodiüksus. Paketis on kood, andmed, dokumentatsioon, testid. R-l on üle 6000 paketi CRANis (Comprehensive R Archive Network).
+
+Pakette saab CRANist installida käsuga: install.packages("paketi nimi"). Paketi kasutamiseks tuleb pakett sessiooni üleslaadida: library("paketi nimi"). 
+
+Näide:
+```{r, eval=FALSE}
+install.packages("ggplot2")
+```
+```{r}
+#kasutame
+library(ggplot2)
+```
+
+Lisaks võib pakette olla mujalgi, näiteks [githubis](www.github.com). Selleks on vaja devtools paketti.
+
+```{r, eval=FALSE}
+install.packages("devtools")
+```
+```{r, eval=FALSE}
+library("devtools")
+#vaja on linki paketile
+install_github("https://github.com/RRisto/riigiteenused")
+#edasine kasutamine on sama
+library("riigiteenused")
+```
+
+Tegelikult võib igal pool pakette olla, kuid tasub olla ettevaatlik. CRANis olevad paketid on teatava kontrolli läbinud ja omavad dokumentatsiooni! Suvaline pakett võib olla loodud mitte kõige sõbralikemate kavatsustega. Vahel võib olla, et mõni pakett ei toeta konkreetset operatsioonisüsteemi või vajad eelnevalt muu tarkvara allalaadimist. 
+
+Seega eelista pakette CRANist (või mille turvalisuses oled veendunud). Guugelda, ühe ja sama asja tegemiseks võib olla mitu paketti, millest mõni võib olla sulle sobilikum (nt kiirem). Tasub silmas pidada ka, millist Ri versiooni pakett toetab (kui pakett pole enam aktiivses arenduses, võib kasutamisega tekkida probleeme).
+
+Installimise osas, kõik punane tekst pole halb, mida konsool välja pritsib. Kui ees on warning (või mitte midagi), pole üldjuhul hullu midagi. Kui on Error, tuleb asjaga tegeleda (kui võimalik püüa aru saada, guugelda).
+

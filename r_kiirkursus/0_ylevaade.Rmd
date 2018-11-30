@@ -1,0 +1,54 @@
+---
+title: "Ülevaade"
+output:
+  pdf_document: default
+  pdf: default
+---
+# Kursuse ülevaade
+
+Käsitletavad teemad:
+
+   - baaskäsud ja -süntaks Ris (sh pakettide installeerimine)
+   - andmete sisselugemine ja andmetüübid
+   - andmete töötlemine
+   - graafikute, tabelite, raportite tegemine
+   - koodi hoidmine, versioonihaldus
+ 
+
+## R-st
+
+R on integreeritud tarkvarakomplekt andmete töötlemiseks, arvutamiseks ja graafiliseks kujutamiseks.
+Riga saab:
+
+      - andmeid töödelda, salvestada
+      - teha maatriksarvutusi
+      - luua masinõppemudeleid
+      - luua (interaktiivseid) graafikuid (https://shiny.rstudio.com/gallery/,
+      http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)
+      - teha raporteid (nt https://rpubs.com/RRisto)
+      - lihtsamaid veebirakendusi (nt https://shiny.rstudio.com/gallery/,
+      https://ristohinno.shinyapps.io/Riigiteenused_dashboard/)
+      - ja palju muud
+      
+Plussid:
+
+    - tasuta
+    - suur kogukond -> lihtne abi saada
+    - võimaldab teha taasesitatavat (reproducible) analüüsi 
+    - dünaamiline, palju võimalusi (suure tõenäosusega on keegi sinu vajaduse jaoks juba paketi kirjutanud)
+    
+Miinused:
+
+    - nõuab veidi vaeva õppimiseks
+    - töötab operatiivmälu pealt -> piirang andmemahule (kuigi sellele on lahendusi)
+    
+
+#### Abi leidmine
+
+ - google
+ - Rstudio ("Help" tab all paremal)
+ - help("funktsiooni nimi")
+ - ?funktsiooni nimi
+ - \? ?"^glm" #otsib dokumentatsioonist fraasi 
+ - veeb (https://stackoverflow.com/, https://cran.r-project.org/, https://www.rstudio.com/resources/cheatsheets/)
+    

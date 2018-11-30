@@ -1,0 +1,230 @@
+---
+title: "Andmetüübid"
+output:
+  pdf_document: default
+  pdf: default
+---
+
+
+
+## Baasandmetüübid
+Olulisemad andmetüübid:
+
+    - numeric (arvud nii täis- kui ka ujuvkomakohaga arvud (nt 1,2, 1.2))
+    - character (sõne/tekst (nt "tere"))
+    - logical (tõeväärtused (nt TRUE, FALSE))
+    
+Lihtsaim viis mitme väärtuse koos hoidmiseks on vektor:
+```{r}
+
+a <- c(1,2,5.3,6,-2,4) # numeric vector
+b <- c("one","two","three") # character vector
+c <- c(TRUE,TRUE,TRUE,FALSE,TRUE,FALSE) #logical vector
+a
+b
+c
+```
+
+
+#### Arvud
+
+Kõige lihtsamad asjad, mida Riga teha saab, on aritmeetilised operatsioonid.
+```{r}
+1+2
+2*2
+1/2
+```
+
+Muutujate väärtustamine
+```{r}
+x<-5
+y<-2
++ x
+- x
+x + y
+x - y
+x * y
+x / y
+#astendamine
+x ^ y
+x ** y
+#modulo
+x %% y
+#integer division
+x %/% y
+```
+
+ 
+#### Loogilised operatsioonid
+
+```{r}
+arv1<-5
+arv2<-11
+arv1<arv2
+arv1<=arv2
+arv1==arv2
+```
+```{r}
+boolean1=TRUE
+boolean2=TRUE
+boolean3=FALSE
+
+! boolean1
+boolean1&boolean2
+boolean1&boolean3
+
+boolean1&&boolean2
+boolean1&&boolean3
+
+boolean1|boolean2
+boolean1|boolean3
+```
+
+## Komposiitandmetüübid
+
+### Vektor
+```{r}
+#vektoriga oleme juba tuttavad, vektoriga saab teha tehteid
+vec1=c(1,2,3,4)
+vec2=c(10, 10,10,10)
+vec3=c(20)
+vec4=c(10,20)
+vec5=c(10,20, 30)
+
+vec1+vec2
+vec1+vec3
+
+vec1+vec4
+vec1+vec5
+```
+
+```{r}
+vec1=c(TRUE,FALSE, TRUE)
+vec2=c(FALSE,FALSE, TRUE)
+vec1+vec2
+```
+```{r}
+vec1=c("tere", "halloo")
+vec2=c("maja", "auto")
+#mis võib olla tulemuseks?
+#vec1+vec2
+```
+Elementidele viitamine (nb vektor võib koosneda eri andmetüüpi elementidest):
+```{r}
+vec=c(1,2, "auto", TRUE)
+vec[1]
+vec[1:length(vec)]
+vec[1:2]
+vec[c(1,2)]
+
+```
+### Andmeraam (dataframe)
+
+Põhilisemaid andmetüüpe R-s.
+
+```{r}
+d <- c(1,2,3,4)
+e <- c("red", "white", "red", NA)
+f <- c(TRUE,TRUE,TRUE,FALSE)
+mydata <- data.frame(d,e,f)
+names(mydata) <- c("ID","Color","Passed") # variable names
+mydata
+```
+Elementidele viitamine:
+```{r}
+mydata[1:2] # veerud 3,4,5 
+mydata[c("ID","Color")] # veerud ID ja Color 
+mydata$Passed # muutuja Passed 
+
+mydata[1,2] #rida 1, veerg2
+mydata[c(1,2), c(2,3)]
+mydata[1:2, 2:3]
+```
+```{r}
+ncol(mydata)
+nrow(mydata)
+```
+
+```{r}
+mydata
+mydata[2,3]<-"uus väärtus"
+mydata
+```
+Andmeraam kui vektorite kogum:
+```{r}
+mydata['uus_veerg']<-c(25,10,20,30)
+mydata
+mydata<-rbind(mydata,(rep("uus", ncol(mydata))))
+mydata
+```
+Funktsioonid rbind ja cbind lisavad vastavalt kas rea või veeru:
+```{r}
+mydata <- mydata[-nrow(mydata),] 
+mydata
+```
+```{r}
+mydata[-1,]
+```
+Loogilised operatioonid alamhulga leidmiseks:
+```{r}
+mydata[ which(mydata$uus_veerg>10& mydata$Passed==TRUE), ]
+```
+```{r}
+# | - logical or
+subset(mydata, uus_veerg>10| mydata$Passed==TRUE,select=c(Color, Passed))
+```
+Veel võimalusi alamhulkade leidmiseks.
+```{r}
+subset(mydata, uus_veerg>10 & mydata$Passed==TRUE,select=c(Color, Passed))
+```
+```{r}
+newdata <- mydata[c(-3,-5)]
+newdata
+```
+
+### Maatriks
+
+```{r}
+# generates 5 x 4 numeric matrix 
+y<-matrix(1:20, nrow=5,ncol=4)
+y
+# another example
+cells <- c(1,26,24,68)
+rnames <- c("R1", "R2")
+cnames <- c("C1", "C2") 
+mymatrix <- matrix(cells, nrow=2, ncol=2, byrow=TRUE,
+  dimnames=list(rnames, cnames))
+mymatrix
+```
+
+```{r}
+y[,4] # 4th column of matrix
+y[3,] # 3rd row of matrix 
+y[2:4,1:3] # rows 2,3,4 of columns 1,2,3
+```
+
+### Lists
+An ordered collection of objects (components). A list allows you to gather a variety of (possibly unrelated) objects under one name.
+
+```{r}
+# example of a list with 4 components - 
+# a string, a numeric vector, a matrix, and a scaler 
+w <- list(name="Fred", mynumbers=a, mymatrix=y, age=5.3)
+w
+
+```
+
+```{r}
+# example of a list containing two lists 
+v <- c(w,w)
+v
+```
+```{r}
+v$name
+v[["name"]]
+v[1]
+v[[1]] 
+
+v$mymatrix[1:2,3:4]
+```
+

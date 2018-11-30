@@ -1,0 +1,177 @@
+---
+title: "Tingimuslause, tsükkel"
+output:
+  pdf_document: default
+  pdf: default
+---
+
+## Tingimuslause
+
+Tihti on meil vaja kontrollida koodi kulgemist, selleks on mitmeid võimalusi.
+If-lause:
+```{r}
+x=5
+if (x<10) {
+  print("x on väikem kui 10")
+}
+```
+If-lause koos else-ga:
+```{r}
+if (x<5) {
+  print("x on suurem kui 5")
+} else {
+  print("x on suurem või võrdne 5-ga")
+}
+```
+Lisaks von olemas ka if else:
+```{r}
+
+x <- 0
+if (x < 0) {
+print("Negative number")
+} else if (x > 0) {
+print("Positive number")
+} else {
+print("Zero")
+}
+```
+
+Tingimused võivad olla keerulisemad:
+```{r}
+x=5
+y=10
+nimi='Juhan'
+
+if (x<10 & y>=10 & nimi=='Juhan') {
+  print('If püüdis kinni')
+}
+
+if (x<10 & y>10 & nimi=='Juhan') {
+  print('If püüdis kinni')
+} else {
+  print('If ei püüdnud kinni')
+}
+
+#ekstra sulud on vaja, kuna tahan kogu loogilise avaldise tulemuse muuta vastupidiseks
+if (!(x<10 & y>10 & nimi=='Juhan')) {
+  print('If püüdis kinni')
+} else {
+  print('If ei püüdnud kinni')
+}
+
+if (x<10 | y>10 & nimi=='Juhan') {
+  print('If püüdis kinni')
+} else {
+  print('If ei püüdnud kinni')
+}
+```
+
+## Tsükkel
+
+Lihtsaimad tsükli haldamise vahendid on for ja while tsükkel. Neid tegelikult väga palju R-si ei kasutata.
+```{r}
+for (year in 2010:2015){
+  print(paste("The year is", year))
+}
+
+for (year in c(2010,2011,2012,2013,2014,2015)){
+  print(paste("The year is", year))
+}
+
+#mida see koodijupp teeb?
+for (i in 1:10) {
+  if (!i %% 2){
+    next #viib koodi järgmisesse tsükli ringi
+  }
+  print(i)
+}
+```
+
+While tsükkel. While tsükli juures on oluline tagada, et ei tekiks lõpmatut tsüklit, muidu R jookseb lihtsalt kokku.
+```{r}
+i <- 1
+while (i < 6) {
+  print(i)
+  i = i+1 #kui see välja kommenteerida, tekib lõpmatu tsükkel
+}
+```
+Repeat tsükkel. Siingi tuleb olla ettevaatlik, et ei tekiks lõpmatut tsüklit.
+
+```{r}
+x <- 1
+repeat {
+  print(x)
+  x = x+1
+  if (x == 6){
+    break #lõpetab tsükli
+    }
+}
+```
+
+Tsükleid saab üksteise sisse panna.
+```{r}
+# Create a 30 x 30 matrix (of 30 rows and 30 columns)
+mymat <- matrix(nrow=30, ncol=30)
+
+for(i in 1:dim(mymat)[1]) {#võtab maatriks read ükshaaval
+  for(j in 1:dim(mymat)[2]) { #võtab konkreetse rea veerud ükshaaval
+    mymat[i,j] = i*j #väärtustab maatriksi konkreetse elemendi
+  }
+}
+
+# Just show the upper left 10x10 chunk
+mymat[1:10, 1:10]
+```
+## Vektoriseerimine
+
+Tsükliga:
+```{r}
+#halb näide, aeglane
+algusaeg <- proc.time()
+
+#seab juhuslikkuse
+set.seed(42)
+
+m=100
+n=100
+
+# Create matrix of normal random numbers
+mymat <- replicate(m, rnorm(n))
+
+# Transform into data frame
+mydframe <- data.frame(mymat)
+
+for (i in 1:m) {
+  for (j in 1:n) {
+    mydframe[i,j]<-mydframe[i,j] + 10*sin(0.75*pi)
+    #print(mydframe)
+  }
+}
+print('kulunud aeg')
+print(proc.time()-algusaeg)
+mydframe[1:10,1:10]
+```
+
+Vektoriseeritud:
+```{r}
+algusaeg <- proc.time()
+set.seed(42)
+m=100
+n=100
+mymat <- replicate(m, rnorm(n)) 
+mydframe <- data.frame(mymat)
+mydframe <- mydframe + 10*sin(0.75*pi)
+print('kulunud aeg')
+proc.time()-algusaeg
+mydframe[1:10,1:10]
+```
+Vahepõikena, mida aeg näitab:
+"the __user time__ relates to the execution of the code, the __system time__ relates to system processes such as opening and closing files, and the __elapsed time__ is the difference in times since you started the stopwatch (and will be equal to the sum of user and system times if the chunk of code was run altogether and single-threaded). Note that the elapsed time may be shorter than the sum of the user time and system time if multiple threads were used to execute the expression" (https://stats.idre.ucla.edu/r/faq/how-can-i-time-my-code/)
+
+Me oleme tegelikult vektoriseeritud kuju näinud:
+```{r}
+vec1=c(1,2,3)
+vec2=c(10,20, 30)
+vec1+vec2
+```
+Rohkem vektoriseerimisest järgmistes osades.
