@@ -1,8 +1,8 @@
 ---
 title: "Tingimuslause, tsükkel"
-output:
-  pdf_document: default
-  pdf: default
+author: "Risto Hinno"
+date: "30 november 2018"
+output: html_document
 ---
 
 ## Tingimuslause

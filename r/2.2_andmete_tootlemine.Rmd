@@ -1,10 +1,8 @@
 ---
-title: "Andmete puhastamine, tĆ¶Ć¶tlemine"
-output:
-  html_document:
-    df_print: paged
-  pdf: default
-  pdf_document: default
+title: "Andmete töötlemine"
+author: "Risto Hinno"
+date: "30 november 2018"
+output: html_document
 ---
 
 https://towardsdatascience.com/tutorial-data-wrangling-and-mapping-in-r-ec828acc8073

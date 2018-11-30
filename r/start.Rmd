@@ -43,12 +43,13 @@ Miinused:
   - töötab operatiivmälu pealt -> piirang andmemahule (kuigi sellele on lahendusi)
     
 
-#### Abi leidmine
+### Abi leidmine
+
+Kindlasti jõuad kohe kursuse alguses kohta, kus oleks vaja abi (ei oska teha, kood ei tööta jne). See on täiesti normaalne. Abi saamiseks soovitan kasutada alljärgnevaid ressursse:
 
  - google
  - Rstudio ("Help" tab all paremal)
  - help("funktsiooni nimi")
  - ?funktsiooni nimi
- - \? ?"^glm" #otsib dokumentatsioonist fraasi 
  - veeb (https://stackoverflow.com/, https://cran.r-project.org/, https://www.rstudio.com/resources/cheatsheets/)
     

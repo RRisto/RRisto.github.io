@@ -1,18 +1,16 @@
 ---
-title: "Andmetüübid"
-output:
-  pdf_document: default
-  pdf: default
+title: "Baasandmetüübid"
+author: "Risto Hinno"
+date: "30 november 2018"
+output: html_document
 ---
-
-
 
 ## Baasandmetüübid
 Olulisemad andmetüübid:
 
-    - numeric (arvud nii täis- kui ka ujuvkomakohaga arvud (nt 1,2, 1.2))
-    - character (sõne/tekst (nt "tere"))
-    - logical (tõeväärtused (nt TRUE, FALSE))
+  - numeric (arvud nii täis- kui ka ujuvkomakohaga arvud (nt 1, 2, 1.2))
+  - character (sõne/tekst (nt "tere"))
+  - logical (tõeväärtused (nt TRUE, FALSE))
     
 Lihtsaim viis mitme väärtuse koos hoidmiseks on vektor:
 ```{r}
@@ -228,3 +226,6 @@ v[[1]]
 v$mymatrix[1:2,3:4]
 ```
 
+
+
+    - 

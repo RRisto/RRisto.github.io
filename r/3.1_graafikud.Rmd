@@ -1,8 +1,8 @@
 ---
-title: "R Notebook"
-output:
-  pdf_document: default
-  pdf: default
+title: "Andmete töötlemine"
+author: "Risto Hinno"
+date: "30 november 2018"
+output: html_document
 ---
 
 https://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html

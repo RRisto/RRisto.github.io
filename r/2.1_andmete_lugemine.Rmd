@@ -1,8 +1,8 @@
 ---
-title: "Andmete sisselugemine"
-output:
-  pdf_document: default
-  pdf: default
+title: "Andmete lugemine"
+author: "Risto Hinno"
+date: "30 november 2018"
+output: html_document
 ---
 ## Andmete lugemine
 

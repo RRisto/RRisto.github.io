@@ -1,8 +1,8 @@
 ---
 title: "Paketid"
-output:
-  pdf_document: default
-  pdf: default
+author: "Risto Hinno"
+date: "30 november 2018"
+output: html_document
 ---
 
 Pakett on jagatav koodiüksus. Paketis on kood, andmed, dokumentatsioon, testid. R-l on üle 6000 paketi CRANis (Comprehensive R Archive Network).
