@@ -1,0 +1,57 @@
+---
+title: "Aeg"
+author: "Risto Hinno"
+date: "30 november 2018"
+output: html_document
+---
+## Aeg 
+
+Ajaga seotud operatsioonide on keerulised ja "root of all evil". Nendega tuleb olla tähelepanelik. Toon siin mõned näited.
+
+```{r}
+#hetkeaeg
+t <- Sys.time()
+t
+```
+```{r}
+class(t)
+```
+
+Teeme ajast sõne.
+```{r}
+timeStamp <-  strftime(t,"%Y-%m-%d %H:%M:%S")
+timeStamp
+```
+Teise argumendi väärtused on selgitatud siin: https://stat.ethz.ch/R-manual/R-patched/library/base/html/strptime.html Sisuliselt need defineerivad ajaformaadi.
+```{r}
+class(timeStamp)
+```
+
+Tavaline on, et saame andmeraami, kus on ajamuutuja ning tahame selle konverteerida ajamuutujaks, et aritmeetilisi operatsioone teha.
+
+```{r}
+myData <- data.frame(time=c("2014-01-23 14:28:21","2014-01-23 14:28:55",
+                              "2014-01-23 14:29:02","2014-01-23 14:31:18"),
+                      speed=c(2.0,2.2,3.4,5.5))
+
+summary(myData)
+myData$time <- strptime(myData$time,"%Y-%m-%d %H:%M:%S")
+```
+Nüüd saamearvutada ajalise vahe sekundites
+```{r}
+N = length(myData$time)
+myData$time[2:N] - myData$time[1:(N-1)]
+```
+
+Kuupäevadega saame sarnaseid asju teha.
+
+```{r}
+theDates <- c("1 01 2012","1 01 2013","1 01 2014")
+dateFields <- as.Date(theDates,"%e %m %Y")
+N <- length(dateFields)
+diff <- dateFields[1:(N-1)] - dateFields[2:N]
+diff
+```
+
+
+

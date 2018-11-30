@@ -14,28 +14,36 @@ https://suzan.rbind.io/2018/01/dplyr-tutorial-1/
 
 ### Andmed
 
-Laeme andmed
+Laeme andmed sisse:
 ```{r}
 us_state_populations<-read.csv("data/introductory_state_example.csv")
+#esimesed 6 rida andmetest
 head(us_state_populations)
 ```
-Vaatame veel, mis andmetes on.
+
+```{r}
+#viimased 6 rida andmetest
+tail(us_state_populations)
+```
+
+Vaatame, mis andmetes on.
 ```{r}
 str(us_state_populations)
 summary(us_state_populations)
 ```
 ```{r}
+#andmeraami dimensioonid
 dim(us_state_populations)
 ```
 
 
 ### tidyverse
 
-Nüüd jõuab kätte osa, mis on üks oluline R-i populaarsuse faktor. [__Tidyverse__](https://www.tidyverse.org/) on andmeteaduse pakettide kogum. Üheks autoriks on Hadley Wickham, R-i arendajate seas legendaarne kuju.
+Nüüd jõuab kätte osa, mis on üks oluline R-i populaarsuse faktor. [__Tidyverse__](https://www.tidyverse.org/) on andmeteaduse pakettide kogum. Üheks autoriks on Hadley Wickham, R-i arendajate seas legendaarne kuju:
 
 ![Hadley Wickham](figure/hadley.jpg)
 
-Tidyverse paketid saab alla laadida ühe korraga:
+Miks tidyverse populaarne on, saame kohe näha. Tidyverse paketid saab installida ühe korraga:
 ```{r, eval=FALSE}
 install.packages("tidyverse")
 ```
@@ -44,7 +52,7 @@ Järgnevalt mõned näited tidyverse'i kogumist.
 
 ### Filtreerimine
 
-Ütleme, et tahame filterdada välja read, mis käivad California ja New York'i kohta.
+Ütleme, et tahame filtreerida välja read, mis käivad California ja New York'i kohta:
 ```{r, message=FALSE}
 library(tidyverse)
 #tulemus omistatakse muutujale df_california_ny, aluseks võtame andmed
@@ -55,7 +63,7 @@ df_california_ny<-us_state_populations %>%
 dim(df_california_ny)
 head(df_california_ny)
 ```
-Eelnevalt me kasutasime pipe oprtaatorit (%>%). See on väga mugav vahend, mitme operatsiooni tegemiseks. Näiteks me tahame leida keskmist elanike arvu Californias ja New Yorkis kogu vaadeldava perioodi kohta (st iga aasta on kaaluga 1).
+Eelnevalt me kasutasime pipe oprtaatorit (%>%). See on väga mugav vahend, mitme operatsiooni üksteise järgi tegemiseks. Näiteks me tahame leida keskmist elanike arvu Californias ja New Yorkis kogu vaadeldava perioodi kohta (st iga aasta on kaaluga 1).
 
 Ilma pipe operaatorita näeb see välja nii:
 ```{r}
@@ -65,7 +73,7 @@ us_state_populations %>%
   #grupeerime osariigi järgi
   group_by(state)%>%
   #arvutame iga grupi kohta keskmise ja st. hälve
-  summarise(mean=mean(population), sandardhälve=sd(population))
+  summarise(keskmine=mean(population), sandardhälve=sd(population))
 
 ```
 Samuti saame pipe kasutada, et saada ülevaade mingist osast andmetest:
@@ -122,7 +130,9 @@ Nii, nüüd on vaja luua uus muutuja, mis on kategooriline muutuja (faktor), mis
 
 
 ```{r}
-us_state_populations$period<-cut(us_state_populations$year,          
+#cut lõikab muutuja faktoriteks
+us_state_populations$period<-cut(us_state_populations$year,  
+    #seq genereerib intervalli arvude vahele
     seq(min(us_state_populations$year)-1,
         max(us_state_populations$year)+1,5))
 #kontrollime, kas iga aasta kohta on üks intervall
@@ -148,12 +158,15 @@ us_state_populations[is.na(us_state_populations$period),]$year
 us_state_populations[complete.cases(us_state_populations), ]
 ```
 
+Puuduvate väärtuste eemaldamiseks mingi funktsiooni kasutamisel on tihti funktsioonidel võimalus anda argument na.rm=T. Arvutuslike operatsioonide puhul on see vajalik, kuna puuduvad väärtused muudavad arvutuste tegemise keerukaks (kuidas puuduvast väärtustest kesmist võtta?).
+
 ## Andmete ühendamine
 
 Meil on veel andmeid osariikide kohta:
 ```{r}
 df_states=read_csv('data/states.csv')
 head(df_states)
+dim(df_states)
 ```
 Ühendamiseks kasutame osariigi nime. Enne peame veenudma, et need klapiks kahes andmehulgas.
 ```{r}
@@ -164,18 +177,21 @@ unique(df_states$state)
 unique(us_state_populations$state)
 ```
 
-Ei klapi, teeme väiketähtedeks ja asendame tühikud
+Ei klapi, teeme väiketähtedeks ja asendame tühikud:
 ```{r}
 df_states$state=gsub(" ", "_", df_states$state)
 df_states$state=tolower(df_states$state)
 unique(df_states$state)
 ```
- Ühendame kakas andmehulka
+Ühendame kaks andmehulka:
 ```{r}
 df=merge(us_state_populations, df_states,by.x='state', by.y='state')
 head(df)
 ```
-Kõikide osariikide kohta meil infot pole. Uurime, kas kõik osariigid on kogu algses andmehulgas olemas.
+Kõikide osariikide kohta meil infot pole. Uurime, kas kõik osariigid on algses andmehulgas olemas.
+```{r}
+dim(df); dim(us_state_populations)
+```
 
 ```{r}
 us_state_populations %>%
@@ -184,5 +200,50 @@ us_state_populations %>%
   
 ```
 Millised osariigid on puudu?
- 
+
+```{r}
+setdiff(unique(us_state_populations$state), unique(df$state))
+```
+Praegu elame üle, et need välja jäävad, reaalses elus peame tähelepanelikult vaatama, mida me teeme.
+
+## Pikk ja lai formaat
+
+Üldjuhul meeldivad Rile, kui andmed on pikas formaadis. Pikk formaat on:
+
+  - iga muutuja on eraldi veerus
+  - iga vaatlus on eraldi real
+  - iga vaatlusühik moodustab eraldi tabeli
+  
+![Pikk vs lai formaat](figure/convert.png)
+
+Meie algsed andmed on pikas formaadis
+```{r}
+head(us_state_populations)
+```
+Teeme selle laiaks formaadiks
+
+```{r}
+library(tidyr)
+
+# The arguments to spread():
+# - data: Data object
+# - key: Name of column containing the new column names
+# - value: Name of column containing values
+data_wide <- spread(us_state_populations[,c('year','state','population')], year, population)
+head(data_wide)
+```
+Kui aga tahame tagasi pikaks formaadiks teha:
+```{r}
+library(reshape2)
+data_long<-melt(data_wide, id=c("state"))
+tail(data_long)
+```
+
 ## Apply jne
+
+Mõnda aega tagasi mainisin, et pole mõistlik tsükkleid kasutada. Selle asemel on parem kasutada apply perekonna funktsioone. Arvutame iga aasta maksimumi laias formaadis.
+
+```{r}
+apply(data_wide[,2:ncol(data_wide)], 2, max, na.rm=T)
+```
+Lisaks on funktsioonid sapply, lapply, mapply jne. Üldjuhul saab alguses ilma nendeta hakkama. Kui muidu ei oska, saab ka tsüklit kasutada.
