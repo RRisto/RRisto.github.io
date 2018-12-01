@@ -4,5 +4,89 @@ author: "Risto Hinno"
 date: "30 november 2018"
 output: html_document
 ---
+## Baasgraafikud
+
+Kiiremaiks viisiks, kuidas saada andmetest ülevaade, on graafik. R-i puhul võib alustada baasgraafikutest, mis annavad lihtsad graafikud ilma erilist vaeva nägemata.
+
+```{r}
+#laeme andmed
+us_state_populations<-read.csv("data/introductory_state_example.csv")
+us_state_populations$population_thousand=us_state_populations$population/1000
+
+
+plot(us_state_populations$year,us_state_populations$population_thousand, main="Scatterplot of year vs population")
+hist(us_state_populations$population_thousand, main="Histogram of population")
+boxplot(us_state_populations$population_thousand, main="Boxplot of population")
+
+```
+## Lattice
+
+Lattice on üks pakett graafikute tegemiseks. Annab veidi ilusamaid graafikuid kui baasgraafikud. Kuid isiklikult ei kasuta peaaegu üldse. Siin on lihtsalt paar näidet.
+
+```{r}
+library(lattice) 
+#võtame ühe Riga kaasas olnud andmed külge
+attach(mtcars)
+
+# muudame muutujad faktoriteks 
+gear.f<-factor(gear,levels=c(3,4,5),
+  	labels=c("3gears","4gears","5gears")) 
+cyl.f <-factor(cyl,levels=c(4,6,8),
+   labels=c("4cyl","6cyl","8cyl")) 
+
+# kernel density plot 
+densityplot(~mpg, 
+  	main="Density Plot", 
+  	xlab="Miles per Gallon")
+
+# kernel density plots by factor level 
+densityplot(~mpg|cyl.f, 
+  	main="Density Plot by Number of Cylinders",
+   xlab="Miles per Gallon")
+
+```
+
+Rohkem näited lattice kohta: https://www.statmethods.net/advgraphs/trellis.html 
+
+
+## ggplot
+
+Kõige populaarsem graafikute pakett on ggplot2. Tegemist on paketiga, mis on osa tidyversest. Selle kohta on ka hea kokkuvõtlik materjal: https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+
+ggplot on: "ggplot2 is based on the grammar of graphics, the idea that you can build every graph from the same few components: a data set, a set of geoms—visual marks that represent data points, and a coordinate system."
+
+Alustuseks mõned näited:
+```{r, message=F}
+library(tidyverse)
+#qplot on kiire viis kuidas saada vaikeväärtustega graafik
+qplot(x = year, y = population_thousand, data = us_state_populations, geom = "point")
+
+```
+
+ggploti kogu jõu kasutamiseks tuleb kasutada ggploti funktsiooni:
+```{r}
+#esimene argument on andmeraam, kõik muutujad, mis tulevad andmetest peab olema aes(...) sees
+plt=ggplot(us_state_populations, aes(year, population_thousand))+
+  #lisame geom kihi, antud juhul tahame punkte
+  geom_point()
+plt
+```
+
+
+Ja nüüd saame siia kihte juurde lisada:
+```{r}
+plt+geom_smooth()+
+  theme_classic()
+```
+ggplotiga saab kõiki graafikul olevaid elemente muuta ja stiliseerida. See on üks põhjus, miks ggplot on populaarne.
+
+Veel mõningaid graafikutüüpe. Boxplot:
+
+```{r}
+ggplot(us_state_populations, aes(year, population_thousand))+
+  geom_boxplot()
+```
 
 https://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html
+
+
