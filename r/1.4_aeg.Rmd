@@ -4,6 +4,7 @@ author: "Risto Hinno"
 date: "30 november 2018"
 output: html_document
 ---
+
 ## Aeg 
 
 Ajaga seotud operatsioonide on keerulised ja "root of all evil". Nendega tuleb olla tähelepanelik. Toon siin mõned näited.

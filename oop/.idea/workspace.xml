@@ -18,7 +18,7 @@
       <file leaf-file-name="index.htm" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.htm">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
+            <state relative-caret-position="21">
               <caret line="45" column="53" lean-forward="false" selection-start-line="45" selection-start-column="53" selection-end-line="45" selection-end-column="53" />
               <folding>
                 <element signature="e#5838#5844#0" expanded="true" />
@@ -101,6 +101,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -143,7 +144,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -266,11 +266,14 @@
       <updated>1495444260464</updated>
       <workItem from="1495444261603" duration="5043000" />
       <workItem from="1496644892628" duration="5564000" />
+      <workItem from="1496677075508" duration="671000" />
+      <workItem from="1496688639053" duration="197000" />
+      <workItem from="1496725426771" duration="8000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10607000" />
+    <option name="totallyTimeSpent" value="11483000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
@@ -279,12 +282,12 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -334,11 +337,118 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/images/city_view_night.jpg">
-      <provider selected="true" editor-type-id="images">
-        <state />
+    <entry file="file://$PROJECT_DIR$/twitter4j.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="36" lean-forward="false" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
+          <folding />
+        </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/index.htm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#5838#5844#0" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#6145#6151#0" expanded="true" />
+            <element signature="e#6151#6157#0" expanded="true" />
+            <element signature="e#6217#6223#0" expanded="true" />
+            <element signature="e#6253#6259#0" expanded="true" />
+            <element signature="e#6321#6327#0" expanded="true" />
+            <element signature="e#6363#6369#0" expanded="true" />
+            <element signature="e#6369#6375#0" expanded="true" />
+            <element signature="e#6409#6415#0" expanded="true" />
+            <element signature="e#6441#6449#0" expanded="true" />
+            <element signature="e#6818#6824#0" expanded="true" />
+            <element signature="e#6859#6867#0" expanded="true" />
+            <element signature="e#6998#7006#0" expanded="true" />
+            <element signature="e#7261#7267#0" expanded="true" />
+            <element signature="e#7432#7438#0" expanded="true" />
+            <element signature="e#7502#7508#0" expanded="true" />
+            <element signature="e#7573#7579#0" expanded="true" />
+            <element signature="e#8209#8215#0" expanded="true" />
+            <element signature="e#8383#8389#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter4j.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="36" lean-forward="false" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.htm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#5838#5844#0" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#6145#6151#0" expanded="true" />
+            <element signature="e#6151#6157#0" expanded="true" />
+            <element signature="e#6217#6223#0" expanded="true" />
+            <element signature="e#6253#6259#0" expanded="true" />
+            <element signature="e#6321#6327#0" expanded="true" />
+            <element signature="e#6363#6369#0" expanded="true" />
+            <element signature="e#6369#6375#0" expanded="true" />
+            <element signature="e#6409#6415#0" expanded="true" />
+            <element signature="e#6441#6449#0" expanded="true" />
+            <element signature="e#6818#6824#0" expanded="true" />
+            <element signature="e#6859#6867#0" expanded="true" />
+            <element signature="e#6998#7006#0" expanded="true" />
+            <element signature="e#7261#7267#0" expanded="true" />
+            <element signature="e#7432#7438#0" expanded="true" />
+            <element signature="e#7502#7508#0" expanded="true" />
+            <element signature="e#7573#7579#0" expanded="true" />
+            <element signature="e#8209#8215#0" expanded="true" />
+            <element signature="e#8383#8389#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/twitter4j.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="36" lean-forward="false" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.htm">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#5838#5844#0" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#6145#6151#0" expanded="true" />
+            <element signature="e#6151#6157#0" expanded="true" />
+            <element signature="e#6217#6223#0" expanded="true" />
+            <element signature="e#6253#6259#0" expanded="true" />
+            <element signature="e#6321#6327#0" expanded="true" />
+            <element signature="e#6363#6369#0" expanded="true" />
+            <element signature="e#6369#6375#0" expanded="true" />
+            <element signature="e#6409#6415#0" expanded="true" />
+            <element signature="e#6441#6449#0" expanded="true" />
+            <element signature="e#6818#6824#0" expanded="true" />
+            <element signature="e#6859#6867#0" expanded="true" />
+            <element signature="e#6998#7006#0" expanded="true" />
+            <element signature="e#7261#7267#0" expanded="true" />
+            <element signature="e#7432#7438#0" expanded="true" />
+            <element signature="e#7502#7508#0" expanded="true" />
+            <element signature="e#7573#7579#0" expanded="true" />
+            <element signature="e#8209#8215#0" expanded="true" />
+            <element signature="e#8383#8389#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/city_view_night.jpg" />
     <entry file="file://$PROJECT_DIR$/images/catalogue.PNG">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -354,7 +464,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.htm">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
+        <state relative-caret-position="21">
           <caret line="45" column="53" lean-forward="false" selection-start-line="45" selection-start-column="53" selection-end-line="45" selection-end-column="53" />
           <folding>
             <element signature="e#5838#5844#0" expanded="true" />

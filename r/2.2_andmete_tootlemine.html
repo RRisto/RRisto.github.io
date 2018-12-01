@@ -131,6 +131,7 @@ $(document).ready(function () {
 
 <p><a href="https://towardsdatascience.com/tutorial-data-wrangling-and-mapping-in-r-ec828acc8073" class="uri">https://towardsdatascience.com/tutorial-data-wrangling-and-mapping-in-r-ec828acc8073</a> <a href="https://programminghistorian.org/en/lessons/data_wrangling_and_management_in_R" class="uri">https://programminghistorian.org/en/lessons/data_wrangling_and_management_in_R</a> <a href="https://rpubs.com/bradleyboehmke/data_wrangling" class="uri">https://rpubs.com/bradleyboehmke/data_wrangling</a></p>
 <p><a href="https://rpubs.com/bradleyboehmke/data_processing" class="uri">https://rpubs.com/bradleyboehmke/data_processing</a> <a href="https://suzan.rbind.io/2018/01/dplyr-tutorial-1/" class="uri">https://suzan.rbind.io/2018/01/dplyr-tutorial-1/</a></p>
+<p>Järgnevalt näitan põgusalt mõningaid võimalusi mida R andmetega teha võimaldab. Tegemist on kerge ülevaatega, Riga saab teha veel palju muudki.</p>
 <div id="andmed" class="section level3">
 <h3>Andmed</h3>
 <p>Laeme andmed sisse:</p>
@@ -183,14 +184,14 @@ dim(us_state_populations)</code></pre>
 <pre class="r"><code>install.packages(&quot;tidyverse&quot;)</code></pre>
 <p>Järgnevalt mõned näited tidyverse’i kogumist.</p>
 </div>
-<div id="filtreerimine" class="section level3">
-<h3>Filtreerimine</h3>
+<div id="filtreerimine-pipe" class="section level3">
+<h3>Filtreerimine, pipe</h3>
 <p>Ütleme, et tahame filtreerida välja read, mis käivad California ja New York’i kohta:</p>
 <pre class="r"><code>library(tidyverse)
 #tulemus omistatakse muutujale df_california_ny, aluseks võtame andmed
 #muutujast us_state_populations
 df_california_ny&lt;-us_state_populations %&gt;% 
-  #filtreerimne välja osariigid, millen nimed on alltoodud vekto  ris c(...)
+  #filtreerimne välja osariigid, millen nimed on alltoodud vektoris c(...)
   filter(state %in% c(&quot;California&quot;, &quot;New York&quot;))
 dim(df_california_ny)</code></pre>
 <pre><code>## [1] 40  3</code></pre>
@@ -202,23 +203,26 @@ dim(df_california_ny)</code></pre>
 ## 4 1820 New York    1372812
 ## 5 1830 New York    1918608
 ## 6 1840 New York    2428921</code></pre>
-<p>Eelnevalt me kasutasime pipe oprtaatorit (%&gt;%). See on väga mugav vahend, mitme operatsiooni üksteise järgi tegemiseks. Näiteks me tahame leida keskmist elanike arvu Californias ja New Yorkis kogu vaadeldava perioodi kohta (st iga aasta on kaaluga 1).</p>
-<p>Ilma pipe operaatorita näeb see välja nii:</p>
-<pre class="r"><code>us_state_populations %&gt;% 
+<p>Eelnevalt me kasutasime pipe oprtaatorit (%&gt;%). See on väga mugav vahend, mitme operatsiooni üksteise järgi tegemiseks. Me ei pea tegema iga vahetulemuse jaoks vahemuutujaid. Mida rohkem muutujaid meil tekib, seda ebaselgemaks keskkond muutub. Näiteks võime kogemata mõne muutuja kuskil mujal üle kirjutada (ja katsu sa siis lõpus aru saada, kus midagi valeks läks). Pipe on väga mugav ja kasulik vahend.</p>
+<p>Filtreerimist saab teha samuti mitmeti (sõltuvalt, mis tüüpi andmete põhjal filtreerime). Võtame jällegi NY ja California, kuid seekord alates aastast 1900.</p>
+<pre class="r"><code>df_california_ny_1900&lt;-us_state_populations %&gt;% 
   #filtreerimne välja osariigid, millen nimed on alltoodud vektoris c(...)
   filter(state %in% c(&quot;California&quot;, &quot;New York&quot;))%&gt;%
-  #grupeerime osariigi järgi
-  group_by(state)%&gt;%
-  #arvutame iga grupi kohta keskmise ja st. hälve
-  summarise(keskmine=mean(population), sandardhälve=sd(population))</code></pre>
-<pre><code>## # A tibble: 2 x 3
-##   state       keskmine sandardhälve
-##   &lt;fct&gt;          &lt;dbl&gt;        &lt;dbl&gt;
-## 1 California 11399403.    12824124.
-## 2 New York    8984252.     6900774.</code></pre>
+  filter(year&gt;=1900)
+dim(df_california_ny_1900)</code></pre>
+<pre><code>## [1] 24  3</code></pre>
+<pre class="r"><code>head(df_california_ny_1900)</code></pre>
+<pre><code>##   year      state population
+## 1 1900 California    1485053
+## 2 1900   New York    7268894
+## 3 1910 California    2377549
+## 4 1910   New York    9113614
+## 5 1920 California    3426861
+## 6 1920   New York   10385228</code></pre>
 <p>Samuti saame pipe kasutada, et saada ülevaade mingist osast andmetest:</p>
 <pre class="r"><code>#populatsioon alates aastast 1900
 us_state_populations %&gt;%
+  #valime veerud year ja population
   select(year, population) %&gt;%
   filter(year&gt;=1900)%&gt;%
   glimpse()</code></pre>
@@ -234,7 +238,7 @@ us_state_populations %&gt;%
 ## Variables: 2
 ## $ state      &lt;fct&gt; Connecticut, Delaware, Georgia, Maryland, Massachus...
 ## $ population &lt;int&gt; 237655, 59096, 82548, 319728, 475199, 141899, 18413...</code></pre>
-<p>Võime muutujaid valida ka veeru nimes sisalduvate sõnamustrite abil</p>
+<p>Võime muutujaid valida ka veeru nimes sisalduvate sõnamustrite abil:</p>
 <pre class="r"><code>us_state_populations %&gt;%
   #otsib veerge mis sisaldavad mustrit &quot;pop&quot; ja lõppevad tähtedega &quot;ion&quot;
   select(contains(&quot;pop&quot;), ends_with(&quot;ion&quot;)) %&gt;%
@@ -252,11 +256,28 @@ us_state_populations %&gt;%
 ## $ osariik    &lt;fct&gt; Connecticut, Delaware, Georgia, Maryland, Massachus...
 ## $ population &lt;int&gt; 237655, 59096, 82548, 319728, 475199, 141899, 18413...</code></pre>
 </div>
+<div id="summeerimine-grupeerimine" class="section level3">
+<h3>Summeerimine, grupeerimine</h3>
+<p>Näiteks me tahame leida keskmist elanike arvu Californi ja New Yorgi kohta kogu vaadeldava perioodi jooksul (st iga aasta on kaaluga 1). Selleks peame esmalt andmed grupeerima osariikide lõikes ja iga kohta eraldi keskmise leidmine. Tidyverse teeb selle asja väga lihtsaks.</p>
+<pre class="r"><code>us_state_populations %&gt;% 
+  #filtreerimne välja osariigid, millen nimed on alltoodud vektoris c(...)
+  filter(state %in% c(&quot;California&quot;, &quot;New York&quot;))%&gt;%
+  #grupeerime osariigi järgi
+  group_by(state)%&gt;%
+  #arvutame iga grupi kohta keskmise ja st. hälve
+  summarise(keskmine=mean(population),mediaan=median(population), mood=mode(population),
+            sandardhälve=sd(population))</code></pre>
+<pre><code>## # A tibble: 2 x 5
+##   state       keskmine mediaan mood    sandardhälve
+##   &lt;fct&gt;          &lt;dbl&gt;   &lt;int&gt; &lt;chr&gt;          &lt;dbl&gt;
+## 1 California 11399403. 5677251 numeric    12824124.
+## 2 New York    8984252. 7268894 numeric     6900774.</code></pre>
+</div>
 <div id="muutujate-loomine-muutmine" class="section level2">
 <h2>Muutujate loomine/ muutmine</h2>
 <p>Kui meil on vaja luua uusi muutujaid, siis me oleme seda juba teinud, kui arvutasime keskmise. Vahel on vaja muutujaid aga ümber arvutada. Näiteks tahame populatsiooni kujutada tuhandetes.</p>
 <pre class="r"><code>us_state_populations&lt;-us_state_populations %&gt;% 
-  #mutate loob uue muutuja
+  #mutate loob uue muutuja olemasolevate kõrvale
   mutate(population_thousand=population/1000)
 
 head(us_state_populations)</code></pre>
@@ -280,12 +301,15 @@ head(us_state_populations)</code></pre>
 ## 4 1790      maryland     319728             319.728
 ## 5 1790 massachusetts     475199             475.199
 ## 6 1790 new_hampshire     141899             141.899</code></pre>
+</div>
+<div id="pideva-muutuja-muutmine-diskreetseks" class="section level2">
+<h2>Pideva muutuja muutmine diskreetseks</h2>
 <p>Nii, nüüd on vaja luua uus muutuja, mis on kategooriline muutuja (faktor), mis näitab perioodi 5-aastaste intervallidena.</p>
 <pre class="r"><code>#cut lõikab muutuja faktoriteks
 us_state_populations$period&lt;-cut(us_state_populations$year,  
-    #seq genereerib intervalli arvude vahele
+    #seq genereerib annab kohad, mis jaotab pika intervalli väiksemateks
     seq(min(us_state_populations$year)-1,
-        max(us_state_populations$year)+1,5))
+        max(us_state_populations$year)+2,5))
 #kontrollime, kas iga aasta kohta on üks intervall
 table(us_state_populations$year, us_state_populations$period)[1:5,1:6]</code></pre>
 <pre><code>##       
@@ -322,6 +346,29 @@ us_state_populations[is.na(us_state_populations$period),]$year</code></pre>
 <pre class="r"><code>#kui me tahame eemaldada read, kus on puuduvad väärtused, saab seda teha järgnevalt
 us_state_populations[complete.cases(us_state_populations), ]</code></pre>
 <p>Puuduvate väärtuste eemaldamiseks mingi funktsiooni kasutamisel on tihti funktsioonidel võimalus anda argument na.rm=T. Arvutuslike operatsioonide puhul on see vajalik, kuna puuduvad väärtused muudavad arvutuste tegemise keerukaks (kuidas puuduvast väärtustest kesmist võtta?).</p>
+<p>Et asja keerulisemaks ajada on R-is olemas kas NULL (<a href="https://www.r-bloggers.com/r-na-vs-null/" class="uri">https://www.r-bloggers.com/r-na-vs-null/</a>). Ta on NA-st erinev:</p>
+<pre class="r"><code>v &lt;-  c( 1, NA, NULL)
+v</code></pre>
+<pre><code>## [1]  1 NA</code></pre>
+<p>NULL ei ole vektoris lubatud. NULLiga saame näiteks veerge/ridu eemaldada andmeraamist:</p>
+<pre class="r"><code>us_state_populations$suvaveerg='suva'
+head(us_state_populations)</code></pre>
+<pre><code>##   year         state population population_thousand      period suvaveerg
+## 1 1790   connecticut     237655             237.655 (1789,1794]      suva
+## 2 1790      delaware      59096              59.096 (1789,1794]      suva
+## 3 1790       georgia      82548              82.548 (1789,1794]      suva
+## 4 1790      maryland     319728             319.728 (1789,1794]      suva
+## 5 1790 massachusetts     475199             475.199 (1789,1794]      suva
+## 6 1790 new_hampshire     141899             141.899 (1789,1794]      suva</code></pre>
+<pre class="r"><code>us_state_populations$suvaveerg&lt;-NULL
+head(us_state_populations)</code></pre>
+<pre><code>##   year         state population population_thousand      period
+## 1 1790   connecticut     237655             237.655 (1789,1794]
+## 2 1790      delaware      59096              59.096 (1789,1794]
+## 3 1790       georgia      82548              82.548 (1789,1794]
+## 4 1790      maryland     319728             319.728 (1789,1794]
+## 5 1790 massachusetts     475199             475.199 (1789,1794]
+## 6 1790 new_hampshire     141899             141.899 (1789,1794]</code></pre>
 </div>
 <div id="andmete-uhendamine" class="section level2">
 <h2>Andmete ühendamine</h2>
@@ -356,7 +403,7 @@ us_state_populations[complete.cases(us_state_populations), ]</code></pre>
 ## #   high &lt;dbl&gt;, college &lt;dbl&gt;</code></pre>
 <pre class="r"><code>dim(df_states)</code></pre>
 <pre><code>## [1] 51 21</code></pre>
-<p>Ühendamiseks kasutame osariigi nime. Enne peame veenudma, et need klapiks kahes andmehulgas.</p>
+<p>Ühendamiseks kasutame osariigi nime. Enne peame veenudma, et need klapiks kahes andmehulgas (see on ülioluline):</p>
 <pre class="r"><code>unique(df_states$state)</code></pre>
 <pre><code>##  [1] &quot;Alabama&quot;              &quot;Alaska&quot;               &quot;Arizona&quot;             
 ##  [4] &quot;Arkansas&quot;             &quot;California&quot;           &quot;Colorado&quot;            
@@ -463,7 +510,7 @@ head(df)</code></pre>
 ## 4  476  515       8    3627  27498 66.9    15.7
 ## 5  476  515       8    3627  27498 66.9    15.7
 ## 6  476  515       8    3627  27498 66.9    15.7</code></pre>
-<p>Kõikide osariikide kohta meil infot pole. Uurime, kas kõik osariigid on algses andmehulgas olemas.</p>
+<p>Kõikide osariikide kohta meil infot pole. Uurime, kas kõik osariigid on algses andmehulgas olemas:</p>
 <pre class="r"><code>dim(df); dim(us_state_populations)</code></pre>
 <pre><code>## [1] 908  25</code></pre>
 <pre><code>## [1] 981   5</code></pre>
@@ -503,6 +550,70 @@ head(df)</code></pre>
 ## [29] &quot;oklahoma_territory&quot;      &quot;hawaii_territory&quot;       
 ## [31] &quot;persons_in_the_military&quot; &quot;puerto_rico&quot;</code></pre>
 <p>Praegu elame üle, et need välja jäävad, reaalses elus peame tähelepanelikult vaatama, mida me teeme.</p>
+<p>Lisaks on paar lihtsat viisi andmete ühendamiseks: <strong>rbind ja cbind</strong>. Esimene eeldab, et kaks andmeraami on samasuguse ridade jaotusega.</p>
+<pre class="r"><code>df1=data.frame(
+   emp_id = c (1:5), 
+   emp_name = c(&quot;Rick&quot;,&quot;Dan&quot;,&quot;Michelle&quot;,&quot;Ryan&quot;,&quot;Gary&quot;),
+   salary = c(623.3,515.2,611.0,729.0,843.25))
+df2=data.frame(
+   age = c(25,21,54,45,32))
+df1</code></pre>
+<pre><code>##   emp_id emp_name salary
+## 1      1     Rick 623.30
+## 2      2      Dan 515.20
+## 3      3 Michelle 611.00
+## 4      4     Ryan 729.00
+## 5      5     Gary 843.25</code></pre>
+<pre class="r"><code>df2</code></pre>
+<pre><code>##   age
+## 1  25
+## 2  21
+## 3  54
+## 4  45
+## 5  32</code></pre>
+<p>Teise andmeraami saame esimesele lihtsalt lisaveergudena juurde “kleepida”. Kuid ülioluline on, et me oleme veendunud, et järjekord on sama.</p>
+<pre class="r"><code>cbind(df1, df2)</code></pre>
+<pre><code>##   emp_id emp_name salary age
+## 1      1     Rick 623.30  25
+## 2      2      Dan 515.20  21
+## 3      3 Michelle 611.00  54
+## 4      4     Ryan 729.00  45
+## 5      5     Gary 843.25  32</code></pre>
+<p>Teine variant on seotud, kui tahame ridu juurde kleepida:</p>
+<pre class="r"><code>df1=data.frame(
+   emp_id = c (1:5), 
+   emp_name = c(&quot;Rick&quot;,&quot;Dan&quot;,&quot;Michelle&quot;,&quot;Ryan&quot;,&quot;Gary&quot;),
+   salary = c(623.3,515.2,611.0,729.0,843.25))
+df2=data.frame(
+   emp_id = c (6:10), 
+   emp_name = c(&quot;John&quot;,&quot;Mark&quot;,&quot;Susan&quot;,&quot;Lisa&quot;,&quot;Graham&quot;),
+   salary = c(743.3,655.2,751.0,569.0,843.25))
+df1</code></pre>
+<pre><code>##   emp_id emp_name salary
+## 1      1     Rick 623.30
+## 2      2      Dan 515.20
+## 3      3 Michelle 611.00
+## 4      4     Ryan 729.00
+## 5      5     Gary 843.25</code></pre>
+<pre class="r"><code>df2</code></pre>
+<pre><code>##   emp_id emp_name salary
+## 1      6     John 743.30
+## 2      7     Mark 655.20
+## 3      8    Susan 751.00
+## 4      9     Lisa 569.00
+## 5     10   Graham 843.25</code></pre>
+<pre class="r"><code>rbind(df1, df2)</code></pre>
+<pre><code>##    emp_id emp_name salary
+## 1       1     Rick 623.30
+## 2       2      Dan 515.20
+## 3       3 Michelle 611.00
+## 4       4     Ryan 729.00
+## 5       5     Gary 843.25
+## 6       6     John 743.30
+## 7       7     Mark 655.20
+## 8       8    Susan 751.00
+## 9       9     Lisa 569.00
+## 10     10   Graham 843.25</code></pre>
 </div>
 <div id="pikk-ja-lai-formaat" class="section level2">
 <h2>Pikk ja lai formaat</h2>
@@ -525,10 +636,8 @@ head(df)</code></pre>
 ## 4 1790      maryland     319728             319.728 (1789,1794]
 ## 5 1790 massachusetts     475199             475.199 (1789,1794]
 ## 6 1790 new_hampshire     141899             141.899 (1789,1794]</code></pre>
-<p>Teeme selle laiaks formaadiks</p>
-<pre class="r"><code>library(tidyr)
-
-# The arguments to spread():
+<p>Teeme selle laiaks formaadiks:</p>
+<pre class="r"><code># The arguments to spread():
 # - data: Data object
 # - key: Name of column containing the new column names
 # - value: Name of column containing values
@@ -556,13 +665,8 @@ head(data_wide)</code></pre>
 ## 5      NA      NA      NA      NA      NA      NA
 ## 6 1786272 1923295 2286435 2350725 2673400 2915918</code></pre>
 <p>Kui aga tahame tagasi pikaks formaadiks teha:</p>
-<pre class="r"><code>library(reshape2)</code></pre>
-<pre><code>## 
-## Attaching package: 'reshape2'</code></pre>
-<pre><code>## The following object is masked from 'package:tidyr':
-## 
-##     smiths</code></pre>
-<pre class="r"><code>data_long&lt;-melt(data_wide, id=c(&quot;state&quot;))
+<pre class="r"><code>library(reshape2)
+data_long&lt;-melt(data_wide, id=c(&quot;state&quot;))
 tail(data_long)</code></pre>
 <pre><code>##                    state variable   value
 ## 1904       west_virginia     2010 1852994
@@ -572,8 +676,8 @@ tail(data_long)</code></pre>
 ## 1908             wyoming     2010  563626
 ## 1909   wyoming_territory     2010      NA</code></pre>
 </div>
-<div id="apply-jne" class="section level2">
-<h2>Apply jne</h2>
+<div id="apply-funktsioonid" class="section level2">
+<h2>Apply funktsioonid</h2>
 <p>Mõnda aega tagasi mainisin, et pole mõistlik tsükkleid kasutada. Selle asemel on parem kasutada apply perekonna funktsioone. Arvutame iga aasta maksimumi laias formaadis.</p>
 <pre class="r"><code>apply(data_wide[,2:ncol(data_wide)], 2, max, na.rm=T)</code></pre>
 <pre><code>##     1790     1800     1810     1820     1830     1840     1850     1860 
@@ -583,6 +687,10 @@ tail(data_long)</code></pre>
 ##     1950     1960     1970     1980     1990     2000     2010 
 ## 14830192 16782304 19953134 23667902 29760021 33871648 37253956</code></pre>
 <p>Lisaks on funktsioonid sapply, lapply, mapply jne. Üldjuhul saab alguses ilma nendeta hakkama. Kui muidu ei oska, saab ka tsüklit kasutada.</p>
+</div>
+<div id="kust-veel-abi-saada" class="section level2">
+<h2>Kust veel abi saada?</h2>
+<p>Head kohad on cheatsheetid: <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf" class="uri">https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf</a> Need on visuaalsed ja iatavad aru saada. Kui kohe kasutada ei oska funktsiooni, kuid tundub, et see on see, mida vaja, googelda!</p>
 </div>
 
 
