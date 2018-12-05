@@ -80,13 +80,64 @@ plt+geom_smooth()+
 ```
 ggplotiga saab kõiki graafikul olevaid elemente muuta ja stiliseerida. See on üks põhjus, miks ggplot on populaarne.
 
-Veel mõningaid graafikutüüpe. Boxplot:
+Veel mõningaid graafikutüüpe.
+
+### Line plot
 
 ```{r}
-ggplot(us_state_populations, aes(year, population_thousand))+
+#võtame ühe osariigi
+df_ohio=us_state_populations[us_state_populations$state=="Ohio",]
+#plotime
+ggplot(df_ohio, aes(year, population_thousand))+
+  geom_line()+
+  ggtitle("Population of Ohio")
+```
+```{r}
+df_ohio_alabama=us_state_populations[us_state_populations$state %in% c('Ohio', 'Alabama'),]
+
+ggplot(df_ohio_alabama, aes(year, population_thousand))+
+  geom_line(aes(group=state, color=state))+
+  ggtitle("Population of Ohio")
+```
+
+
+### Boxplot
+
+```{r}
+ggplot(us_state_populations, aes(year, population_thousand, group=year))+
   geom_boxplot()
+```
+
+![Boxplot](figure/boxplot.png)
+
+###Bar plot 
+
+
+### Histogram
+
+```{r}
+ggplot(us_state_populations, aes(x=population_thousand))+
+  geom_histogram(color="black", fill="lightblue", linetype="dashed")+
+  theme_light()
+```
+
+### Density plot
+
+```{r}
+ggplot(us_state_populations, aes(x=population_thousand))+
+  geom_density(color="black", fill="lightblue", linetype="dashed")+
+  theme_light()
+```
+
+
+### Facetid
+
+```{r, fig.width=10,fig.height=20}
+ggplot(us_state_populations, aes(x=year, y=population_thousand))+
+  geom_point()+
+  facet_wrap(~state, ncol=3,scales = "free_y")
 ```
 
 https://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html
 
-
+### Save
