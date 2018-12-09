@@ -68,7 +68,7 @@ Rohkem näited lattice kohta: https://www.statmethods.net/advgraphs/trellis.html
 
 ## ggplot
 
-Kõige populaarsem graafikute pakett on ggplot2. Tegemist on paketiga, mis on osa tidyversest. Selle kohta on ka hea kokkuvõtlik materjal: https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf
+Kõige populaarsem graafikute pakett on ggplot2. Tegemist on paketiga, mis on osa tidyversest. Selle kohta on ka head kokkuvõtlikud materjalid: https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf ja http://www.cookbook-r.com/Graphs/
 
 ggplot on: "ggplot2 is based on the grammar of graphics, the idea that you can build every graph from the same few components: a data set, a set of geoms—visual marks that represent data points, and a coordinate system."
 
@@ -87,17 +87,33 @@ ggploti kogu jõu kasutamiseks tuleb kasutada ggploti funktsiooni:
 plt=ggplot(us_state_populations, aes(year, population_thousand))+
   #lisame geom kihi, antud juhul tahame punkte
   geom_point()+
-  ggtitle("Population distribution")
+  ggtitle("Population distribution")+
+  theme_minimal()
 plt
 ```
 
 
 Ja nüüd saame siia kihte juurde lisada:
 ```{r}
+#geom smooth lisab trendijoone (tehes mudeli võimaliku trendi kohta)
 plt+geom_smooth()+
+  #täpsustame regressiooni tüübi, tahame lineaarset regressiooni
+  geom_smooth(method=lm, color='lightgreen')+
   theme_classic()
 ```
+
 ggplotiga saab kõiki graafikul olevaid elemente muuta ja stiliseerida. See on üks põhjus, miks ggplot on populaarne.
+
+Käesoleval juhul tundub, et punktid võivad olla üksteisega kaetud olla. Ajame nad veidi "laiali".
+
+```{r}
+ggplot(us_state_populations, aes(year, population_thousand))+
+  #ajab punktid juhuslikkusega laiali, alpha määrab läbipaistvuse
+  geom_jitter(alpha=0.3, color="blue")+
+  ggtitle("Population distribution")+
+  theme_minimal()
+```
+
 
 Veel mõningaid graafikutüüpe.
 
@@ -109,14 +125,16 @@ df_ohio=us_state_populations[us_state_populations$state=="Ohio",]
 #plotime
 ggplot(df_ohio, aes(year, population_thousand))+
   geom_line()+
-  ggtitle("Population of Ohio")
+  ggtitle("Population of Ohio")+
+  theme_minimal()
 ```
 ```{r}
 df_ohio_alabama=us_state_populations[us_state_populations$state %in% c('Ohio', 'Alabama'),]
 
 ggplot(df_ohio_alabama, aes(year, population_thousand))+
   geom_line(aes(group=state, color=state))+
-  ggtitle("Population of Ohio and Alabama")
+  ggtitle("Population of Ohio and Alabama")+
+  theme_minimal()
 ```
 
 ### Tulpdiagram
@@ -185,7 +203,8 @@ alaska_alabama_california=us_state_populations[us_state_populations$state %in%
                                                  c("Alaska", "Alabama", "California"), ]
 ggplot(alaska_alabama_california, aes(x=year, y=population_thousand))+
   geom_point()+
-  facet_wrap(~state, ncol=3,scales = "free_y")
+  facet_wrap(~state, ncol=3,scales = "free_y")+
+  theme_minimal()
 ```
 
 Sarnaselt töötab ka facet_grid:
@@ -194,7 +213,8 @@ ggplot(alaska_alabama_california, aes(x=year, y=population_thousand))+
   geom_point()+
   #kui rows asemel anda columns=... siis teeb veeru iga osariigi kohta
   #selle võib asendada ka facet_grid(.~ state) või facet_grid(state ~.)
-  facet_grid(rows = vars(state))
+  facet_grid(rows = vars(state))+
+  theme_minimal()
 ```
 
 Ja kui tahame kõikide aastate-osariikide kombinatsioone vaadata:
@@ -204,7 +224,8 @@ data(mpg)#laeme Ris olemasoleva andmehulga
 ggplot(mpg, aes(displ, cty)) + 
   geom_point()+
   facet_grid(drv ~ cyl)+
-  ggtitle("drv vs cyl")
+  ggtitle("drv vs cyl")+
+  theme_minimal()
 ```
 
 https://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html
@@ -254,7 +275,7 @@ summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
 }
 ```
 
-Arvutame usaldusintervallid
+Arvutame usaldusintervallid:
 
 ```{r, message=F, warning=F}
 us_state_populations_se <- summarySE(us_state_populations, measurevar="population_thousand", groupvars=c("year"))
@@ -268,6 +289,8 @@ ggplot(us_state_populations_se, aes(x=year, y=population_thousand)) +
                   color="red", width=.1) +
   geom_line(color="blue") +
   geom_point(color="green")+
+  #lisame igale punktile ka selle väärtuse
+  geom_text(aes(label=round(population_thousand,0)),hjust=0, vjust=0.5)+
   ggtitle("Keskmine populatsioon koos standardveaga")+
   #x-telje pealkiri
   xlab("aasta")+
@@ -297,6 +320,27 @@ ggplot(us_state_populations_se, aes(x=year, y=population_thousand)) +
     #väikese ruudustiku muutmine
     panel.grid.minor = element_line(size = 0.25, linetype = 'solid',
                                     colour = "white"))
+```
+
+#### Skaala muutmine
+
+Skaala muutmiseks on kihid xlim() ja ylim(). Nende miinuseks on, et skaalast välja jäänud väärtused asendatakse NA-ga.
+
+
+```{r}
+p <- ggplot(mtcars, aes(disp, wt)) +
+  geom_point() +
+  geom_smooth()+
+  theme_minimal()
+p
+#kuna viskame väärtuseid välja, muutub zoomitud graafiku kuju!
+p+xlim(200,350)
+```
+
+coord_cartesian() ei asenda väärtusi:
+
+```{r}
+p + coord_cartesian(xlim = c(200, 350))
 ```
 
 
