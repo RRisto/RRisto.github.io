@@ -131,7 +131,7 @@ $(document).ready(function () {
 
 <div id="andmete-lugemine" class="section level2">
 <h2>Andmete lugemine</h2>
-<p>Andmeid on võimalik sisse lugeda erinevas formaadis. Lihtsam viis on excel, vsc, txt jms failid</p>
+<p>Andmeid on võimalik sisse lugeda erinevas formaadis. Lihtsam viis on excel, csv, txt jms failid</p>
 <pre class="r"><code>states=read.csv('data/states.csv')
 class(states)</code></pre>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
@@ -250,12 +250,11 @@ class(states)</code></pre>
 ##  Max.   :33.30  
 ## </code></pre>
 <p>Sisselugemise juures on oluline:</p>
-<pre><code>  - mis on eraldusmärk (kui see erineb arvuti sinu vaikimise märgist,
-  tuleb see ette anda argumendina näiteks: sep=&quot;;&quot;)
-  - kas read ja veerud on korrektsed, csv-s võivad need lappama minna,
-  kui csv on loodud mõnes teises operatsioonisüsteemis!
-  - vael aitab read_csv2, kui read_csv-ga asjad untsu lähevad
-  </code></pre>
+<ul>
+<li>csv puhul, mis on eraldusmärk (kui see erineb arvuti sinu vaikimise märgist, tuleb see ette anda argumendina näiteks: sep=“;”)</li>
+<li>kas read ja veerud on korrektsed, csv-s võivad need lappama minna, kui csv on loodud mõnes teises operatsioonisüsteemis!</li>
+<li>vahel aitab read_csv2, kui read_csv-ga asjad untsu lähevad</li>
+</ul>
 <p>Exceli sisselugemine on sarnane:</p>
 <pre class="r"><code>library(readxl)
 hdi=read_excel(&quot;data/HDIdat.xls.xlsx&quot;)</code></pre>
@@ -391,7 +390,10 @@ url='https://evs.nci.nih.gov/ftp1/CDISC/SDTM/SDTM%20Terminology.xls'
 #tõmbab faili alla, teeb ajutise faili, leob sisse
 GET(url, write_disk(tf &lt;- tempfile(fileext = &quot;.xls&quot;)))
 df &lt;- read_excel(tf, 2L)</code></pre>
-<p>Mis on eeltoodud näidise miinuseks?</p>
+<p><strong>Ülesanne</strong></p>
+<ul>
+<li>Mis on eeltoodud näidise miinuseks?</li>
+</ul>
 <p>Muud formaadid: <a href="https://www.statmethods.net/input/importingdata.html" class="uri">https://www.statmethods.net/input/importingdata.html</a></p>
 </div>
 <div id="andmete-salvestamine" class="section level2">

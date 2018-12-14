@@ -131,17 +131,17 @@ $(document).ready(function () {
 
 <div id="aeg" class="section level2">
 <h2>Aeg</h2>
-<p>Ajaga seotud operatsioonide on keerulised ja “root of all evil”. Nendega tuleb olla tähelepanelik. Toon siin mõned näited.</p>
+<p>Ajaga seotud operatsioonid on keerulised ja “root cause of all evil”. Nendega tuleb olla tähelepanelik. Toon siin mõned näited.</p>
 <pre class="r"><code>#hetkeaeg
 t &lt;- Sys.time()
 t</code></pre>
-<pre><code>## [1] &quot;2018-11-30 21:44:56 EET&quot;</code></pre>
+<pre><code>## [1] &quot;2018-12-14 20:18:43 EET&quot;</code></pre>
 <pre class="r"><code>class(t)</code></pre>
 <pre><code>## [1] &quot;POSIXct&quot; &quot;POSIXt&quot;</code></pre>
 <p>Teeme ajast sõne.</p>
 <pre class="r"><code>timeStamp &lt;-  strftime(t,&quot;%Y-%m-%d %H:%M:%S&quot;)
 timeStamp</code></pre>
-<pre><code>## [1] &quot;2018-11-30 21:44:56&quot;</code></pre>
+<pre><code>## [1] &quot;2018-12-14 20:18:43&quot;</code></pre>
 <p>Teise argumendi väärtused on selgitatud siin: <a href="https://stat.ethz.ch/R-manual/R-patched/library/base/html/strptime.html" class="uri">https://stat.ethz.ch/R-manual/R-patched/library/base/html/strptime.html</a> Sisuliselt need defineerivad ajaformaadi.</p>
 <pre class="r"><code>class(timeStamp)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
@@ -149,8 +149,13 @@ timeStamp</code></pre>
 <pre class="r"><code>myData &lt;- data.frame(time=c(&quot;2014-01-23 14:28:21&quot;,&quot;2014-01-23 14:28:55&quot;,
                               &quot;2014-01-23 14:29:02&quot;,&quot;2014-01-23 14:31:18&quot;),
                       speed=c(2.0,2.2,3.4,5.5))
-
-summary(myData)</code></pre>
+myData</code></pre>
+<pre><code>##                  time speed
+## 1 2014-01-23 14:28:21   2.0
+## 2 2014-01-23 14:28:55   2.2
+## 3 2014-01-23 14:29:02   3.4
+## 4 2014-01-23 14:31:18   5.5</code></pre>
+<pre class="r"><code>summary(myData)</code></pre>
 <pre><code>##                   time       speed      
 ##  2014-01-23 14:28:21:1   Min.   :2.000  
 ##  2014-01-23 14:28:55:1   1st Qu.:2.150  
@@ -159,11 +164,10 @@ summary(myData)</code></pre>
 ##                          3rd Qu.:3.925  
 ##                          Max.   :5.500</code></pre>
 <pre class="r"><code>myData$time &lt;- strptime(myData$time,&quot;%Y-%m-%d %H:%M:%S&quot;)</code></pre>
-<p>Nüüd saamearvutada ajalise vahe sekundites</p>
+<p>Nüüd saame arvutada ajalise vahe sekundites</p>
 <pre class="r"><code>N = length(myData$time)
-myData$time[2:N] - myData$time[1:(N-1)]</code></pre>
-<pre><code>## Time differences in secs
-## [1]  34   7 136</code></pre>
+myData$time[2] - myData$time[1]</code></pre>
+<pre><code>## Time difference of 34 secs</code></pre>
 <p>Kuupäevadega saame sarnaseid asju teha.</p>
 <pre class="r"><code>theDates &lt;- c(&quot;1 01 2012&quot;,&quot;1 01 2013&quot;,&quot;1 01 2014&quot;)
 dateFields &lt;- as.Date(theDates,&quot;%e %m %Y&quot;)

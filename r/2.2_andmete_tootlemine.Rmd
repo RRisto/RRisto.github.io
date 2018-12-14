@@ -124,6 +124,28 @@ us_state_populations %>%
 
 ```
 
+## Järjestuse muutmine
+
+```{r}
+head(us_state_populations)
+# dplyr approach
+us_state_populations %>%
+    select(state, year) %>%
+    arrange(state)%>%
+  head()
+
+us_state_populations %>%
+    select(state, year) %>%
+    arrange(desc(state))%>%
+  head()
+```
+```{r}
+#ilma tidyversita
+head(us_state_populations[order(us_state_populations$state), c("state", "year")])
+```
+__Ülesanne__
+
+- järjesta populatsiooni ja osariigi järgi
 
 ## Muutujate loomine/ muutmine
 
@@ -144,6 +166,54 @@ us_state_populations$state=tolower(us_state_populations$state)
 head(us_state_populations)
 ```
 
+```{r}
+#arvutame vaatluste arvu igas grupis
+us_state_populations%>%
+  group_by(state)%>%
+  summarise(count=n())%>%
+  arrange(desc(count))%>%
+  head()
+```
+```{r}
+us_state_populations%>%
+  group_by(state)%>%
+  summarise(count=n())%>%
+  arrange(count)%>%
+  head()
+```
+```{r}
+#nüüd võime välja filtreerida osariigid, kus  on üle 20 vaatluse
+us_state_populations%>%
+  group_by(state)%>%
+  summarise(count=n())%>%
+  arrange(desc(count))%>%
+  filter(count>20)
+```
+
+__Ülesanne__ 
+
+- kontrolli kas iga aasta kohta on igal osariigil 1 vaatlus
+
+
+## Vahe arvutamine
+
+```{r}
+us_state_populations %>%
+    group_by(year) %>%
+    summarise(obs_count = n()) %>%
+    mutate(change = obs_count - lag(obs_count))%>%
+  head()
+```
+
+Saame veel lihtsamalt:
+```{r}
+us_state_populations %>%
+    group_by(year) %>%
+    tally() %>%
+    mutate(change = n - lag(n))%>%
+  head()
+```
+
 ## Pideva muutuja muutmine diskreetseks
 
 Nii, nüüd on vaja luua uus muutuja, mis on kategooriline muutuja (faktor), mis näitab perioodi 5-aastaste intervallidena.
@@ -155,7 +225,7 @@ us_state_populations$period<-cut(us_state_populations$year,
     #seq genereerib annab kohad, mis jaotab pika intervalli väiksemateks
     seq(min(us_state_populations$year)-1,
         max(us_state_populations$year)+2,5))
-#kontrollime, kas iga aasta kohta on üks intervall
+#vaatame
 table(us_state_populations$year, us_state_populations$period)[1:5,1:6]
 ```
 
@@ -170,8 +240,13 @@ Mida puuduvate väärtustega teha? Ideaalis tuleks need väärtused leida. Kui s
 #mis aastatel puudub period väärtus?
 us_state_populations[is.na(us_state_populations$period),]$year
 #meie puhul on siin tegemist näpukaga.
-
+us_state_populations$period<-cut(us_state_populations$year,  
+    #seq genereerib annab kohad, mis jaotab pika intervalli väiksemateks
+    seq(min(us_state_populations$year)-1,
+        max(us_state_populations$year)+10,5), include.lowest = T)
+us_state_populations[is.na(us_state_populations$period),]$year
 ```
+
 
 ```{r, eval=FALSE}
 #kui me tahame eemaldada read, kus on puuduvad väärtused, saab seda teha järgnevalt
@@ -320,3 +395,8 @@ Lisaks on funktsioonid sapply, lapply, mapply jne. Üldjuhul saab alguses ilma n
 
 Head kohad on cheatsheetid: https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
 Need on visuaalsed ja iatavad aru saada. Kui kohe kasutada ei oska funktsiooni, kuid tundub, et see on see, mida vaja, googelda!
+
+
+__Ülesanne__
+
+ - võta mõni andmehulk, millega puutud kokku. Lae see Ri, leia mitu veergu ja rida seal on, iga muutuja kohta arvuta selle ülevaatlik statistika. Lisaks leia statistika gruppide kohta grupi keskmine, standardhälve). Viia andmed pikka formaati.

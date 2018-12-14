@@ -7,7 +7,7 @@ output: html_document
 
 ## Aeg 
 
-Ajaga seotud operatsioonide on keerulised ja "root of all evil". Nendega tuleb olla tähelepanelik. Toon siin mõned näited.
+Ajaga seotud operatsioonid on keerulised ja "root cause of all evil". Nendega tuleb olla tähelepanelik. Toon siin mõned näited.
 
 ```{r}
 #hetkeaeg
@@ -34,14 +34,14 @@ Tavaline on, et saame andmeraami, kus on ajamuutuja ning tahame selle konverteer
 myData <- data.frame(time=c("2014-01-23 14:28:21","2014-01-23 14:28:55",
                               "2014-01-23 14:29:02","2014-01-23 14:31:18"),
                       speed=c(2.0,2.2,3.4,5.5))
-
+myData
 summary(myData)
 myData$time <- strptime(myData$time,"%Y-%m-%d %H:%M:%S")
 ```
-Nüüd saamearvutada ajalise vahe sekundites
+Nüüd saame arvutada ajalise vahe sekundites
 ```{r}
 N = length(myData$time)
-myData$time[2:N] - myData$time[1:(N-1)]
+myData$time[2] - myData$time[1]
 ```
 
 Kuupäevadega saame sarnaseid asju teha.

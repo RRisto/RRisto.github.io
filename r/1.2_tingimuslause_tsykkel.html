@@ -144,7 +144,7 @@ if (x&lt;10) {
   print(&quot;x on suurem või võrdne 5-ga&quot;)
 }</code></pre>
 <pre><code>## [1] &quot;x on suurem või võrdne 5-ga&quot;</code></pre>
-<p>Lisaks von olemas ka if else:</p>
+<p>Lisaks on olemas ka if else:</p>
 <pre class="r"><code>x &lt;- 0
 if (x &lt; 0) {
 print(&quot;Negative number&quot;)
@@ -216,7 +216,7 @@ for (i in 1:10) {
 ## [1] 5
 ## [1] 7
 ## [1] 9</code></pre>
-<p>While tsükkel. While tsükli juures on oluline tagada, et ei tekiks lõpmatut tsüklit, muidu R jookseb lihtsalt kokku.</p>
+<p>While tsükkel. While tsükli juures on oluline tagada, et ei tekiks lõpmatut tsüklit, muidu jookseb R lihtsalt kokku.</p>
 <pre class="r"><code>i &lt;- 1
 while (i &lt; 6) {
   print(i)
@@ -242,7 +242,7 @@ repeat {
 ## [1] 4
 ## [1] 5</code></pre>
 <p>Tsükleid saab üksteise sisse panna.</p>
-<pre class="r"><code># Create a 30 x 30 matrix (of 30 rows and 30 columns)
+<pre class="r"><code># loob 30 x 30 maatriksi 
 mymat &lt;- matrix(nrow=30, ncol=30)
 
 for(i in 1:dim(mymat)[1]) {#võtab maatriks read ükshaaval
@@ -251,7 +251,7 @@ for(i in 1:dim(mymat)[1]) {#võtab maatriks read ükshaaval
   }
 }
 
-# Just show the upper left 10x10 chunk
+# näitab 10x10 osa
 mymat[1:10, 1:10]</code></pre>
 <pre><code>##       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 ##  [1,]    1    2    3    4    5    6    7    8    9    10
@@ -277,23 +277,21 @@ set.seed(42)
 m=100
 n=100
 
-# Create matrix of normal random numbers
+# juhuslikest numbritest maatriks
 mymat &lt;- replicate(m, rnorm(n))
 
-# Transform into data frame
+# muudame andmeraamiks
 mydframe &lt;- data.frame(mymat)
 
 for (i in 1:m) {
   for (j in 1:n) {
     mydframe[i,j]&lt;-mydframe[i,j] + 10*sin(0.75*pi)
-    #print(mydframe)
   }
 }
-print('kulunud aeg')</code></pre>
-<pre><code>## [1] &quot;kulunud aeg&quot;</code></pre>
-<pre class="r"><code>print(proc.time()-algusaeg)</code></pre>
+#kulunud aeg
+print(proc.time()-algusaeg)</code></pre>
 <pre><code>##    user  system elapsed 
-##    0.42    0.00    0.42</code></pre>
+##    0.39    0.00    0.39</code></pre>
 <pre class="r"><code>mydframe[1:10,1:10]</code></pre>
 <pre><code>##          X1       X2       X3       X4       X5       X6       X7       X8
 ## 1  8.442026 8.272033 5.070139 7.066447 8.405980 8.100209 6.822585 7.365760
@@ -325,11 +323,10 @@ n=100
 mymat &lt;- replicate(m, rnorm(n)) 
 mydframe &lt;- data.frame(mymat)
 mydframe &lt;- mydframe + 10*sin(0.75*pi)
-print('kulunud aeg')</code></pre>
-<pre><code>## [1] &quot;kulunud aeg&quot;</code></pre>
-<pre class="r"><code>proc.time()-algusaeg</code></pre>
+#kulunud aeg
+proc.time()-algusaeg</code></pre>
 <pre><code>##    user  system elapsed 
-##    0.01    0.00    0.02</code></pre>
+##    0.02    0.00    0.01</code></pre>
 <pre class="r"><code>mydframe[1:10,1:10]</code></pre>
 <pre><code>##          X1       X2       X3       X4       X5       X6       X7       X8
 ## 1  8.442026 8.272033 5.070139 7.066447 8.405980 8.100209 6.822585 7.365760

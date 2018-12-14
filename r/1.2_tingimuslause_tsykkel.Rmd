@@ -23,7 +23,7 @@ if (x<5) {
   print("x on suurem või võrdne 5-ga")
 }
 ```
-Lisaks von olemas ka if else:
+Lisaks on olemas ka if else:
 ```{r}
 
 x <- 0
@@ -87,7 +87,7 @@ for (i in 1:10) {
 }
 ```
 
-While tsükkel. While tsükli juures on oluline tagada, et ei tekiks lõpmatut tsüklit, muidu R jookseb lihtsalt kokku.
+While tsükkel. While tsükli juures on oluline tagada, et ei tekiks lõpmatut tsüklit, muidu jookseb R lihtsalt kokku.
 ```{r}
 i <- 1
 while (i < 6) {
@@ -110,7 +110,7 @@ repeat {
 
 Tsükleid saab üksteise sisse panna.
 ```{r}
-# Create a 30 x 30 matrix (of 30 rows and 30 columns)
+# loob 30 x 30 maatriksi 
 mymat <- matrix(nrow=30, ncol=30)
 
 for(i in 1:dim(mymat)[1]) {#võtab maatriks read ükshaaval
@@ -119,7 +119,7 @@ for(i in 1:dim(mymat)[1]) {#võtab maatriks read ükshaaval
   }
 }
 
-# Just show the upper left 10x10 chunk
+# näitab 10x10 osa
 mymat[1:10, 1:10]
 ```
 ## Vektoriseerimine
@@ -135,19 +135,18 @@ set.seed(42)
 m=100
 n=100
 
-# Create matrix of normal random numbers
+# juhuslikest numbritest maatriks
 mymat <- replicate(m, rnorm(n))
 
-# Transform into data frame
+# muudame andmeraamiks
 mydframe <- data.frame(mymat)
 
 for (i in 1:m) {
   for (j in 1:n) {
     mydframe[i,j]<-mydframe[i,j] + 10*sin(0.75*pi)
-    #print(mydframe)
   }
 }
-print('kulunud aeg')
+#kulunud aeg
 print(proc.time()-algusaeg)
 mydframe[1:10,1:10]
 ```
@@ -161,7 +160,7 @@ n=100
 mymat <- replicate(m, rnorm(n)) 
 mydframe <- data.frame(mymat)
 mydframe <- mydframe + 10*sin(0.75*pi)
-print('kulunud aeg')
+#kulunud aeg
 proc.time()-algusaeg
 mydframe[1:10,1:10]
 ```

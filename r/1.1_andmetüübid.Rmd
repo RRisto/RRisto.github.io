@@ -48,7 +48,11 @@ x ^ y
 x ** y
 #modulo
 x %% y
-#integer division
+#täisarv jagamine (integer division)
+x %/% y
+
+x<-2.5
+y<-6
 x %/% y
 ```
 
@@ -58,24 +62,36 @@ x %/% y
 ```{r}
 arv1<-5
 arv2<-11
+#on väiksem kui
 arv1<arv2
+#on väiksem võrdne kui
 arv1<=arv2
+# on võrdne
 arv1==arv2
 ```
 ```{r}
 boolean1=TRUE
 boolean2=TRUE
 boolean3=FALSE
-
-! boolean1
+#vastupidine tulemus muutuja väärtusest
+!boolean1
+#loogiline ja
 boolean1&boolean2
 boolean1&boolean3
-
+#loogiline ja, sisuliselt sama, mis eelmine, erisuse kohta loe:
+#https://stat.ethz.ch/R-manual/R-devel/library/base/html/Logic.html
 boolean1&&boolean2
 boolean1&&boolean3
-
+#loogiline või
 boolean1|boolean2
 boolean1|boolean3
+#loogiline või, sisuliselt sama, mis eelmine, erisuse kohta loe:
+#https://stat.ethz.ch/R-manual/R-devel/library/base/html/Logic.html
+boolean1||boolean2
+boolean1||boolean3
+#testi kas on tõene
+isTRUE(boolean1)
+isTRUE(boolean3)
 ```
 
 ## Komposiitandmetüübid
@@ -104,23 +120,33 @@ vec1+vec2
 ```{r}
 vec1=c("tere", "halloo")
 vec2=c("maja", "auto")
-#mis võib olla tulemuseks?
-#vec1+vec2
+
 ```
-Elementidele viitamine (nb vektor võib koosneda eri andmetüüpi elementidest):
+__Ülesanded__
+
+- vec1+vec2 mis võib olla tulemuseks?
+- on kaks vektorit x=c(TRUE,FALSE,TRUE,FALSE) ja y=c(FALSE, TRUE,FALSE, TRUE). Mis on järgmiste operatsioonide tulemus: x&y, x|y, isTRUE(x), isTRUE(y)
+
+Elementidele viitamine (NB! vektor võib koosneda eri andmetüüpi elementidest):
 ```{r}
 vec=c(1,2, "auto", TRUE)
+#indeksiga
 vec[1]
+#vahemiku indeks
 vec[1:length(vec)]
 vec[1:2]
-vec[c(1,2)]
-
+#vektor indeksitest
+vec[c(1,3)]
+#miinus näitab indeksit, mida me ei taha
+vec[-1]
+vec[-c(1,3)]
 ```
 ### Andmeraam (dataframe)
 
 Põhilisemaid andmetüüpe R-s.
 
 ```{r}
+#andmeraami võib vaadelda kui vektorite kogumit, kus read ja veerud koosnevad vektoritest
 d <- c(1,2,3,4)
 e <- c("red", "white", "red", NA)
 f <- c(TRUE,TRUE,TRUE,FALSE)
@@ -135,16 +161,19 @@ mydata[c("ID","Color")] # veerud ID ja Color
 mydata$Passed # muutuja Passed 
 
 mydata[1,2] #rida 1, veerg2
-mydata[c(1,2), c(2,3)]
+mydata[c(1,2), c(2,3)]#read 1 ja 2 ning veerud 2 ja 3
 mydata[1:2, 2:3]
 ```
 ```{r}
+#veergude arv
 ncol(mydata)
+#ridade arv
 nrow(mydata)
 ```
 
 ```{r}
 mydata
+#väärtustame üle
 mydata[2,3]<-"uus väärtus"
 mydata
 ```
@@ -152,23 +181,35 @@ Andmeraam kui vektorite kogum:
 ```{r}
 mydata['uus_veerg']<-c(25,10,20,30)
 mydata
+#rbind lisab andmeraami olemasolevale andmeraamile uute ridadena
+#on olemas ka cbind mis teeb sama kuid lisab andmeraami veergudena
 mydata<-rbind(mydata,(rep("uus", ncol(mydata))))
 mydata
 ```
+__Ülesanne__
+
+- uuri välja mida teeb funktsioon rep
+
 Funktsioonid rbind ja cbind lisavad vastavalt kas rea või veeru:
 ```{r}
+#eemaldame viimase rea
 mydata <- mydata[-nrow(mydata),] 
 mydata
 ```
+__Ülesanne__
+
+- miks on hea kasutada versiooni mydata[-nrow(mydata),] mitte mydata[-5,]? Millal võiks viimast kasutada?
 ```{r}
 mydata[-1,]
 ```
-Loogilised operatioonid alamhulga leidmiseks:
+Loogilised operatioonid andmeraami alamhulga leidmiseks:
 ```{r}
 mydata[ which(mydata$uus_veerg>10& mydata$Passed==TRUE), ]
+
+mydata[ (mydata$uus_veerg>10& mydata$Passed==TRUE), c("Passed","Color")]
 ```
 ```{r}
-# | - logical or
+
 subset(mydata, uus_veerg>10| mydata$Passed==TRUE,select=c(Color, Passed))
 ```
 Veel võimalusi alamhulkade leidmiseks.
@@ -180,13 +221,16 @@ newdata <- mydata[c(-3,-5)]
 newdata
 ```
 
+__Ülesanne__
+- leia andmeraamist mydata alamhulk, kus uus_veerg väärtus on üle 10, Passed väärtus on TRUE või FALSE. Mitu erinevat viisi oskad kasutada väärtuste leidmiseks?
+
 ### Maatriks
 
 ```{r}
-# generates 5 x 4 numeric matrix 
+# geneb 5 x 4 matriksi
 y<-matrix(1:20, nrow=5,ncol=4)
 y
-# another example
+
 cells <- c(1,26,24,68)
 rnames <- c("R1", "R2")
 cnames <- c("C1", "C2") 
@@ -196,24 +240,24 @@ mymatrix
 ```
 
 ```{r}
-y[,4] # 4th column of matrix
-y[3,] # 3rd row of matrix 
-y[2:4,1:3] # rows 2,3,4 of columns 1,2,3
+y[,4] # 4. veerg 
+y[3,] # 3. rida 
+y[2:4,1:3] # read 2,3,4 veerud 1,2,3
 ```
 
 ### Lists
-An ordered collection of objects (components). A list allows you to gather a variety of (possibly unrelated) objects under one name.
+
+List on objektide kollektsioon, mis võimaldab omavahel siduda erinevaid objekte.
 
 ```{r}
-# example of a list with 4 components - 
-# a string, a numeric vector, a matrix, and a scaler 
+#näide
 w <- list(name="Fred", mynumbers=a, mymatrix=y, age=5.3)
 w
 
 ```
 
 ```{r}
-# example of a list containing two lists 
+# list mis koosneb kahest listist
 v <- c(w,w)
 v
 ```
@@ -226,5 +270,11 @@ v[[1]]
 v$mymatrix[1:2,3:4]
 ```
 
+### Kuidas andmetüüpi kontrollida?
+
+```{r}
+class(v)
+class(mydata)
+```
 
 

@@ -179,38 +179,60 @@ x ^ y</code></pre>
 <pre class="r"><code>#modulo
 x %% y</code></pre>
 <pre><code>## [1] 1</code></pre>
-<pre class="r"><code>#integer division
+<pre class="r"><code>#täisarv jagamine (integer division)
 x %/% y</code></pre>
 <pre><code>## [1] 2</code></pre>
+<pre class="r"><code>x&lt;-2.5
+y&lt;-6
+x %/% y</code></pre>
+<pre><code>## [1] 0</code></pre>
 </div>
 <div id="loogilised-operatsioonid" class="section level4">
 <h4>Loogilised operatsioonid</h4>
 <pre class="r"><code>arv1&lt;-5
 arv2&lt;-11
+#on väiksem kui
 arv1&lt;arv2</code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<pre class="r"><code>arv1&lt;=arv2</code></pre>
+<pre class="r"><code>#on väiksem võrdne kui
+arv1&lt;=arv2</code></pre>
 <pre><code>## [1] TRUE</code></pre>
-<pre class="r"><code>arv1==arv2</code></pre>
+<pre class="r"><code># on võrdne
+arv1==arv2</code></pre>
 <pre><code>## [1] FALSE</code></pre>
 <pre class="r"><code>boolean1=TRUE
 boolean2=TRUE
 boolean3=FALSE
-
-! boolean1</code></pre>
+#vastupidine tulemus muutuja väärtusest
+!boolean1</code></pre>
 <pre><code>## [1] FALSE</code></pre>
-<pre class="r"><code>boolean1&amp;boolean2</code></pre>
+<pre class="r"><code>#loogiline ja
+boolean1&amp;boolean2</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <pre class="r"><code>boolean1&amp;boolean3</code></pre>
 <pre><code>## [1] FALSE</code></pre>
-<pre class="r"><code>boolean1&amp;&amp;boolean2</code></pre>
+<pre class="r"><code>#loogiline ja, sisuliselt sama, mis eelmine, erisuse kohta loe:
+#https://stat.ethz.ch/R-manual/R-devel/library/base/html/Logic.html
+boolean1&amp;&amp;boolean2</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <pre class="r"><code>boolean1&amp;&amp;boolean3</code></pre>
 <pre><code>## [1] FALSE</code></pre>
-<pre class="r"><code>boolean1|boolean2</code></pre>
+<pre class="r"><code>#loogiline või
+boolean1|boolean2</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <pre class="r"><code>boolean1|boolean3</code></pre>
 <pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>#loogiline või, sisuliselt sama, mis eelmine, erisuse kohta loe:
+#https://stat.ethz.ch/R-manual/R-devel/library/base/html/Logic.html
+boolean1||boolean2</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>boolean1||boolean3</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>#testi kas on tõene
+isTRUE(boolean1)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>isTRUE(boolean3)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
 </div>
 </div>
 <div id="komposiitandmetuubid" class="section level2">
@@ -239,24 +261,36 @@ vec2=c(FALSE,FALSE, TRUE)
 vec1+vec2</code></pre>
 <pre><code>## [1] 1 0 2</code></pre>
 <pre class="r"><code>vec1=c(&quot;tere&quot;, &quot;halloo&quot;)
-vec2=c(&quot;maja&quot;, &quot;auto&quot;)
-#mis võib olla tulemuseks?
-#vec1+vec2</code></pre>
-<p>Elementidele viitamine (nb vektor võib koosneda eri andmetüüpi elementidest):</p>
+vec2=c(&quot;maja&quot;, &quot;auto&quot;)</code></pre>
+<p><strong>Ülesanded</strong></p>
+<ul>
+<li>vec1+vec2 mis võib olla tulemuseks?</li>
+<li>on kaks vektorit x=c(TRUE,FALSE,TRUE,FALSE) ja y=c(FALSE, TRUE,FALSE, TRUE). Mis on järgmiste operatsioonide tulemus: x&amp;y, x|y, isTRUE(x), isTRUE(y)</li>
+</ul>
+<p>Elementidele viitamine (NB! vektor võib koosneda eri andmetüüpi elementidest):</p>
 <pre class="r"><code>vec=c(1,2, &quot;auto&quot;, TRUE)
+#indeksiga
 vec[1]</code></pre>
 <pre><code>## [1] &quot;1&quot;</code></pre>
-<pre class="r"><code>vec[1:length(vec)]</code></pre>
+<pre class="r"><code>#vahemiku indeks
+vec[1:length(vec)]</code></pre>
 <pre><code>## [1] &quot;1&quot;    &quot;2&quot;    &quot;auto&quot; &quot;TRUE&quot;</code></pre>
 <pre class="r"><code>vec[1:2]</code></pre>
 <pre><code>## [1] &quot;1&quot; &quot;2&quot;</code></pre>
-<pre class="r"><code>vec[c(1,2)]</code></pre>
-<pre><code>## [1] &quot;1&quot; &quot;2&quot;</code></pre>
+<pre class="r"><code>#vektor indeksitest
+vec[c(1,3)]</code></pre>
+<pre><code>## [1] &quot;1&quot;    &quot;auto&quot;</code></pre>
+<pre class="r"><code>#miinus näitab indeksit, mida me ei taha
+vec[-1]</code></pre>
+<pre><code>## [1] &quot;2&quot;    &quot;auto&quot; &quot;TRUE&quot;</code></pre>
+<pre class="r"><code>vec[-c(1,3)]</code></pre>
+<pre><code>## [1] &quot;2&quot;    &quot;TRUE&quot;</code></pre>
 </div>
 <div id="andmeraam-dataframe" class="section level3">
 <h3>Andmeraam (dataframe)</h3>
 <p>Põhilisemaid andmetüüpe R-s.</p>
-<pre class="r"><code>d &lt;- c(1,2,3,4)
+<pre class="r"><code>#andmeraami võib vaadelda kui vektorite kogumit, kus read ja veerud koosnevad vektoritest
+d &lt;- c(1,2,3,4)
 e &lt;- c(&quot;red&quot;, &quot;white&quot;, &quot;red&quot;, NA)
 f &lt;- c(TRUE,TRUE,TRUE,FALSE)
 mydata &lt;- data.frame(d,e,f)
@@ -285,7 +319,7 @@ mydata</code></pre>
 <pre class="r"><code>mydata[1,2] #rida 1, veerg2</code></pre>
 <pre><code>## [1] red
 ## Levels: red white</code></pre>
-<pre class="r"><code>mydata[c(1,2), c(2,3)]</code></pre>
+<pre class="r"><code>mydata[c(1,2), c(2,3)]#read 1 ja 2 ning veerud 2 ja 3</code></pre>
 <pre><code>##   Color Passed
 ## 1   red   TRUE
 ## 2 white   TRUE</code></pre>
@@ -293,9 +327,11 @@ mydata</code></pre>
 <pre><code>##   Color Passed
 ## 1   red   TRUE
 ## 2 white   TRUE</code></pre>
-<pre class="r"><code>ncol(mydata)</code></pre>
+<pre class="r"><code>#veergude arv
+ncol(mydata)</code></pre>
 <pre><code>## [1] 3</code></pre>
-<pre class="r"><code>nrow(mydata)</code></pre>
+<pre class="r"><code>#ridade arv
+nrow(mydata)</code></pre>
 <pre><code>## [1] 4</code></pre>
 <pre class="r"><code>mydata</code></pre>
 <pre><code>##   ID Color Passed
@@ -303,7 +339,8 @@ mydata</code></pre>
 ## 2  2 white   TRUE
 ## 3  3   red   TRUE
 ## 4  4  &lt;NA&gt;  FALSE</code></pre>
-<pre class="r"><code>mydata[2,3]&lt;-&quot;uus väärtus&quot;
+<pre class="r"><code>#väärtustame üle
+mydata[2,3]&lt;-&quot;uus väärtus&quot;
 mydata</code></pre>
 <pre><code>##   ID Color      Passed
 ## 1  1   red        TRUE
@@ -318,7 +355,9 @@ mydata</code></pre>
 ## 2  2 white uus väärtus        10
 ## 3  3   red        TRUE        20
 ## 4  4  &lt;NA&gt;       FALSE        30</code></pre>
-<pre class="r"><code>mydata&lt;-rbind(mydata,(rep(&quot;uus&quot;, ncol(mydata))))</code></pre>
+<pre class="r"><code>#rbind lisab andmeraami olemasolevale andmeraamile uute ridadena
+#on olemas ka cbind mis teeb sama kuid lisab andmeraami veergudena
+mydata&lt;-rbind(mydata,(rep(&quot;uus&quot;, ncol(mydata))))</code></pre>
 <pre><code>## Warning in `[&lt;-.factor`(`*tmp*`, ri, value = &quot;uus&quot;): invalid factor level,
 ## NA generated</code></pre>
 <pre class="r"><code>mydata</code></pre>
@@ -328,26 +367,38 @@ mydata</code></pre>
 ## 3   3   red        TRUE        20
 ## 4   4  &lt;NA&gt;       FALSE        30
 ## 5 uus  &lt;NA&gt;         uus       uus</code></pre>
+<p><strong>Ülesanne</strong></p>
+<ul>
+<li>uuri välja mida teeb funktsioon rep</li>
+</ul>
 <p>Funktsioonid rbind ja cbind lisavad vastavalt kas rea või veeru:</p>
-<pre class="r"><code>mydata &lt;- mydata[-nrow(mydata),] 
+<pre class="r"><code>#eemaldame viimase rea
+mydata &lt;- mydata[-nrow(mydata),] 
 mydata</code></pre>
 <pre><code>##   ID Color      Passed uus_veerg
 ## 1  1   red        TRUE        25
 ## 2  2 white uus väärtus        10
 ## 3  3   red        TRUE        20
 ## 4  4  &lt;NA&gt;       FALSE        30</code></pre>
+<p><strong>Ülesanne</strong></p>
+<ul>
+<li>miks on hea kasutada versiooni mydata[-nrow(mydata),] mitte mydata[-5,]? Millal võiks viimast kasutada?</li>
+</ul>
 <pre class="r"><code>mydata[-1,]</code></pre>
 <pre><code>##   ID Color      Passed uus_veerg
 ## 2  2 white uus väärtus        10
 ## 3  3   red        TRUE        20
 ## 4  4  &lt;NA&gt;       FALSE        30</code></pre>
-<p>Loogilised operatioonid alamhulga leidmiseks:</p>
+<p>Loogilised operatioonid andmeraami alamhulga leidmiseks:</p>
 <pre class="r"><code>mydata[ which(mydata$uus_veerg&gt;10&amp; mydata$Passed==TRUE), ]</code></pre>
 <pre><code>##   ID Color Passed uus_veerg
 ## 1  1   red   TRUE        25
 ## 3  3   red   TRUE        20</code></pre>
-<pre class="r"><code># | - logical or
-subset(mydata, uus_veerg&gt;10| mydata$Passed==TRUE,select=c(Color, Passed))</code></pre>
+<pre class="r"><code>mydata[ (mydata$uus_veerg&gt;10&amp; mydata$Passed==TRUE), c(&quot;Passed&quot;,&quot;Color&quot;)]</code></pre>
+<pre><code>##   Passed Color
+## 1   TRUE   red
+## 3   TRUE   red</code></pre>
+<pre class="r"><code>subset(mydata, uus_veerg&gt;10| mydata$Passed==TRUE,select=c(Color, Passed))</code></pre>
 <pre><code>##   Color Passed
 ## 1   red   TRUE
 ## 3   red   TRUE
@@ -364,10 +415,11 @@ newdata</code></pre>
 ## 2  2 white        10
 ## 3  3   red        20
 ## 4  4  &lt;NA&gt;        30</code></pre>
+<p><strong>Ülesanne</strong> - leia andmeraamist mydata alamhulk, kus uus_veerg väärtus on üle 10, Passed väärtus on TRUE või FALSE. Mitu erinevat viisi oskad kasutada väärtuste leidmiseks?</p>
 </div>
 <div id="maatriks" class="section level3">
 <h3>Maatriks</h3>
-<pre class="r"><code># generates 5 x 4 numeric matrix 
+<pre class="r"><code># geneb 5 x 4 matriksi
 y&lt;-matrix(1:20, nrow=5,ncol=4)
 y</code></pre>
 <pre><code>##      [,1] [,2] [,3] [,4]
@@ -376,8 +428,7 @@ y</code></pre>
 ## [3,]    3    8   13   18
 ## [4,]    4    9   14   19
 ## [5,]    5   10   15   20</code></pre>
-<pre class="r"><code># another example
-cells &lt;- c(1,26,24,68)
+<pre class="r"><code>cells &lt;- c(1,26,24,68)
 rnames &lt;- c(&quot;R1&quot;, &quot;R2&quot;)
 cnames &lt;- c(&quot;C1&quot;, &quot;C2&quot;) 
 mymatrix &lt;- matrix(cells, nrow=2, ncol=2, byrow=TRUE,
@@ -386,11 +437,11 @@ mymatrix</code></pre>
 <pre><code>##    C1 C2
 ## R1  1 26
 ## R2 24 68</code></pre>
-<pre class="r"><code>y[,4] # 4th column of matrix</code></pre>
+<pre class="r"><code>y[,4] # 4. veerg </code></pre>
 <pre><code>## [1] 16 17 18 19 20</code></pre>
-<pre class="r"><code>y[3,] # 3rd row of matrix </code></pre>
+<pre class="r"><code>y[3,] # 3. rida </code></pre>
 <pre><code>## [1]  3  8 13 18</code></pre>
-<pre class="r"><code>y[2:4,1:3] # rows 2,3,4 of columns 1,2,3</code></pre>
+<pre class="r"><code>y[2:4,1:3] # read 2,3,4 veerud 1,2,3</code></pre>
 <pre><code>##      [,1] [,2] [,3]
 ## [1,]    2    7   12
 ## [2,]    3    8   13
@@ -398,9 +449,8 @@ mymatrix</code></pre>
 </div>
 <div id="lists" class="section level3">
 <h3>Lists</h3>
-<p>An ordered collection of objects (components). A list allows you to gather a variety of (possibly unrelated) objects under one name.</p>
-<pre class="r"><code># example of a list with 4 components - 
-# a string, a numeric vector, a matrix, and a scaler 
+<p>List on objektide kollektsioon, mis võimaldab omavahel siduda erinevaid objekte.</p>
+<pre class="r"><code>#näide
 w &lt;- list(name=&quot;Fred&quot;, mynumbers=a, mymatrix=y, age=5.3)
 w</code></pre>
 <pre><code>## $name
@@ -419,7 +469,7 @@ w</code></pre>
 ## 
 ## $age
 ## [1] 5.3</code></pre>
-<pre class="r"><code># example of a list containing two lists 
+<pre class="r"><code># list mis koosneb kahest listist
 v &lt;- c(w,w)
 v</code></pre>
 <pre><code>## $name
@@ -468,7 +518,13 @@ v</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]   11   16
 ## [2,]   12   17</code></pre>
-<pre><code>- </code></pre>
+</div>
+<div id="kuidas-andmetuupi-kontrollida" class="section level3">
+<h3>Kuidas andmetüüpi kontrollida?</h3>
+<pre class="r"><code>class(v)</code></pre>
+<pre><code>## [1] &quot;list&quot;</code></pre>
+<pre class="r"><code>class(mydata)</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
 </div>
 </div>
 

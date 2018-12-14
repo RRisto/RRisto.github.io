@@ -273,6 +273,53 @@ us_state_populations %&gt;%
 ## 1 California 11399403. 5677251 numeric    12824124.
 ## 2 New York    8984252. 7268894 numeric     6900774.</code></pre>
 </div>
+<div id="jarjestuse-muutmine" class="section level2">
+<h2>Järjestuse muutmine</h2>
+<pre class="r"><code>head(us_state_populations)</code></pre>
+<pre><code>##   year         state population
+## 1 1790   Connecticut     237655
+## 2 1790      Delaware      59096
+## 3 1790       Georgia      82548
+## 4 1790      Maryland     319728
+## 5 1790 Massachusetts     475199
+## 6 1790 New Hampshire     141899</code></pre>
+<pre class="r"><code># dplyr approach
+us_state_populations %&gt;%
+    select(state, year) %&gt;%
+    arrange(state)%&gt;%
+  head()</code></pre>
+<pre><code>##     state year
+## 1 Alabama 1820
+## 2 Alabama 1830
+## 3 Alabama 1840
+## 4 Alabama 1850
+## 5 Alabama 1860
+## 6 Alabama 1870</code></pre>
+<pre class="r"><code>us_state_populations %&gt;%
+    select(state, year) %&gt;%
+    arrange(desc(state))%&gt;%
+  head()</code></pre>
+<pre><code>##               state year
+## 1 Wyoming Territory 1870
+## 2 Wyoming Territory 1880
+## 3           Wyoming 1890
+## 4           Wyoming 1900
+## 5           Wyoming 1910
+## 6           Wyoming 1920</code></pre>
+<pre class="r"><code>#ilma tidyversita
+head(us_state_populations[order(us_state_populations$state), c(&quot;state&quot;, &quot;year&quot;)])</code></pre>
+<pre><code>##       state year
+## 60  Alabama 1820
+## 87  Alabama 1830
+## 115 Alabama 1840
+## 145 Alabama 1850
+## 181 Alabama 1860
+## 223 Alabama 1870</code></pre>
+<p><strong>Ülesanne</strong></p>
+<ul>
+<li>järjesta populatsiooni ja osariigi järgi</li>
+</ul>
+</div>
 <div id="muutujate-loomine-muutmine" class="section level2">
 <h2>Muutujate loomine/ muutmine</h2>
 <p>Kui meil on vaja luua uusi muutujaid, siis me oleme seda juba teinud, kui arvutasime keskmise. Vahel on vaja muutujaid aga ümber arvutada. Näiteks tahame populatsiooni kujutada tuhandetes.</p>
@@ -301,6 +348,98 @@ head(us_state_populations)</code></pre>
 ## 4 1790      maryland     319728             319.728
 ## 5 1790 massachusetts     475199             475.199
 ## 6 1790 new_hampshire     141899             141.899</code></pre>
+<pre class="r"><code>#arvutame vaatluste arvu igas grupis
+us_state_populations%&gt;%
+  group_by(state)%&gt;%
+  summarise(count=n())%&gt;%
+  arrange(desc(count))%&gt;%
+  head()</code></pre>
+<pre><code>## # A tibble: 6 x 2
+##   state         count
+##   &lt;chr&gt;         &lt;int&gt;
+## 1 connecticut      23
+## 2 delaware         23
+## 3 georgia          23
+## 4 maryland         23
+## 5 massachusetts    23
+## 6 new_hampshire    23</code></pre>
+<pre class="r"><code>us_state_populations%&gt;%
+  group_by(state)%&gt;%
+  summarise(count=n())%&gt;%
+  arrange(count)%&gt;%
+  head()</code></pre>
+<pre><code>## # A tibble: 6 x 2
+##   state               count
+##   &lt;chr&gt;               &lt;int&gt;
+## 1 illinois_territory      1
+## 2 iowa_territory          1
+## 3 kansas_territory        1
+## 4 louisiana_territory     1
+## 5 minnesota_territory     1
+## 6 missouri_territory      1</code></pre>
+<pre class="r"><code>#nüüd võime välja filtreerida osariigid, kus  on üle 20 vaatluse
+us_state_populations%&gt;%
+  group_by(state)%&gt;%
+  summarise(count=n())%&gt;%
+  arrange(desc(count))%&gt;%
+  filter(count&gt;20)</code></pre>
+<pre><code>## # A tibble: 18 x 2
+##    state                count
+##    &lt;chr&gt;                &lt;int&gt;
+##  1 connecticut             23
+##  2 delaware                23
+##  3 georgia                 23
+##  4 maryland                23
+##  5 massachusetts           23
+##  6 new_hampshire           23
+##  7 new_jersey              23
+##  8 new_york                23
+##  9 north_carolina          23
+## 10 pennsylvania            23
+## 11 rhode_island            23
+## 12 south_carolina          23
+## 13 vermont                 23
+## 14 virginia                23
+## 15 district_of_columbia    22
+## 16 kentucky                22
+## 17 tennessee               22
+## 18 ohio                    21</code></pre>
+<p><strong>Ülesanne</strong></p>
+<ul>
+<li>kontrolli kas iga aasta kohta on igal osariigil 1 vaatlus</li>
+</ul>
+</div>
+<div id="vahe-arvutamine" class="section level2">
+<h2>Vahe arvutamine</h2>
+<pre class="r"><code>us_state_populations %&gt;%
+    group_by(year) %&gt;%
+    summarise(obs_count = n()) %&gt;%
+    mutate(change = obs_count - lag(obs_count))%&gt;%
+  head()</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##    year obs_count change
+##   &lt;int&gt;     &lt;int&gt;  &lt;int&gt;
+## 1  1790        15     NA
+## 2  1800        20      5
+## 3  1810        24      4
+## 4  1820        27      3
+## 5  1830        28      1
+## 6  1840        30      2</code></pre>
+<p>Saame veel lihtsamalt:</p>
+<pre class="r"><code>us_state_populations %&gt;%
+    group_by(year) %&gt;%
+    tally() %&gt;%
+    mutate(change = n - lag(n))%&gt;%
+  head()</code></pre>
+<pre><code>## # A tibble: 6 x 3
+##    year     n change
+##   &lt;int&gt; &lt;int&gt;  &lt;int&gt;
+## 1  1790    15     NA
+## 2  1800    20      5
+## 3  1810    24      4
+## 4  1820    27      3
+## 5  1830    28      1
+## 6  1840    30      2</code></pre>
 </div>
 <div id="pideva-muutuja-muutmine-diskreetseks" class="section level2">
 <h2>Pideva muutuja muutmine diskreetseks</h2>
@@ -310,7 +449,7 @@ us_state_populations$period&lt;-cut(us_state_populations$year,
     #seq genereerib annab kohad, mis jaotab pika intervalli väiksemateks
     seq(min(us_state_populations$year)-1,
         max(us_state_populations$year)+2,5))
-#kontrollime, kas iga aasta kohta on üks intervall
+#vaatame
 table(us_state_populations$year, us_state_populations$period)[1:5,1:6]</code></pre>
 <pre><code>##       
 ##        (1789,1794] (1794,1799] (1799,1804] (1804,1809] (1809,1814]
@@ -342,7 +481,19 @@ us_state_populations[is.na(us_state_populations$period),]$year</code></pre>
 ## [15] 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010
 ## [29] 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010
 ## [43] 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010</code></pre>
-<pre class="r"><code>#meie puhul on siin tegemist näpukaga.</code></pre>
+<pre class="r"><code>#meie puhul on siin tegemist näpukaga.
+us_state_populations$period&lt;-cut(us_state_populations$year,  
+    #seq genereerib annab kohad, mis jaotab pika intervalli väiksemateks
+    seq(min(us_state_populations$year)-1,
+        max(us_state_populations$year)+10,5), include.lowest = T)
+us_state_populations[is.na(us_state_populations$period),]$year</code></pre>
+<pre><code>## integer(0)</code></pre>
+<pre class="r"><code> seq(min(us_state_populations$year)-1,
+        max(us_state_populations$year),5)</code></pre>
+<pre><code>##  [1] 1789 1794 1799 1804 1809 1814 1819 1824 1829 1834 1839 1844 1849 1854
+## [15] 1859 1864 1869 1874 1879 1884 1889 1894 1899 1904 1909 1914 1919 1924
+## [29] 1929 1934 1939 1944 1949 1954 1959 1964 1969 1974 1979 1984 1989 1994
+## [43] 1999 2004 2009</code></pre>
 <pre class="r"><code>#kui me tahame eemaldada read, kus on puuduvad väärtused, saab seda teha järgnevalt
 us_state_populations[complete.cases(us_state_populations), ]</code></pre>
 <p>Puuduvate väärtuste eemaldamiseks mingi funktsiooni kasutamisel on tihti funktsioonidel võimalus anda argument na.rm=T. Arvutuslike operatsioonide puhul on see vajalik, kuna puuduvad väärtused muudavad arvutuste tegemise keerukaks (kuidas puuduvast väärtustest kesmist võtta?).</p>
@@ -354,21 +505,21 @@ v</code></pre>
 <pre class="r"><code>us_state_populations$suvaveerg='suva'
 head(us_state_populations)</code></pre>
 <pre><code>##   year         state population population_thousand      period suvaveerg
-## 1 1790   connecticut     237655             237.655 (1789,1794]      suva
-## 2 1790      delaware      59096              59.096 (1789,1794]      suva
-## 3 1790       georgia      82548              82.548 (1789,1794]      suva
-## 4 1790      maryland     319728             319.728 (1789,1794]      suva
-## 5 1790 massachusetts     475199             475.199 (1789,1794]      suva
-## 6 1790 new_hampshire     141899             141.899 (1789,1794]      suva</code></pre>
+## 1 1790   connecticut     237655             237.655 [1789,1794]      suva
+## 2 1790      delaware      59096              59.096 [1789,1794]      suva
+## 3 1790       georgia      82548              82.548 [1789,1794]      suva
+## 4 1790      maryland     319728             319.728 [1789,1794]      suva
+## 5 1790 massachusetts     475199             475.199 [1789,1794]      suva
+## 6 1790 new_hampshire     141899             141.899 [1789,1794]      suva</code></pre>
 <pre class="r"><code>us_state_populations$suvaveerg&lt;-NULL
 head(us_state_populations)</code></pre>
 <pre><code>##   year         state population population_thousand      period
-## 1 1790   connecticut     237655             237.655 (1789,1794]
-## 2 1790      delaware      59096              59.096 (1789,1794]
-## 3 1790       georgia      82548              82.548 (1789,1794]
-## 4 1790      maryland     319728             319.728 (1789,1794]
-## 5 1790 massachusetts     475199             475.199 (1789,1794]
-## 6 1790 new_hampshire     141899             141.899 (1789,1794]</code></pre>
+## 1 1790   connecticut     237655             237.655 [1789,1794]
+## 2 1790      delaware      59096              59.096 [1789,1794]
+## 3 1790       georgia      82548              82.548 [1789,1794]
+## 4 1790      maryland     319728             319.728 [1789,1794]
+## 5 1790 massachusetts     475199             475.199 [1789,1794]
+## 6 1790 new_hampshire     141899             141.899 [1789,1794]</code></pre>
 </div>
 <div id="andmete-uhendamine" class="section level2">
 <h2>Andmete ühendamine</h2>
@@ -490,7 +641,7 @@ unique(df_states$state)</code></pre>
 <pre class="r"><code>df=merge(us_state_populations, df_states,by.x='state', by.y='state')
 head(df)</code></pre>
 <pre><code>##     state year population population_thousand      period region     pop
-## 1 alabama 2010    4779736            4779.736        &lt;NA&gt;  South 4041000
+## 1 alabama 2010    4779736            4779.736 (2009,2014]  South 4041000
 ## 2 alabama 1860     964201             964.201 (1859,1864]  South 4041000
 ## 3 alabama 1960    3266740            3266.740 (1959,1964]  South 4041000
 ## 4 alabama 1890    1513017            1513.017 (1889,1894]  South 4041000
@@ -630,12 +781,12 @@ df1</code></pre>
 <p>Meie algsed andmed on pikas formaadis</p>
 <pre class="r"><code>head(us_state_populations)</code></pre>
 <pre><code>##   year         state population population_thousand      period
-## 1 1790   connecticut     237655             237.655 (1789,1794]
-## 2 1790      delaware      59096              59.096 (1789,1794]
-## 3 1790       georgia      82548              82.548 (1789,1794]
-## 4 1790      maryland     319728             319.728 (1789,1794]
-## 5 1790 massachusetts     475199             475.199 (1789,1794]
-## 6 1790 new_hampshire     141899             141.899 (1789,1794]</code></pre>
+## 1 1790   connecticut     237655             237.655 [1789,1794]
+## 2 1790      delaware      59096              59.096 [1789,1794]
+## 3 1790       georgia      82548              82.548 [1789,1794]
+## 4 1790      maryland     319728             319.728 [1789,1794]
+## 5 1790 massachusetts     475199             475.199 [1789,1794]
+## 6 1790 new_hampshire     141899             141.899 [1789,1794]</code></pre>
 <p>Teeme selle laiaks formaadiks:</p>
 <pre class="r"><code># The arguments to spread():
 # - data: Data object
@@ -691,6 +842,10 @@ tail(data_long)</code></pre>
 <div id="kust-veel-abi-saada" class="section level2">
 <h2>Kust veel abi saada?</h2>
 <p>Head kohad on cheatsheetid: <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf" class="uri">https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf</a> Need on visuaalsed ja iatavad aru saada. Kui kohe kasutada ei oska funktsiooni, kuid tundub, et see on see, mida vaja, googelda!</p>
+<p><strong>Ülesanne</strong></p>
+<ul>
+<li>võta mõni andmehulk, millega puutud kokku. Lae see Ri, leia mitu veergu ja rida seal on, iga muutuja kohta arvuta selle ülevaatlik statistika. Lisaks leia statistika gruppide kohta grupi keskmine, standardhälve). Viia andmed pikka formaati.</li>
+</ul>
 </div>
 
 
