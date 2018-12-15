@@ -9,14 +9,13 @@ output: html_document
 Käsitletavad teemad:
 
  - [andmetüübid](1.1_andmet%C3%BC%C3%BCbid)
- - [tingimuslause ja tsükkel](1.2_tingimuslause_tsykkel)
+ - [tingimuslause, tsükkel ja funktsioon](1.2_tingimuslause_tsykkel)
  - [paketid](1.3_paketid)
  - [aeg](1.4_aeg)
  - [andmete sisselugemine](2.1_andmete_lugemine)
  - [andmete töötlemine](2.2_andmete_tootlemine)
  - [graafikud](3.1_graafikud)
- - graafikute, tabelite, raportite tegemine
- - koodi hoidmine, versioonihaldus
+ - [raportite tegemine](3.2_raportid)
  
 
 ## R-st

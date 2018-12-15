@@ -174,3 +174,54 @@ vec2=c(10,20, 30)
 vec1+vec2
 ```
 Rohkem vektoriseerimisest järgmistes osades.
+
+##Funktsioon
+
+Funktsioon on mõeldud (korduvate) operatsiooni(de) tegemiseks. Funktsioonile antakse ette sisend ning saadakse kätte väljund.
+```{r}
+#funktsiooni sisend
+c<-c(1,2,3)
+#funktsiooni kasutamine
+tulemus<-mean(c)
+#funktsiooni väljundi väärtus
+tulemus
+```
+
+Suurem osa kasulikke tegevusi teevad meie eest ära funktsioonid. Me saame neid ka ise defineerida, et vältida korduva koodi kirjutamist.
+
+```{r}
+#defineerime funktsiooni koos argumentidega (või siis ilma), mida peab/saab funktsioonile ette anda
+arvutaKeskmine<-function(arvud){
+  summa=sum(arvud)
+  n=length(arvud)
+  tulemus=summa/n
+  #tagastame tulemuse
+  return(tulemus)
+}
+
+arvutaKeskmine(c)
+```
+Samuti tasub olla tähelepanelik, kas meie funktsioon töötab alati nii nagu me arvame.
+
+```{r}
+vec=c(NA, 1, 2.0)
+arvutaKeskmine(vec)
+```
+Võib olla peaksime seda veidi täiendama, siin tulevad tingimuslaused kasuks.
+
+```{r}
+#argumendile võime ka anda vaikeväärtuse, kui on loogiline, et selle väärtus võiks enamikul juhtudel olla selline.
+arvutaKeskmine<-function(arvud, na.rm=T){
+  if (na.rm) {
+    arvud=arvud[!is.na(arvud)]
+  }
+  summa=sum(arvud)
+  n=length(arvud)
+  tulemus=summa/n
+  #tagastame tulemuse
+  return(tulemus)
+}
+
+arvutaKeskmine(vec)
+```
+Soovitus on funktsioone hakata kasutama, kui on mingid koodiosasid, mida oled kopeerinud erinevatesse failidesse/failiosadesse. Miks kasutada funktsiooni? Oletame, et me tegime vea keskmise arvutamisel. Kui meil pole funktsiooni, siis selle vea parandamine tähendab, et peame kõik kohad üles leidma, kus seda loogikat kasutame ja paranduse tegema (mis ise võib uusi vigu tekitada). Kui meil on funktsioon, mis on defineeritud ühes kohas, saame selle paranduse teha ühes kohas ning koodi lihtsalt uuesti jooksutada. Kui meil tekib neid funktsioone palju ning tahame neid eri projektides kasutada võib lihtsaima variandina teha Ri skripti faili (.R lõpuga) ning selle importida projekti: source("faili_nimi.R")

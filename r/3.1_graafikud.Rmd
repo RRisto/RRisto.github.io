@@ -40,12 +40,10 @@ Lattice on üks pakett graafikute tegemiseks. Annab veidi ilusamaid graafikuid k
 
 ```{r}
 library(lattice) 
-#võtame ühe Riga kaasas olnud andmed külge
+#võtame ühe Riga kaasas olnud andmehulga külge
 attach(mtcars)
 
 # muudame muutujad faktoriteks 
-
-# create factors with value labels 
 gear.f<-factor(gear,levels=c(3,4,5),
   	labels=c("3gears","4gears","5gears")) 
 cyl.f <-factor(cyl,levels=c(4,6,8),
@@ -124,7 +122,7 @@ Veel mõningaid graafikutüüpe.
 df_ohio=us_state_populations[us_state_populations$state=="Ohio",]
 #plotime
 ggplot(df_ohio, aes(year, population_thousand))+
-  geom_line()+
+  geom_line(color="red")+
   ggtitle("Population of Ohio")+
   theme_minimal()
 ```
@@ -141,7 +139,7 @@ ggplot(df_ohio_alabama, aes(year, population_thousand))+
 
 ```{r}
 ggplot(df_ohio_alabama, aes(year, population_thousand))+
-  #stat=identity määra, et näitab muutuja tegelikku väärtust, mitte counti
+  #stat=identity määrab, et näitab muutuja tegelikku väärtust, mitte counti
   #position_dodge() tõstab tulbad, üksteise kõrvale
   geom_bar(stat='identity', aes(fill=state), position=position_dodge())+
   ggtitle("Population of Ohio and Alabama")+
@@ -217,7 +215,7 @@ ggplot(alaska_alabama_california, aes(x=year, y=population_thousand))+
   theme_minimal()
 ```
 
-Ja kui tahame kõikide aastate-osariikide kombinatsioone vaadata:
+Ja kui tahame kõiki kahe muutuja kombinatsioone vaadata:
 
 ```{r}
 data(mpg)#laeme Ris olemasoleva andmehulga
@@ -228,7 +226,7 @@ ggplot(mpg, aes(displ, cty)) +
   theme_minimal()
 ```
 
-https://tutorials.iq.harvard.edu/R/Rgraphics/Rgraphics.html
+
 
 ### Tuunimine
 
