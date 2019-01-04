@@ -7,6 +7,7 @@ output: html_document
 ## Andmete lugemine
 
 Andmeid on võimalik sisse lugeda erinevas formaadis. Lihtsam viis on excel, csv, txt jms failid
+(states.csv is on siin: https://github.com/RRisto/RRisto.github.io/blob/master/r/data/states.csv)
 ```{r}
 states=read.csv('data/states.csv')
 class(states)
@@ -37,7 +38,7 @@ Sisselugemise juures on oluline:
   kui csv on loodud mõnes teises operatsioonisüsteemis!
   - vahel aitab read_csv2, kui read_csv-ga asjad untsu lähevad
       
-Exceli sisselugemine on sarnane:
+Exceli sisselugemine on sarnane (HDIdat.xls.xlsx on siin: https://github.com/RRisto/RRisto.github.io/blob/master/r/data/HDIdat.xls.xlsx):
 ```{r}
 library(readxl)
 hdi=read_excel("data/HDIdat.xls.xlsx")
