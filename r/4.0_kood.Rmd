@@ -19,8 +19,8 @@ Hea kood tähendab erinevaid asju erinevatele inimestele. Mõned isiklikud mõtt
 
 Selleks, et kood oleks selline, on mul mõned soovitused:
 
-- kommenteeri koodi. See, mis täna loogiline, ei ole seda mitte kuu aja pärast. Kood, mille kirjutasid kuue kuu eest võid lugeda võrdväärseks koodiga, mille on kirjutanud keegi teine (st sellest arusaamine võtab aega)
-- kasuta selgeid muutujate nimesid. Nt ära kasuta a<-3, vaid paevade_arv<-3. See teeb koodi palju arusaadavamaks. Ära karda pikki muuutujate nimesid. Need on tihti palju selgemad, kui ühetähelised lühendid. Hea tava, pane alguses selline nimi, mis selgitab põhjalikult, mis muutujaga tegu on. Seejärel vaata, kuidas saaksid seda lühendada ilma sisu kaotamata.
-- võimalusel väldi koodi kordamist, kasuta tsükleid, funktsioone (sh ise koostatud funktsioone). 
-- ole võimalikult modulaarne. St et iga koodi osa võiks teha korraga ühte asja. Erista sektsioonid, mis loevad andmeid sisse, puhastavad, visualiseerivaid neid jne. Siis on arusaadav, mis mida teeb (ja teeb jälgitavaks, kus midagi võib vussi minna). Vajadusel tee iga osa kohta eraldi raport või .R fail.
-- kasuta pipe operaatorit. See aitab oluliselt vähendada vahemuutujate hulka ja vähendab võimalust, et sa kirjutad mõne muutuja tahtmatult üle.
+- __kommenteeri koodi__. See, mis täna loogiline, ei ole seda mitte kuu aja pärast. Kood, mille kirjutasid kuue kuu eest võid lugeda võrdväärseks koodiga, mille on kirjutanud keegi teine (st sellest arusaamine võtab aega)
+- __kasuta selgeid muutujate nimesid__. Nt ära kasuta a<-3, vaid paevade_arv<-3. See teeb koodi palju arusaadavamaks. Ära karda pikki muuutujate nimesid. Need on tihti palju selgemad, kui ühetähelised lühendid. Hea tava, pane alguses selline nimi, mis selgitab põhjalikult, mis muutujaga tegu on. Seejärel vaata, kuidas saaksid seda lühendada ilma sisu kaotamata.
+- __võimalusel väldi koodi kordamist__, kasuta tsükleid, funktsioone (sh ise koostatud funktsioone). 
+- __ole võimalikult modulaarne__. St et iga koodi osa võiks teha korraga ühte asja. Erista sektsioonid, mis loevad andmeid sisse, puhastavad, visualiseerivaid neid jne. Siis on arusaadav, mis mida teeb (ja teeb jälgitavaks, kus midagi võib vussi minna). Vajadusel tee iga osa kohta eraldi raport või .R fail.
+- __kasuta pipe operaatorit__. See aitab oluliselt vähendada vahemuutujate hulka ja vähendab võimalust, et sa kirjutad mõne muutuja tahtmatult üle.
