@@ -5,18 +5,12 @@ date: "30 november 2018"
 output: html_document
 ---
 
-https://towardsdatascience.com/tutorial-data-wrangling-and-mapping-in-r-ec828acc8073
-https://programminghistorian.org/en/lessons/data_wrangling_and_management_in_R
-https://rpubs.com/bradleyboehmke/data_wrangling
-
-https://rpubs.com/bradleyboehmke/data_processing
-https://suzan.rbind.io/2018/01/dplyr-tutorial-1/
 
 Järgnevalt näitan põgusalt mõningaid võimalusi mida R andmetega teha võimaldab. Tegemist on kerge ülevaatega, Riga saab teha veel palju muudki.
 
 ### Andmed
 
-Laeme andmed sisse:
+Laeme andmed sisse (andmed on siin: https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv):
 ```{r}
 us_state_populations<-read.csv("data/introductory_state_example.csv")
 #esimesed 6 rida andmetest
@@ -273,7 +267,7 @@ head(us_state_populations)
 
 ## Andmete ühendamine
 
-Meil on veel andmeid osariikide kohta:
+Meil on veel andmeid osariikide kohta (andmed on siin: https://github.com/RRisto/RRisto.github.io/blob/master/r/data/states.csv):
 ```{r}
 df_states=read_csv('data/states.csv')
 head(df_states)
@@ -391,12 +385,20 @@ apply(data_wide[,2:ncol(data_wide)], 2, max, na.rm=T)
 ```
 Lisaks on funktsioonid sapply, lapply, mapply jne. Üldjuhul saab alguses ilma nendeta hakkama. Kui muidu ei oska, saab ka tsüklit kasutada.
 
-## Kust veel abi saada?
-
-Head kohad on cheatsheetid: https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
-Need on visuaalsed ja iatavad aru saada. Kui kohe kasutada ei oska funktsiooni, kuid tundub, et see on see, mida vaja, googelda!
-
 
 __Ülesanne__
 
  - võta mõni andmehulk, millega puutud kokku. Lae see Ri, leia mitu veergu ja rida seal on, iga muutuja kohta arvuta selle ülevaatlik statistika. Lisaks leia statistika gruppide kohta grupi keskmine, standardhälve). Viia andmed pikka formaati.
+ 
+## Lugemist, tegemist, abi
+
+Head kohad on cheatsheetid: https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf
+Need on visuaalsed ja aitavad aru saada põhilisest. Kui funktsiooni kohe kasutada ei oska (nagu minagi), kuid tundub, et see on see, mida vaja, googelda! Suure tõenäosusega on kellelgi olnud sama küsimus ja keegi on sellele vastuse andnud.
+
+ - https://programminghistorian.org/en/lessons/data_wrangling_and_management_in_R
+
+ - https://rpubs.com/bradleyboehmke/data_wrangling
+
+ - https://rpubs.com/bradleyboehmke/data_processing
+
+ - https://suzan.rbind.io/2018/01/dplyr-tutorial-1/

@@ -16,6 +16,7 @@ Käsitletavad teemad:
  - [andmete töötlemine](2.2_andmete_tootlemine)
  - [graafikud](3.1_graafikud)
  - [raportite tegemine](3.2_raportid)
+ - [koodi jagamine, hea koodi põhimõtteid](4.0_kood)
  
 
 ## R-st
@@ -55,4 +56,17 @@ Kindlasti jõuad kohe kursuse alguses kohta, kus oleks vaja abi (ei oska teha, k
  - help("funktsiooni nimi")
  - ?funktsiooni nimi
  - veeb (https://stackoverflow.com/, https://cran.r-project.org/, https://www.rstudio.com/resources/cheatsheets/)
+ 
+### Õppimine
+
+See siin pole kindlasti isegi mitte täielik ülevaade Rist. Kuid annab sulle teeotsa kätte. Ma luban, et sul on raske. Nagu meil kõigil, kes on programmeerimist õppinud. Trikk on mitte alla anda ja teha õppimine endale "söödavateks" tükkideks. 
+
+Kuidas õppida?
+
+- proovi koodi kirjutada ilma kuskilt abi otsimata. Kui jääd hätta, spikerda. Nii saad teada, mida sa veel ei oska (mõni funktsioon, põhimõte vms). Proovi nii mitu korda (nt 1x-2x päevas) ning üllatud varsti, et asjad hakkavad ise välja tulema.
+- asjad, mis on ebaselged, pole meeles, kuid, mida oleks vaja teada. Tee nende kohta mõttekaardid ja korda, kui mõni vaba hetk on. Ise kasutan appi: https://apps.ankiweb.net/. 10 min päevas ning sa üllatud kui kiiresti sa asjad selgeks saad. Pähe tuupimine pole eesmärk, kuid baasfunktsioonid, ja -tõed peaksid olema peas. See teeb suu palju kiiremaks ning võimaldab omandada juba keerukamat infot.
+- kui sa ei usu, et sinu aju suudab seda õppida, loe läbi raamat: https://www.amazon.com/Mind-Numbers-Science-Flunked-Algebra/dp/039916524X ja põhjenda, mis sinus nii erilist on, et ei suuda Ri õppida
+
+Kui on abi vaja, siis alusta ülaltoodud abi leidmise viisidest. Kui jääd hätta, võid ka minu käest küsida. Kirjuta mure siia: https://github.com/RRisto/RRisto.github.io/issues (palun pane nii selge pealkiri kui oskad) ning pane kaasa minimaalne koodiosa (kui küsimus on konkreetse näitega seotud) koos andmetega, et saaksin sinu viga/mure luua. Kui postitad sinna, siis näevad sinu küsimust ka teised ning saavad samuti abi.
+
     

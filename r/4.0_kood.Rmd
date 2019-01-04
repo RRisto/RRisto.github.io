@@ -1,0 +1,26 @@
+---
+title: "Koodihaldus, hea koodi põhimõtteid"
+author: "Risto Hinno"
+date: "4 jaanuar 2019"
+output: html_document
+---
+
+## Koodihaldus
+
+Koodi haldamiseks sobib enda arvuti väga hästi. Kui aga tekib tahtmine koodi jagada, soovitan kasutada githubi (https://github.com/), mis on tasuta (tasuline on privaatsete repode loomine). Koodi jagamiseks tuleks teha konto githubi. Windowsi arvutil on mugav programm: https://desktop.github.com/. Sellega saab ühenduda oma githubi kontole ja koodi sinna saata/sealt tõmmata.
+
+## Mis on hea kood?
+
+Hea kood tähendab erinevaid asju erinevatele inimestele. Mõned isiklikud mõtted, mis head koodi iseloomustab:
+
+- töötab
+- loetav
+- kergesti muudetav
+
+Selleks, et kood oleks selline, on mul mõned soovitused:
+
+- kommenteeri koodi. See, mis täna loogiline, ei ole seda mitte kuu aja pärast. Kood, mille kirjutasid kuue kuu eest võid lugeda võrdväärseks koodiga, mille on kirjutanud keegi teine (st sellest arusaamine võtab aega)
+- kasuta selgeid muutujate nimesid. Nt ära kasuta a<-3, vaid paevade_arv<-3. See teeb koodi palju arusaadavamaks. Ära karda pikki muuutujate nimesid. Need on tihti palju selgemad, kui ühetähelised lühendid. Hea tava, pane alguses selline nimi, mis selgitab põhjalikult, mis muutujaga tegu on. Seejärel vaata, kuidas saaksid seda lühendada ilma sisu kaotamata.
+- võimalusel väldi koodi kordamist, kasuta tsükleid, funktsioone (sh ise koostatud funktsioone). 
+- ole võimalikult modulaarne. St et iga koodi osa võiks teha korraga ühte asja. Erista sektsioonid, mis loevad andmeid sisse, puhastavad, visualiseerivaid neid jne. Siis on arusaadav, mis mida teeb (ja teeb jälgitavaks, kus midagi võib vussi minna). Vajadusel tee iga osa kohta eraldi raport või .R fail.
+- kasuta pipe operaatorit. See aitab oluliselt vähendada vahemuutujate hulka ja vähendab võimalust, et sa kirjutad mõne muutuja tahtmatult üle.

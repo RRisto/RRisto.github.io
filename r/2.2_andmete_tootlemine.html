@@ -129,12 +129,10 @@ $(document).ready(function () {
 </div>
 
 
-<p><a href="https://towardsdatascience.com/tutorial-data-wrangling-and-mapping-in-r-ec828acc8073" class="uri">https://towardsdatascience.com/tutorial-data-wrangling-and-mapping-in-r-ec828acc8073</a> <a href="https://programminghistorian.org/en/lessons/data_wrangling_and_management_in_R" class="uri">https://programminghistorian.org/en/lessons/data_wrangling_and_management_in_R</a> <a href="https://rpubs.com/bradleyboehmke/data_wrangling" class="uri">https://rpubs.com/bradleyboehmke/data_wrangling</a></p>
-<p><a href="https://rpubs.com/bradleyboehmke/data_processing" class="uri">https://rpubs.com/bradleyboehmke/data_processing</a> <a href="https://suzan.rbind.io/2018/01/dplyr-tutorial-1/" class="uri">https://suzan.rbind.io/2018/01/dplyr-tutorial-1/</a></p>
 <p>Järgnevalt näitan põgusalt mõningaid võimalusi mida R andmetega teha võimaldab. Tegemist on kerge ülevaatega, Riga saab teha veel palju muudki.</p>
 <div id="andmed" class="section level3">
 <h3>Andmed</h3>
-<p>Laeme andmed sisse:</p>
+<p>Laeme andmed sisse (andmed on siin: <a href="https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv" class="uri">https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv</a>):</p>
 <pre class="r"><code>us_state_populations&lt;-read.csv(&quot;data/introductory_state_example.csv&quot;)
 #esimesed 6 rida andmetest
 head(us_state_populations)</code></pre>
@@ -488,12 +486,6 @@ us_state_populations$period&lt;-cut(us_state_populations$year,
         max(us_state_populations$year)+10,5), include.lowest = T)
 us_state_populations[is.na(us_state_populations$period),]$year</code></pre>
 <pre><code>## integer(0)</code></pre>
-<pre class="r"><code> seq(min(us_state_populations$year)-1,
-        max(us_state_populations$year),5)</code></pre>
-<pre><code>##  [1] 1789 1794 1799 1804 1809 1814 1819 1824 1829 1834 1839 1844 1849 1854
-## [15] 1859 1864 1869 1874 1879 1884 1889 1894 1899 1904 1909 1914 1919 1924
-## [29] 1929 1934 1939 1944 1949 1954 1959 1964 1969 1974 1979 1984 1989 1994
-## [43] 1999 2004 2009</code></pre>
 <pre class="r"><code>#kui me tahame eemaldada read, kus on puuduvad väärtused, saab seda teha järgnevalt
 us_state_populations[complete.cases(us_state_populations), ]</code></pre>
 <p>Puuduvate väärtuste eemaldamiseks mingi funktsiooni kasutamisel on tihti funktsioonidel võimalus anda argument na.rm=T. Arvutuslike operatsioonide puhul on see vajalik, kuna puuduvad väärtused muudavad arvutuste tegemise keerukaks (kuidas puuduvast väärtustest kesmist võtta?).</p>
@@ -523,7 +515,7 @@ head(us_state_populations)</code></pre>
 </div>
 <div id="andmete-uhendamine" class="section level2">
 <h2>Andmete ühendamine</h2>
-<p>Meil on veel andmeid osariikide kohta:</p>
+<p>Meil on veel andmeid osariikide kohta (andmed on siin: <a href="https://github.com/RRisto/RRisto.github.io/blob/master/r/data/states.csv" class="uri">https://github.com/RRisto/RRisto.github.io/blob/master/r/data/states.csv</a>):</p>
 <pre class="r"><code>df_states=read_csv('data/states.csv')</code></pre>
 <pre><code>## Parsed with column specification:
 ## cols(
@@ -838,13 +830,19 @@ tail(data_long)</code></pre>
 ##     1950     1960     1970     1980     1990     2000     2010 
 ## 14830192 16782304 19953134 23667902 29760021 33871648 37253956</code></pre>
 <p>Lisaks on funktsioonid sapply, lapply, mapply jne. Üldjuhul saab alguses ilma nendeta hakkama. Kui muidu ei oska, saab ka tsüklit kasutada.</p>
-</div>
-<div id="kust-veel-abi-saada" class="section level2">
-<h2>Kust veel abi saada?</h2>
-<p>Head kohad on cheatsheetid: <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf" class="uri">https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf</a> Need on visuaalsed ja iatavad aru saada. Kui kohe kasutada ei oska funktsiooni, kuid tundub, et see on see, mida vaja, googelda!</p>
 <p><strong>Ülesanne</strong></p>
 <ul>
 <li>võta mõni andmehulk, millega puutud kokku. Lae see Ri, leia mitu veergu ja rida seal on, iga muutuja kohta arvuta selle ülevaatlik statistika. Lisaks leia statistika gruppide kohta grupi keskmine, standardhälve). Viia andmed pikka formaati.</li>
+</ul>
+</div>
+<div id="lugemist-tegemist-abi" class="section level2">
+<h2>Lugemist, tegemist, abi</h2>
+<p>Head kohad on cheatsheetid: <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf" class="uri">https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf</a> Need on visuaalsed ja aitavad aru saada põhilisest. Kui funktsiooni kohe kasutada ei oska (nagu minagi), kuid tundub, et see on see, mida vaja, googelda! Suure tõenäosusega on kellelgi olnud sama küsimus ja keegi on sellele vastuse andnud.</p>
+<ul>
+<li><p><a href="https://programminghistorian.org/en/lessons/data_wrangling_and_management_in_R" class="uri">https://programminghistorian.org/en/lessons/data_wrangling_and_management_in_R</a></p></li>
+<li><p><a href="https://rpubs.com/bradleyboehmke/data_wrangling" class="uri">https://rpubs.com/bradleyboehmke/data_wrangling</a></p></li>
+<li><p><a href="https://rpubs.com/bradleyboehmke/data_processing" class="uri">https://rpubs.com/bradleyboehmke/data_processing</a></p></li>
+<li><p><a href="https://suzan.rbind.io/2018/01/dplyr-tutorial-1/" class="uri">https://suzan.rbind.io/2018/01/dplyr-tutorial-1/</a></p></li>
 </ul>
 </div>
 

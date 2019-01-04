@@ -25,6 +25,7 @@ Kiiremaiks viisiks, kuidas saada andmetest ülevaade, on graafik. R-i puhul või
 
 ```{r}
 #laeme andmed
+#ise saad need siit: https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv
 us_state_populations<-read.csv("data/introductory_state_example.csv")
 us_state_populations$population_thousand=us_state_populations$population/1000
 
@@ -368,3 +369,7 @@ ggplot(us_state_populations, aes(x=population_thousand))+
 ggsave("myplot.png")
 ```
 
+
+## Ülesanne
+
+Võta mõni endale oluline/huvitav andmehulk. Loe see sisse, anna esmane ülevaade (jaotused gruppide lõikes, keskmised jne). Lisaks visualiseeri neid ülevaateid kasutades ggploti.
