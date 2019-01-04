@@ -131,7 +131,7 @@ $(document).ready(function () {
 
 <div id="andmete-lugemine" class="section level2">
 <h2>Andmete lugemine</h2>
-<p>Andmeid on võimalik sisse lugeda erinevas formaadis. Lihtsam viis on excel, csv, txt jms failid</p>
+<p>Andmeid on võimalik sisse lugeda erinevas formaadis. Lihtsam viis on excel, csv, txt jms failid (states.csv is on siin: <a href="https://github.com/RRisto/RRisto.github.io/blob/master/r/data/states.csv" class="uri">https://github.com/RRisto/RRisto.github.io/blob/master/r/data/states.csv</a>)</p>
 <pre class="r"><code>states=read.csv('data/states.csv')
 class(states)</code></pre>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
@@ -255,7 +255,7 @@ class(states)</code></pre>
 <li>kas read ja veerud on korrektsed, csv-s võivad need lappama minna, kui csv on loodud mõnes teises operatsioonisüsteemis!</li>
 <li>vahel aitab read_csv2, kui read_csv-ga asjad untsu lähevad</li>
 </ul>
-<p>Exceli sisselugemine on sarnane:</p>
+<p>Exceli sisselugemine on sarnane (HDIdat.xls.xlsx on siin: <a href="https://github.com/RRisto/RRisto.github.io/blob/master/r/data/HDIdat.xls.xlsx" class="uri">https://github.com/RRisto/RRisto.github.io/blob/master/r/data/HDIdat.xls.xlsx</a>):</p>
 <pre class="r"><code>library(readxl)
 hdi=read_excel(&quot;data/HDIdat.xls.xlsx&quot;)</code></pre>
 <pre class="r"><code>head(hdi, 20)</code></pre>
