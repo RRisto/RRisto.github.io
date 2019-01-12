@@ -1,16 +1,18 @@
 ---
 title: "Andmete lugemine"
 author: "Risto Hinno"
-date: "30 november 2018"
+date: "12. jaanuar 2019"
 output: html_document
 ---
 ## Andmete lugemine
 
 Andmeid on võimalik sisse lugeda erinevas formaadis. Lihtsam viis on excel, csv, txt jms failid
-(states.csv is on siin: https://github.com/RRisto/RRisto.github.io/blob/master/r/data/states.csv)
+(states.csv is on siin: https://github.com/RRisto/RRisto.github.io/blob/master/r/data/states.csv, vajuta nuppu "Raw" ja seejärale ctrl+s ning salvesta fail)
 ```{r}
+#eeldab, et andmed on data kaustas
 states=read.csv('data/states.csv')
 class(states)
+#vaatame andmeraami dimensioone - ridade ja veergude arvu
 dim(states)
 ```
 Muutujate kirjeldus:
@@ -20,9 +22,11 @@ str(states)
 
 Alati kontrolli, kas asjad on korras:
 ```{r}
+#esimesed read
 head(states)
 ```
 ```{r}
+#viimased read
 tail(states)
 ```
 Kiire ülevaade muutujatest:
@@ -44,13 +48,13 @@ library(readxl)
 hdi=read_excel("data/HDIdat.xls.xlsx")
 ```
 ```{r}
-head(hdi, 20)
+head(hdi, 20)#lisaargument näitab mitu rida tahame sisse lugeda
 ```
 
 Siin on mure, excelist on ka palju muud peale andmete. Peaksime mõned read algusest vahele jätma.
 
 ```{r}
-hdi_orig=read_excel("data/HDIdat.xls.xlsx", skip = 19)
+hdi_orig=read_excel("data/HDIdat.xls.xlsx", skip = 19) #jätame esimesed 19 rida vahele
 head(hdi_orig)
 ```
 
@@ -59,7 +63,9 @@ tail(hdi_orig,15)
 ```
 Ka lõpus on sama jama.
 ```{r}
+#ridade arv
 nrow(hdi_orig)
+#välsitame viimased 10 rida
 hdi=hdi_orig[-c((nrow(hdi_orig)-10):nrow(hdi_orig)),]
 tail(hdi)
 
@@ -69,7 +75,7 @@ dim(hdi)
 ```
 
 ```{r}
-#võime ka kohe ala ette anda
+#võime ka kohe ala ette anda, kui näeme excelist, kus andmed on
 hdi=read_excel("data/HDIdat.xls.xlsx", range = "HDIdat!A20:Y218")
 dim(hdi)
 ```

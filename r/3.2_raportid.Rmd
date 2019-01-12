@@ -1,7 +1,7 @@
 ---
 title: "Raportid"
 author: "Risto Hinno"
-date: "9 detsember 2018"
+date: "12. jaanuar 2019"
 output: html_document
 ---
 

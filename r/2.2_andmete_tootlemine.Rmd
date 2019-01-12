@@ -1,7 +1,7 @@
 ---
 title: "Andmete töötlemine"
 author: "Risto Hinno"
-date: "30 november 2018"
+date: "12. jaanuar 2019"
 output: html_document
 ---
 
@@ -10,7 +10,7 @@ Järgnevalt näitan põgusalt mõningaid võimalusi mida R andmetega teha võima
 
 ### Andmed
 
-Laeme andmed sisse (andmed on siin: https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv):
+Laeme andmed sisse (andmed on siin: https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv, vajuta nuppu "Raw" ja siis ctrl+s ning salvesta fail):
 ```{r}
 us_state_populations<-read.csv("data/introductory_state_example.csv")
 #esimesed 6 rida andmetest
@@ -59,7 +59,7 @@ df_california_ny<-us_state_populations %>%
 dim(df_california_ny)
 head(df_california_ny)
 ```
-Eelnevalt me kasutasime pipe oprtaatorit (%>%). See on väga mugav vahend, mitme operatsiooni üksteise järgi tegemiseks. Me ei pea tegema iga vahetulemuse jaoks vahemuutujaid. Mida rohkem muutujaid meil tekib, seda ebaselgemaks keskkond muutub. Näiteks võime kogemata mõne muutuja kuskil mujal üle kirjutada (ja katsu sa siis lõpus aru saada, kus midagi valeks läks). Pipe on väga mugav ja kasulik vahend.
+Eelnevalt me kasutasime pipe oprtaatorit (%>%). See on väga mugav vahend, mitme operatsiooni järjestikkuseks tegemiseks. Me ei pea tegema iga vahetulemuse jaoks vahemuutujaid. Mida rohkem muutujaid meil tekib, seda ebaselgemaks keskkond muutub. Näiteks võime kogemata mõne muutuja kuskil mujal üle kirjutada (ja katsu sa siis lõpus aru saada, kus midagi valeks läks). Pipe on väga mugav ja kasulik vahend.
 
 Filtreerimist saab teha samuti mitmeti (sõltuvalt, mis tüüpi andmete põhjal filtreerime). Võtame jällegi NY ja California, kuid seekord alates aastast 1900.
 
@@ -164,7 +164,7 @@ head(us_state_populations)
 #arvutame vaatluste arvu igas grupis
 us_state_populations%>%
   group_by(state)%>%
-  summarise(count=n())%>%
+  summarise(count=n())%>% #n() tähendab counti, käesoleval iga grupi (osariigi) elementide counti
   arrange(desc(count))%>%
   head()
 ```
@@ -195,7 +195,7 @@ __Ülesanne__
 us_state_populations %>%
     group_by(year) %>%
     summarise(obs_count = n()) %>%
-    mutate(change = obs_count - lag(obs_count))%>%
+    mutate(change = obs_count - lag(obs_count))%>% #lag() võtab eelmise grupi (aasta) obs_count väärtuse
   head()
 ```
 
@@ -203,7 +203,7 @@ Saame veel lihtsamalt:
 ```{r}
 us_state_populations %>%
     group_by(year) %>%
-    tally() %>%
+    tally() %>% #loeb iga grupi elementide arvu kokku, sellest tuleb muutuja/veerg n
     mutate(change = n - lag(n))%>%
   head()
 ```
@@ -217,8 +217,8 @@ Nii, nüüd on vaja luua uus muutuja, mis on kategooriline muutuja (faktor), mis
 #cut lõikab muutuja faktoriteks
 us_state_populations$period<-cut(us_state_populations$year,  
     #seq genereerib annab kohad, mis jaotab pika intervalli väiksemateks
-    seq(min(us_state_populations$year)-1,
-        max(us_state_populations$year)+2,5))
+    seq(min(us_state_populations$year)-1,#-1 ja +1 on et kas esimene ja viimane aasta jääks intervalli
+        max(us_state_populations$year)+1,5))
 #vaatame
 table(us_state_populations$year, us_state_populations$period)[1:5,1:6]
 ```
@@ -236,11 +236,15 @@ us_state_populations[is.na(us_state_populations$period),]$year
 #meie puhul on siin tegemist näpukaga.
 us_state_populations$period<-cut(us_state_populations$year,  
     #seq genereerib annab kohad, mis jaotab pika intervalli väiksemateks
-    seq(min(us_state_populations$year)-1,
-        max(us_state_populations$year)+10,5), include.lowest = T)
+    seq(min(us_state_populations$year)-1,#lisan -1 ja järgmisele +1 et ka esimene ja viimane aasta jääks sisse
+        max(us_state_populations$year)+1,5), include.lowest = T)
 us_state_populations[is.na(us_state_populations$period),]$year
 ```
 
+```{r}
+#eelmise rea asemel sobib ka see
+us_state_populations[is.na(us_state_populations$period),'year']
+```
 
 ```{r, eval=FALSE}
 #kui me tahame eemaldada read, kus on puuduvad väärtused, saab seda teha järgnevalt
@@ -284,8 +288,8 @@ unique(us_state_populations$state)
 
 Ei klapi, teeme väiketähtedeks ja asendame tühikud:
 ```{r}
-df_states$state=gsub(" ", "_", df_states$state)
-df_states$state=tolower(df_states$state)
+df_states$state=gsub(" ", "_", df_states$state)#asendame tühikud alakriipusga
+df_states$state=tolower(df_states$state)#teeme veeru state väiketähtedeks
 unique(df_states$state)
 ```
 Ühendame kaks andmehulka:
@@ -307,11 +311,12 @@ us_state_populations %>%
 Millised osariigid on puudu?
 
 ```{r}
+#setdiff näitab hulkade erinevust, millised osariigid on andmeraamis us_state_populations, mida pole andmeraamis df
 setdiff(unique(us_state_populations$state), unique(df$state))
 ```
 Praegu elame üle, et need välja jäävad, reaalses elus peame tähelepanelikult vaatama, mida me teeme.
 
-Lisaks on paar lihtsat viisi andmete ühendamiseks: __rbind ja cbind__. Esimene eeldab, et kaks andmeraami on samasuguse ridade jaotusega.
+Vahepõikena lisaks on paar lihtsat viisi andmete ühendamiseks: __rbind ja cbind__. Esimene eeldab, et kaks andmeraami on samasuguse ridade jaotusega.
 ```{r}
 df1=data.frame(
    emp_id = c (1:5), 

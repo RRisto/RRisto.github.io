@@ -1,7 +1,7 @@
 ---
 title: "Sissejuhatus"
 author: "Risto Hinno"
-date: "12. jaanuar 2018"
+date: "12. jaanuar 2019"
 output: html_document
 ---
 # Kursuse ülevaade

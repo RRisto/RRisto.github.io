@@ -1,31 +1,33 @@
 ---
 title: "Tingimuslause, tsükkel"
 author: "Risto Hinno"
-date: "30 november 2018"
+date: "12. jaanuar 2019"
 output: html_document
 ---
 
 ## Tingimuslause
 
-Tihti on meil vaja kontrollida koodi kulgemist, selleks on mitmeid võimalusi.
-If-lause:
+Tihti on meil vaja kontrollida koodi kulgemist, võttes arvesse tingimusi. Selleks on mitmeid võimalusi.
+Esiteks if-lause:
 ```{r}
 x=5
+#kui xi väärtus on alla 10, prindi tekst
 if (x<10) {
   print("x on väikem kui 10")
 }
 ```
 If-lause koos else-ga:
 ```{r}
+#kui xi väärtus on väiksem kui 5 prindi esimene lause, ülejäänud juhtudel teine
 if (x<5) {
-  print("x on suurem kui 5")
+  print("x on väiksem kui 5")
 } else {
   print("x on suurem või võrdne 5-ga")
 }
 ```
 Lisaks on olemas ka if else:
 ```{r}
-
+#else if saab kasutada, kui esimesest ifist tuleb programm läbi, kuid enne lõplikku else oleks siiski veel mingit tingimust vaja kontrollida.
 x <- 0
 if (x < 0) {
 print("Negative number")
@@ -36,16 +38,18 @@ print("Zero")
 }
 ```
 
-Tingimused võivad olla keerulisemad:
+Tingimused võivad olla keerulisemad ja kasutada loogilisi operatsioone:
 ```{r}
 x=5
 y=10
 nimi='Juhan'
 
+#xi väärtus on alla 10 ja y suurem võrdne kui 10 ja nimi on Juhan
 if (x<10 & y>=10 & nimi=='Juhan') {
   print('If püüdis kinni')
 }
 
+#xi väärtus on alla 10 ja y suurem kui 10 ja nimi on Juhan
 if (x<10 & y>10 & nimi=='Juhan') {
   print('If püüdis kinni')
 } else {
@@ -59,6 +63,7 @@ if (!(x<10 & y>10 & nimi=='Juhan')) {
   print('If ei püüdnud kinni')
 }
 
+#xi väärtus on alla 10 või y suurem kui 10 ja nimi on Juhan
 if (x<10 | y>10 & nimi=='Juhan') {
   print('If püüdis kinni')
 } else {
@@ -70,10 +75,11 @@ if (x<10 | y>10 & nimi=='Juhan') {
 
 Lihtsaimad tsükli haldamise vahendid on for ja while tsükkel. Neid tegelikult väga palju R-si ei kasutata.
 ```{r}
+#aastate vahemik
 for (year in 2010:2015){
   print(paste("The year is", year))
 }
-
+#sama mis eelmine kuid veidi pikemalt kirjutatud
 for (year in c(2010,2011,2012,2013,2014,2015)){
   print(paste("The year is", year))
 }
@@ -90,6 +96,7 @@ for (i in 1:10) {
 While tsükkel. While tsükli juures on oluline tagada, et ei tekiks lõpmatut tsüklit, muidu jookseb R lihtsalt kokku.
 ```{r}
 i <- 1
+#nii kaua kui i väärtus on alla 6 jätkab tsükkel tööd
 while (i < 6) {
   print(i)
   i = i+1 #kui see välja kommenteerida, tekib lõpmatu tsükkel
@@ -99,10 +106,11 @@ Repeat tsükkel. Siingi tuleb olla ettevaatlik, et ei tekiks lõpmatut tsüklit.
 
 ```{r}
 x <- 1
+#repeat tsükli korral jooksutatakse tsükkel alati vähemalt ühe korra läbi
 repeat {
   print(x)
   x = x+1
-  if (x == 6){
+  if (x == 6){#kui tingimus on tõene tsükkel lõpetatakse
     break #lõpetab tsükli
     }
 }
@@ -123,8 +131,23 @@ for(i in 1:dim(mymat)[1]) {#võtab maatriks read ükshaaval
 mymat[1:10, 1:10]
 ```
 ## Vektoriseerimine
+Tihti pole Ris tsükleid vaja, kuna operatdsioonid on vektoriseeritud. Näiteks, et liita kahte vektorit pole vaja neid liita tüskliga:
+```{r}
+a=c(1,2,3)
+b=c(4,5,6)
+tulemus=c()
+for (i in 1:length(a)) {
+  tulemus[i]=a[i]+b[i]
+}
+tulemus
+```
+Piisab liitmisest, sest operatsioonid on vektoriseeritud:
+```{r}
+a+b
+```
 
-Tsükliga:
+
+Tsükliga kulub ka rohkem aega:
 ```{r}
 #halb näide, aeglane
 algusaeg <- proc.time()
@@ -143,6 +166,7 @@ mydframe <- data.frame(mymat)
 
 for (i in 1:m) {
   for (j in 1:n) {
+    #siin teeme iga arvuga mis andmeraamis on (liigume mööde iga rida ja veergu ükshaaval) tehte, kus liidame: 10*sin(0.75*pi)
     mydframe[i,j]<-mydframe[i,j] + 10*sin(0.75*pi)
   }
 }
@@ -159,6 +183,7 @@ m=100
 n=100
 mymat <- replicate(m, rnorm(n)) 
 mydframe <- data.frame(mymat)
+#teeme sama teht, mis enne, kuid seekorrd vektoriseeritult korraga
 mydframe <- mydframe + 10*sin(0.75*pi)
 #kulunud aeg
 proc.time()-algusaeg

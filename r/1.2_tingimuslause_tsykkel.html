@@ -11,7 +11,6 @@
 
 <meta name="author" content="Risto Hinno" />
 
-<meta name="date" content="2018-11-30" />
 
 <title>Tingimuslause, tsükkel</title>
 
@@ -124,28 +123,33 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Tingimuslause, tsükkel</h1>
 <h4 class="author"><em>Risto Hinno</em></h4>
-<h4 class="date"><em>30 november 2018</em></h4>
+<h4 class="date"><em><ol start="12" style="list-style-type: decimal">
+<li>jaanuar 2019</li>
+</ol></em></h4>
 
 </div>
 
 
 <div id="tingimuslause" class="section level2">
 <h2>Tingimuslause</h2>
-<p>Tihti on meil vaja kontrollida koodi kulgemist, selleks on mitmeid võimalusi. If-lause:</p>
+<p>Tihti on meil vaja kontrollida koodi kulgemist, võttes arvesse tingimusi. Selleks on mitmeid võimalusi. Esiteks if-lause:</p>
 <pre class="r"><code>x=5
+#kui xi väärtus on alla 10, prindi tekst
 if (x&lt;10) {
   print(&quot;x on väikem kui 10&quot;)
 }</code></pre>
 <pre><code>## [1] &quot;x on väikem kui 10&quot;</code></pre>
 <p>If-lause koos else-ga:</p>
-<pre class="r"><code>if (x&lt;5) {
-  print(&quot;x on suurem kui 5&quot;)
+<pre class="r"><code>#kui xi väärtus on väiksem kui 5 prindi esimene lause, ülejäänud juhtudel teine
+if (x&lt;5) {
+  print(&quot;x on väiksem kui 5&quot;)
 } else {
   print(&quot;x on suurem või võrdne 5-ga&quot;)
 }</code></pre>
 <pre><code>## [1] &quot;x on suurem või võrdne 5-ga&quot;</code></pre>
 <p>Lisaks on olemas ka if else:</p>
-<pre class="r"><code>x &lt;- 0
+<pre class="r"><code>#else if saab kasutada, kui esimesest ifist tuleb programm läbi, kuid enne lõplikku else oleks siiski veel mingit tingimust vaja kontrollida.
+x &lt;- 0
 if (x &lt; 0) {
 print(&quot;Negative number&quot;)
 } else if (x &gt; 0) {
@@ -154,16 +158,18 @@ print(&quot;Positive number&quot;)
 print(&quot;Zero&quot;)
 }</code></pre>
 <pre><code>## [1] &quot;Zero&quot;</code></pre>
-<p>Tingimused võivad olla keerulisemad:</p>
+<p>Tingimused võivad olla keerulisemad ja kasutada loogilisi operatsioone:</p>
 <pre class="r"><code>x=5
 y=10
 nimi='Juhan'
 
+#xi väärtus on alla 10 ja y suurem võrdne kui 10 ja nimi on Juhan
 if (x&lt;10 &amp; y&gt;=10 &amp; nimi=='Juhan') {
   print('If püüdis kinni')
 }</code></pre>
 <pre><code>## [1] &quot;If püüdis kinni&quot;</code></pre>
-<pre class="r"><code>if (x&lt;10 &amp; y&gt;10 &amp; nimi=='Juhan') {
+<pre class="r"><code>#xi väärtus on alla 10 ja y suurem kui 10 ja nimi on Juhan
+if (x&lt;10 &amp; y&gt;10 &amp; nimi=='Juhan') {
   print('If püüdis kinni')
 } else {
   print('If ei püüdnud kinni')
@@ -176,7 +182,8 @@ if (!(x&lt;10 &amp; y&gt;10 &amp; nimi=='Juhan')) {
   print('If ei püüdnud kinni')
 }</code></pre>
 <pre><code>## [1] &quot;If püüdis kinni&quot;</code></pre>
-<pre class="r"><code>if (x&lt;10 | y&gt;10 &amp; nimi=='Juhan') {
+<pre class="r"><code>#xi väärtus on alla 10 või y suurem kui 10 ja nimi on Juhan
+if (x&lt;10 | y&gt;10 &amp; nimi=='Juhan') {
   print('If püüdis kinni')
 } else {
   print('If ei püüdnud kinni')
@@ -186,7 +193,8 @@ if (!(x&lt;10 &amp; y&gt;10 &amp; nimi=='Juhan')) {
 <div id="tsukkel" class="section level2">
 <h2>Tsükkel</h2>
 <p>Lihtsaimad tsükli haldamise vahendid on for ja while tsükkel. Neid tegelikult väga palju R-si ei kasutata.</p>
-<pre class="r"><code>for (year in 2010:2015){
+<pre class="r"><code>#aastate vahemik
+for (year in 2010:2015){
   print(paste(&quot;The year is&quot;, year))
 }</code></pre>
 <pre><code>## [1] &quot;The year is 2010&quot;
@@ -195,7 +203,8 @@ if (!(x&lt;10 &amp; y&gt;10 &amp; nimi=='Juhan')) {
 ## [1] &quot;The year is 2013&quot;
 ## [1] &quot;The year is 2014&quot;
 ## [1] &quot;The year is 2015&quot;</code></pre>
-<pre class="r"><code>for (year in c(2010,2011,2012,2013,2014,2015)){
+<pre class="r"><code>#sama mis eelmine kuid veidi pikemalt kirjutatud
+for (year in c(2010,2011,2012,2013,2014,2015)){
   print(paste(&quot;The year is&quot;, year))
 }</code></pre>
 <pre><code>## [1] &quot;The year is 2010&quot;
@@ -218,6 +227,7 @@ for (i in 1:10) {
 ## [1] 9</code></pre>
 <p>While tsükkel. While tsükli juures on oluline tagada, et ei tekiks lõpmatut tsüklit, muidu jookseb R lihtsalt kokku.</p>
 <pre class="r"><code>i &lt;- 1
+#nii kaua kui i väärtus on alla 6 jätkab tsükkel tööd
 while (i &lt; 6) {
   print(i)
   i = i+1 #kui see välja kommenteerida, tekib lõpmatu tsükkel
@@ -229,10 +239,11 @@ while (i &lt; 6) {
 ## [1] 5</code></pre>
 <p>Repeat tsükkel. Siingi tuleb olla ettevaatlik, et ei tekiks lõpmatut tsüklit.</p>
 <pre class="r"><code>x &lt;- 1
+#repeat tsükli korral jooksutatakse tsükkel alati vähemalt ühe korra läbi
 repeat {
   print(x)
   x = x+1
-  if (x == 6){
+  if (x == 6){#kui tingimus on tõene tsükkel lõpetatakse
     break #lõpetab tsükli
     }
 }</code></pre>
@@ -267,7 +278,19 @@ mymat[1:10, 1:10]</code></pre>
 </div>
 <div id="vektoriseerimine" class="section level2">
 <h2>Vektoriseerimine</h2>
-<p>Tsükliga:</p>
+<p>Tihti pole Ris tsükleid vaja, kuna operatdsioonid on vektoriseeritud. Näiteks, et liita kahte vektorit pole vaja neid liita tüskliga:</p>
+<pre class="r"><code>a=c(1,2,3)
+b=c(4,5,6)
+tulemus=c()
+for (i in 1:length(a)) {
+  tulemus[i]=a[i]+b[i]
+}
+tulemus</code></pre>
+<pre><code>## [1] 5 7 9</code></pre>
+<p>Piisab liitmisest, sest operatsioonid on vektoriseeritud:</p>
+<pre class="r"><code>a+b</code></pre>
+<pre><code>## [1] 5 7 9</code></pre>
+<p>Tsükliga kulub ka rohkem aega:</p>
 <pre class="r"><code>#halb näide, aeglane
 algusaeg &lt;- proc.time()
 
@@ -285,13 +308,14 @@ mydframe &lt;- data.frame(mymat)
 
 for (i in 1:m) {
   for (j in 1:n) {
+    #siin teeme iga arvuga mis andmeraamis on (liigume mööde iga rida ja veergu ükshaaval) tehte, kus liidame: 10*sin(0.75*pi)
     mydframe[i,j]&lt;-mydframe[i,j] + 10*sin(0.75*pi)
   }
 }
 #kulunud aeg
 print(proc.time()-algusaeg)</code></pre>
 <pre><code>##    user  system elapsed 
-##    0.36    0.03    0.39</code></pre>
+##    0.39    0.00    0.39</code></pre>
 <pre class="r"><code>mydframe[1:10,1:10]</code></pre>
 <pre><code>##          X1       X2       X3       X4       X5       X6       X7       X8
 ## 1  8.442026 8.272033 5.070139 7.066447 8.405980 8.100209 6.822585 7.365760
@@ -322,11 +346,12 @@ m=100
 n=100
 mymat &lt;- replicate(m, rnorm(n)) 
 mydframe &lt;- data.frame(mymat)
+#teeme sama teht, mis enne, kuid seekorrd vektoriseeritult korraga
 mydframe &lt;- mydframe + 10*sin(0.75*pi)
 #kulunud aeg
 proc.time()-algusaeg</code></pre>
 <pre><code>##    user  system elapsed 
-##    0.02    0.00    0.02</code></pre>
+##    0.01    0.00    0.01</code></pre>
 <pre class="r"><code>mydframe[1:10,1:10]</code></pre>
 <pre><code>##          X1       X2       X3       X4       X5       X6       X7       X8
 ## 1  8.442026 8.272033 5.070139 7.066447 8.405980 8.100209 6.822585 7.365760

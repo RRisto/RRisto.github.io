@@ -11,7 +11,6 @@
 
 <meta name="author" content="Risto Hinno" />
 
-<meta name="date" content="2018-11-30" />
 
 <title>Baasandmetüübid</title>
 
@@ -124,7 +123,9 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Baasandmetüübid</h1>
 <h4 class="author"><em>Risto Hinno</em></h4>
-<h4 class="date"><em>30 november 2018</em></h4>
+<h4 class="date"><em><ol start="12" style="list-style-type: decimal">
+<li>jaanuar 2019</li>
+</ol></em></h4>
 
 </div>
 
@@ -147,9 +148,10 @@ a</code></pre>
 <pre><code>## [1] &quot;one&quot;   &quot;two&quot;   &quot;three&quot;</code></pre>
 <pre class="r"><code>c</code></pre>
 <pre><code>## [1]  TRUE  TRUE  TRUE FALSE  TRUE FALSE</code></pre>
+<p>Eeltoodud näites lõime muutujad a, b ja c ning andsime neile väärtused. Vaata RStudio muutujate vaatest (paremal), kas muutujad on õigete väärtustega näha.</p>
 <div id="arvud" class="section level4">
 <h4>Arvud</h4>
-<p>Kõige lihtsamad asjad, mida Riga teha saab, on aritmeetilised operatsioonid.</p>
+<p>Kõige lihtsam, mida Riga teha saab, on aritmeetilised operatsioonid.</p>
 <pre class="r"><code>1+2</code></pre>
 <pre><code>## [1] 3</code></pre>
 <pre class="r"><code>2*2</code></pre>
@@ -159,9 +161,9 @@ a</code></pre>
 <p>Muutujate väärtustamine</p>
 <pre class="r"><code>x&lt;-5
 y&lt;-2
-+ x</code></pre>
++ x #muuda arv positiivseks</code></pre>
 <pre><code>## [1] 5</code></pre>
-<pre class="r"><code>- x</code></pre>
+<pre class="r"><code>- x #muuda arv negatiivseks</code></pre>
 <pre><code>## [1] -5</code></pre>
 <pre class="r"><code>x + y</code></pre>
 <pre><code>## [1] 7</code></pre>
@@ -186,6 +188,24 @@ x %/% y</code></pre>
 y&lt;-6
 x %/% y</code></pre>
 <pre><code>## [1] 0</code></pre>
+<pre class="r"><code>sqrt(4) #ruutjuur</code></pre>
+<pre><code>## [1] 2</code></pre>
+<pre class="r"><code>log(10) #logaritm</code></pre>
+<pre><code>## [1] 2.302585</code></pre>
+<pre class="r"><code>abs(-10) #absoluutväärtus</code></pre>
+<pre><code>## [1] 10</code></pre>
+<pre class="r"><code>#tehete järjekorra hoidmiseks saab kasutada ümarsulgusid
+a&lt;-5
+b&lt;-10
+c&lt;-20
+a+b*c</code></pre>
+<pre><code>## [1] 205</code></pre>
+<pre class="r"><code>(a+b)*c</code></pre>
+<pre><code>## [1] 300</code></pre>
+<div id="ulesanne" class="section level5">
+<h5>Ülesanne</h5>
+<p>On antud vektor c=c(4, 25, 49). Võta sellest ruutjuur ning liida juurde muutuja p, mille väärtus on 15. Mis on tulemuseks? Mis juhtub, kui p väärtuseks on hoopis c(15)? Aga kui p väärtuseks on c(15, 15, 15)? Ja viimasena, mis saab, kui p väärtuseks on hoopis c(15, 15) (ja miks selline tulemus tuli)?</p>
+</div>
 </div>
 <div id="loogilised-operatsioonid" class="section level4">
 <h4>Loogilised operatsioonid</h4>
@@ -233,12 +253,23 @@ isTRUE(boolean1)</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <pre class="r"><code>isTRUE(boolean3)</code></pre>
 <pre><code>## [1] FALSE</code></pre>
+<div id="ulesanne-1" class="section level5">
+<h5>Ülesanne</h5>
+<p>Võttes aluseks eelmise näite muutujad:</p>
+<ul>
+<li>boolean1=TRUE</li>
+<li>boolean2=TRUE</li>
+<li>boolean3=FALSE</li>
+</ul>
+<p>Mis võiks olla järgneva operatsiooni tulemus: (boolean1|boolean3)&amp;boolean1</p>
+</div>
 </div>
 </div>
 <div id="komposiitandmetuubid" class="section level2">
 <h2>Komposiitandmetüübid</h2>
 <div id="vektor" class="section level3">
 <h3>Vektor</h3>
+<p>Nagu alltoodud näidetes näha, on muutujatele võimalik anda väärtusi kasutads = märki, see on tihti mugavam kui &lt;-. Ja see on ka täiesti lubatud.</p>
 <pre class="r"><code>#vektoriga oleme juba tuttavad, vektoriga saab teha tehteid
 vec1=c(1,2,3,4)
 vec2=c(10, 10,10,10)
@@ -252,7 +283,7 @@ vec1+vec2</code></pre>
 <pre><code>## [1] 21 22 23 24</code></pre>
 <pre class="r"><code>vec1+vec4</code></pre>
 <pre><code>## [1] 11 22 13 24</code></pre>
-<pre class="r"><code>vec1+vec5</code></pre>
+<pre class="r"><code>vec1+vec5#siin on viimane arv huvitav, kuna lühema vektori pikkus ei ole pikema vektori pikkusega võrdne (või siis täpselt jagatav pikkusega), hakkab ta lühema vektori algusest väärtusi võtma.</code></pre>
 <pre><code>## Warning in vec1 + vec5: longer object length is not a multiple of shorter
 ## object length</code></pre>
 <pre><code>## [1] 11 22 33 14</code></pre>
@@ -262,6 +293,14 @@ vec1+vec2</code></pre>
 <pre><code>## [1] 1 0 2</code></pre>
 <pre class="r"><code>vec1=c(&quot;tere&quot;, &quot;halloo&quot;)
 vec2=c(&quot;maja&quot;, &quot;auto&quot;)</code></pre>
+<pre class="r"><code>#järjestikust arvudest koosnevat vektorit saab luua nii
+vec1=c(1:10)
+vec1</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<pre class="r"><code>#sama asi aga tagurpidi
+vec2=c(10:1)
+vec2</code></pre>
+<pre><code>##  [1] 10  9  8  7  6  5  4  3  2  1</code></pre>
 <p><strong>Ülesanded</strong></p>
 <ul>
 <li>vec1+vec2 mis võib olla tulemuseks?</li>
@@ -272,9 +311,12 @@ vec2=c(&quot;maja&quot;, &quot;auto&quot;)</code></pre>
 #indeksiga
 vec[1]</code></pre>
 <pre><code>## [1] &quot;1&quot;</code></pre>
-<pre class="r"><code>#vahemiku indeks
+<pre class="r"><code>#vahemiku indeks (length näitab vektori pikkust)
 vec[1:length(vec)]</code></pre>
 <pre><code>## [1] &quot;1&quot;    &quot;2&quot;    &quot;auto&quot; &quot;TRUE&quot;</code></pre>
+<pre class="r"><code>#ma saame vahemiku ka tagurpidi pöörata
+vec[length(vec):1]</code></pre>
+<pre><code>## [1] &quot;TRUE&quot; &quot;auto&quot; &quot;2&quot;    &quot;1&quot;</code></pre>
 <pre class="r"><code>vec[1:2]</code></pre>
 <pre><code>## [1] &quot;1&quot; &quot;2&quot;</code></pre>
 <pre class="r"><code>#vektor indeksitest
@@ -285,10 +327,14 @@ vec[-1]</code></pre>
 <pre><code>## [1] &quot;2&quot;    &quot;auto&quot; &quot;TRUE&quot;</code></pre>
 <pre class="r"><code>vec[-c(1,3)]</code></pre>
 <pre><code>## [1] &quot;2&quot;    &quot;TRUE&quot;</code></pre>
+<div id="ulesanne-2" class="section level5">
+<h5>Ülesanne</h5>
+<p>On vektor c=c(“kool”, “lasteaed”, “pood”, “ladu”) Leia vektori: - teine element, - elemendid esimesest kuni kolmandani - viimane element</p>
+</div>
 </div>
 <div id="andmeraam-dataframe" class="section level3">
 <h3>Andmeraam (dataframe)</h3>
-<p>Põhilisemaid andmetüüpe R-s.</p>
+<p>Põhilisemaid andmetüüpe R-s. Võrreldav tabeliga.</p>
 <pre class="r"><code>#andmeraami võib vaadelda kui vektorite kogumit, kus read ja veerud koosnevad vektoritest
 d &lt;- c(1,2,3,4)
 e &lt;- c(&quot;red&quot;, &quot;white&quot;, &quot;red&quot;, NA)
@@ -302,7 +348,11 @@ mydata</code></pre>
 ## 3  3   red   TRUE
 ## 4  4  &lt;NA&gt;  FALSE</code></pre>
 <p>Elementidele viitamine:</p>
-<pre class="r"><code>mydata[1:2] # veerud 3,4,5 </code></pre>
+<ul>
+<li>andmeraam[veeru_indeks/nimi]</li>
+<li>andmeraam[rea_indeks/nimi, veeru_indeks/nimi]</li>
+</ul>
+<pre class="r"><code>mydata[1:2] # veerud 1,2</code></pre>
 <pre><code>##   ID Color
 ## 1  1   red
 ## 2  2 white
@@ -372,7 +422,15 @@ mydata&lt;-rbind(mydata,(rep(&quot;uus&quot;, ncol(mydata))))</code></pre>
 <li>uuri välja mida teeb funktsioon rep</li>
 </ul>
 <p>Funktsioonid rbind ja cbind lisavad vastavalt kas rea või veeru:</p>
+<pre class="r"><code>cbind(mydata,(rep(&quot;uus&quot;, nrow(mydata))))</code></pre>
+<pre><code>##    ID Color      Passed uus_veerg (rep(&quot;uus&quot;, nrow(mydata)))
+## 1   1   red        TRUE        25                        uus
+## 2   2 white uus väärtus        10                        uus
+## 3   3   red        TRUE        20                        uus
+## 4   4  &lt;NA&gt;       FALSE        30                        uus
+## 5 uus  &lt;NA&gt;         uus       uus                        uus</code></pre>
 <pre class="r"><code>#eemaldame viimase rea
+#nrow näitab mitu rida on (ehk sisuliselt viimase rea indeks), meie paneme miinuse ette, et seda eemaldada
 mydata &lt;- mydata[-nrow(mydata),] 
 mydata</code></pre>
 <pre><code>##   ID Color      Passed uus_veerg
@@ -384,37 +442,39 @@ mydata</code></pre>
 <ul>
 <li>miks on hea kasutada versiooni mydata[-nrow(mydata),] mitte mydata[-5,]? Millal võiks viimast kasutada?</li>
 </ul>
-<pre class="r"><code>mydata[-1,]</code></pre>
+<pre class="r"><code>#välja arvatud esimene rida
+mydata[-1,]</code></pre>
 <pre><code>##   ID Color      Passed uus_veerg
 ## 2  2 white uus väärtus        10
 ## 3  3   red        TRUE        20
 ## 4  4  &lt;NA&gt;       FALSE        30</code></pre>
 <p>Loogilised operatioonid andmeraami alamhulga leidmiseks:</p>
-<pre class="r"><code>mydata[ which(mydata$uus_veerg&gt;10&amp; mydata$Passed==TRUE), ]</code></pre>
+<pre class="r"><code>#read, kus uus_veerg väärtus on&gt;10 ja Passed on TRUE, kõik veerud
+mydata[ which(mydata$uus_veerg&gt;10&amp; mydata$Passed==TRUE), ]</code></pre>
 <pre><code>##   ID Color Passed uus_veerg
 ## 1  1   red   TRUE        25
 ## 3  3   red   TRUE        20</code></pre>
-<pre class="r"><code>mydata[ (mydata$uus_veerg&gt;10&amp; mydata$Passed==TRUE), c(&quot;Passed&quot;,&quot;Color&quot;)]</code></pre>
+<pre class="r"><code>#read, kus uus_veerg&gt;10 ja Passed on &gt;TRUE, veerud Passed ja Color
+mydata[ (mydata$uus_veerg&gt;10&amp; mydata$Passed==TRUE), c(&quot;Passed&quot;,&quot;Color&quot;)]</code></pre>
 <pre><code>##   Passed Color
 ## 1   TRUE   red
 ## 3   TRUE   red</code></pre>
-<pre class="r"><code>subset(mydata, uus_veerg&gt;10| mydata$Passed==TRUE,select=c(Color, Passed))</code></pre>
+<p>Veel võimalusi alamhulkade leidmiseks.</p>
+<pre class="r"><code>#read, kus uus_veerg&gt;10 või Passed on &gt;TRUE, veerud Passed ja Color
+#alternatiiv ülemisele
+subset(mydata, uus_veerg&gt;10| mydata$Passed==TRUE,select=c(Color, Passed))</code></pre>
 <pre><code>##   Color Passed
 ## 1   red   TRUE
 ## 3   red   TRUE
 ## 4  &lt;NA&gt;  FALSE</code></pre>
-<p>Veel võimalusi alamhulkade leidmiseks.</p>
-<pre class="r"><code>subset(mydata, uus_veerg&gt;10 &amp; mydata$Passed==TRUE,select=c(Color, Passed))</code></pre>
-<pre><code>##   Color Passed
-## 1   red   TRUE
-## 3   red   TRUE</code></pre>
-<pre class="r"><code>newdata &lt;- mydata[c(-3,-5)]
+<pre class="r"><code>#mydata alamhulk, kust on eemaldatud veerud number 3 ja 4.
+newdata &lt;- mydata[c(-3,-4)]
 newdata</code></pre>
-<pre><code>##   ID Color uus_veerg
-## 1  1   red        25
-## 2  2 white        10
-## 3  3   red        20
-## 4  4  &lt;NA&gt;        30</code></pre>
+<pre><code>##   ID Color
+## 1  1   red
+## 2  2 white
+## 3  3   red
+## 4  4  &lt;NA&gt;</code></pre>
 <p><strong>Ülesanne</strong> - leia andmeraamist mydata alamhulk, kus uus_veerg väärtus on üle 10, Passed väärtus on TRUE või FALSE. Mitu erinevat viisi oskad kasutada väärtuste leidmiseks?</p>
 </div>
 <div id="maatriks" class="section level3">
@@ -428,9 +488,10 @@ y</code></pre>
 ## [3,]    3    8   13   18
 ## [4,]    4    9   14   19
 ## [5,]    5   10   15   20</code></pre>
-<pre class="r"><code>cells &lt;- c(1,26,24,68)
-rnames &lt;- c(&quot;R1&quot;, &quot;R2&quot;)
-cnames &lt;- c(&quot;C1&quot;, &quot;C2&quot;) 
+<pre class="r"><code>cells &lt;- c(1,26,24,68)#väärtused
+rnames &lt;- c(&quot;R1&quot;, &quot;R2&quot;)#reanimed
+cnames &lt;- c(&quot;C1&quot;, &quot;C2&quot;) #veerunimed
+#loome maatriksi
 mymatrix &lt;- matrix(cells, nrow=2, ncol=2, byrow=TRUE,
   dimnames=list(rnames, cnames))
 mymatrix</code></pre>
@@ -446,6 +507,9 @@ mymatrix</code></pre>
 ## [1,]    2    7   12
 ## [2,]    3    8   13
 ## [3,]    4    9   14</code></pre>
+<pre class="r"><code>#saame ka veeru ja rea nimede järgi alamhulki leida, kuid nimed peavad olema määratud. Maatriksil y neid pole 
+mymatrix[&quot;R1&quot;,&quot;C1&quot;]</code></pre>
+<pre><code>## [1] 1</code></pre>
 </div>
 <div id="lists" class="section level3">
 <h3>Lists</h3>
@@ -457,7 +521,7 @@ w</code></pre>
 ## [1] &quot;Fred&quot;
 ## 
 ## $mynumbers
-## [1]  1.0  2.0  5.3  6.0 -2.0  4.0
+## [1] 5
 ## 
 ## $mymatrix
 ##      [,1] [,2] [,3] [,4]
@@ -476,7 +540,7 @@ v</code></pre>
 ## [1] &quot;Fred&quot;
 ## 
 ## $mynumbers
-## [1]  1.0  2.0  5.3  6.0 -2.0  4.0
+## [1] 5
 ## 
 ## $mymatrix
 ##      [,1] [,2] [,3] [,4]
@@ -493,7 +557,7 @@ v</code></pre>
 ## [1] &quot;Fred&quot;
 ## 
 ## $mynumbers
-## [1]  1.0  2.0  5.3  6.0 -2.0  4.0
+## [1] 5
 ## 
 ## $mymatrix
 ##      [,1] [,2] [,3] [,4]
@@ -505,16 +569,21 @@ v</code></pre>
 ## 
 ## $age
 ## [1] 5.3</code></pre>
-<pre class="r"><code>v$name</code></pre>
+<pre class="r"><code>#elemendi nime järgi leidmine
+v$name</code></pre>
 <pre><code>## [1] &quot;Fred&quot;</code></pre>
-<pre class="r"><code>v[[&quot;name&quot;]]</code></pre>
+<pre class="r"><code>#veel üks võimalus nime jrgi leidmiseks
+v[[&quot;name&quot;]]</code></pre>
 <pre><code>## [1] &quot;Fred&quot;</code></pre>
-<pre class="r"><code>v[1]</code></pre>
+<pre class="r"><code>#indeksi järgi leidmine
+v[1]</code></pre>
 <pre><code>## $name
 ## [1] &quot;Fred&quot;</code></pre>
-<pre class="r"><code>v[[1]] </code></pre>
+<pre class="r"><code>#listi esimese elemendi väärtus
+v[[1]] </code></pre>
 <pre><code>## [1] &quot;Fred&quot;</code></pre>
-<pre class="r"><code>v$mymatrix[1:2,3:4]</code></pre>
+<pre class="r"><code>#lsiti elemendi mymatrix read 1,2 ja veerud 3, 4
+v$mymatrix[1:2,3:4]</code></pre>
 <pre><code>##      [,1] [,2]
 ## [1,]   11   16
 ## [2,]   12   17</code></pre>

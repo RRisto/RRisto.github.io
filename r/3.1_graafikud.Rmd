@@ -1,7 +1,7 @@
 ---
 title: "Andmete töötlemine"
 author: "Risto Hinno"
-date: "30 november 2018"
+date: "12. jaanuar 2019"
 output: html_document
 ---
 
@@ -69,7 +69,7 @@ Rohkem näited lattice kohta: https://www.statmethods.net/advgraphs/trellis.html
 
 Kõige populaarsem graafikute pakett on ggplot2. Tegemist on paketiga, mis on osa tidyversest. Selle kohta on ka head kokkuvõtlikud materjalid: https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf ja http://www.cookbook-r.com/Graphs/
 
-ggplot on: "ggplot2 is based on the grammar of graphics, the idea that you can build every graph from the same few components: a data set, a set of geoms—visual marks that represent data points, and a coordinate system."
+ggplot on: "_ggplot2 is based on the grammar of graphics, the idea that you can build every graph from the same few components: a data set, a set of geoms—visual marks that represent data points, and a coordinate system._"
 
 Alustuseks mõned näited:
 ```{r, message=F}
@@ -237,6 +237,7 @@ ggplot on võimas, kuna võimaldab meil graafikut väga palju kohendada. Siin li
 
 ```{r}
 #funktsioon usaldusintervallide arvutamiseks, laenatud siit http://www.cookbook-r.com/Graphs/Plotting_means_and_error_bars_(ggplot2)/
+#ei ole oluline selle toimeloogiat mõista
 summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
                       conf.interval=.95, .drop=TRUE) {
     library(plyr)
@@ -284,12 +285,15 @@ Ja paneme graafikule ning tuunime graafikut (NB! see graafik on lausa kole ning 
 ```{r}
 
 ggplot(us_state_populations_se, aes(x=year, y=population_thousand)) +
-    geom_errorbar(aes(ymin=population_thousand-se, ymax=population_thousand+se),
+  geom_errorbar(aes(ymin=population_thousand-se, ymax=population_thousand+se),
                   color="red", width=.1) +
+  #joon
   geom_line(color="blue") +
+  #punktid
   geom_point(color="green")+
   #lisame igale punktile ka selle väärtuse
   geom_text(aes(label=round(population_thousand,0)),hjust=0, vjust=0.5)+
+  #pealkiri
   ggtitle("Keskmine populatsioon koos standardveaga")+
   #x-telje pealkiri
   xlab("aasta")+
@@ -336,7 +340,7 @@ p
 p+xlim(200,350)
 ```
 
-coord_cartesian() ei asenda väärtusi:
+coord_cartesian() ei viska väärtusi ära:
 
 ```{r}
 p + coord_cartesian(xlim = c(200, 350))

@@ -11,7 +11,6 @@
 
 <meta name="author" content="Risto Hinno" />
 
-<meta name="date" content="2018-11-30" />
 
 <title>Andmete töötlemine</title>
 
@@ -124,7 +123,9 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Andmete töötlemine</h1>
 <h4 class="author"><em>Risto Hinno</em></h4>
-<h4 class="date"><em>30 november 2018</em></h4>
+<h4 class="date"><em><ol start="12" style="list-style-type: decimal">
+<li>jaanuar 2019</li>
+</ol></em></h4>
 
 </div>
 
@@ -132,7 +133,7 @@ $(document).ready(function () {
 <p>Järgnevalt näitan põgusalt mõningaid võimalusi mida R andmetega teha võimaldab. Tegemist on kerge ülevaatega, Riga saab teha veel palju muudki.</p>
 <div id="andmed" class="section level3">
 <h3>Andmed</h3>
-<p>Laeme andmed sisse (andmed on siin: <a href="https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv" class="uri">https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv</a>):</p>
+<p>Laeme andmed sisse (andmed on siin: <a href="https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv" class="uri">https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv</a>, vajuta nuppu “Raw” ja siis ctrl+s ning salvesta fail):</p>
 <pre class="r"><code>us_state_populations&lt;-read.csv(&quot;data/introductory_state_example.csv&quot;)
 #esimesed 6 rida andmetest
 head(us_state_populations)</code></pre>
@@ -201,7 +202,7 @@ dim(df_california_ny)</code></pre>
 ## 4 1820 New York    1372812
 ## 5 1830 New York    1918608
 ## 6 1840 New York    2428921</code></pre>
-<p>Eelnevalt me kasutasime pipe oprtaatorit (%&gt;%). See on väga mugav vahend, mitme operatsiooni üksteise järgi tegemiseks. Me ei pea tegema iga vahetulemuse jaoks vahemuutujaid. Mida rohkem muutujaid meil tekib, seda ebaselgemaks keskkond muutub. Näiteks võime kogemata mõne muutuja kuskil mujal üle kirjutada (ja katsu sa siis lõpus aru saada, kus midagi valeks läks). Pipe on väga mugav ja kasulik vahend.</p>
+<p>Eelnevalt me kasutasime pipe oprtaatorit (%&gt;%). See on väga mugav vahend, mitme operatsiooni järjestikkuseks tegemiseks. Me ei pea tegema iga vahetulemuse jaoks vahemuutujaid. Mida rohkem muutujaid meil tekib, seda ebaselgemaks keskkond muutub. Näiteks võime kogemata mõne muutuja kuskil mujal üle kirjutada (ja katsu sa siis lõpus aru saada, kus midagi valeks läks). Pipe on väga mugav ja kasulik vahend.</p>
 <p>Filtreerimist saab teha samuti mitmeti (sõltuvalt, mis tüüpi andmete põhjal filtreerime). Võtame jällegi NY ja California, kuid seekord alates aastast 1900.</p>
 <pre class="r"><code>df_california_ny_1900&lt;-us_state_populations %&gt;% 
   #filtreerimne välja osariigid, millen nimed on alltoodud vektoris c(...)
@@ -349,7 +350,7 @@ head(us_state_populations)</code></pre>
 <pre class="r"><code>#arvutame vaatluste arvu igas grupis
 us_state_populations%&gt;%
   group_by(state)%&gt;%
-  summarise(count=n())%&gt;%
+  summarise(count=n())%&gt;% #n() tähendab counti, käesoleval iga grupi (osariigi) elementide counti
   arrange(desc(count))%&gt;%
   head()</code></pre>
 <pre><code>## # A tibble: 6 x 2
@@ -412,7 +413,7 @@ us_state_populations%&gt;%
 <pre class="r"><code>us_state_populations %&gt;%
     group_by(year) %&gt;%
     summarise(obs_count = n()) %&gt;%
-    mutate(change = obs_count - lag(obs_count))%&gt;%
+    mutate(change = obs_count - lag(obs_count))%&gt;% #lag() võtab eelmise grupi (aasta) obs_count väärtuse
   head()</code></pre>
 <pre><code>## # A tibble: 6 x 3
 ##    year obs_count change
@@ -426,7 +427,7 @@ us_state_populations%&gt;%
 <p>Saame veel lihtsamalt:</p>
 <pre class="r"><code>us_state_populations %&gt;%
     group_by(year) %&gt;%
-    tally() %&gt;%
+    tally() %&gt;% #loeb iga grupi elementide arvu kokku, sellest tuleb muutuja/veerg n
     mutate(change = n - lag(n))%&gt;%
   head()</code></pre>
 <pre><code>## # A tibble: 6 x 3
@@ -445,8 +446,8 @@ us_state_populations%&gt;%
 <pre class="r"><code>#cut lõikab muutuja faktoriteks
 us_state_populations$period&lt;-cut(us_state_populations$year,  
     #seq genereerib annab kohad, mis jaotab pika intervalli väiksemateks
-    seq(min(us_state_populations$year)-1,
-        max(us_state_populations$year)+2,5))
+    seq(min(us_state_populations$year)-1,#-1 ja +1 on et kas esimene ja viimane aasta jääks intervalli
+        max(us_state_populations$year)+1,5))
 #vaatame
 table(us_state_populations$year, us_state_populations$period)[1:5,1:6]</code></pre>
 <pre><code>##       
@@ -482,10 +483,19 @@ us_state_populations[is.na(us_state_populations$period),]$year</code></pre>
 <pre class="r"><code>#meie puhul on siin tegemist näpukaga.
 us_state_populations$period&lt;-cut(us_state_populations$year,  
     #seq genereerib annab kohad, mis jaotab pika intervalli väiksemateks
-    seq(min(us_state_populations$year)-1,
-        max(us_state_populations$year)+10,5), include.lowest = T)
+    seq(min(us_state_populations$year)-1,#lisan -1 ja järgmisele +1 et ka esimene ja viimane aasta jääks sisse
+        max(us_state_populations$year)+1,5), include.lowest = T)
 us_state_populations[is.na(us_state_populations$period),]$year</code></pre>
-<pre><code>## integer(0)</code></pre>
+<pre><code>##  [1] 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010
+## [15] 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010
+## [29] 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010
+## [43] 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010</code></pre>
+<pre class="r"><code>#eelmise rea asemel sobib ka see
+us_state_populations[is.na(us_state_populations$period),'year']</code></pre>
+<pre><code>##  [1] 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010
+## [15] 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010
+## [29] 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010
+## [43] 2010 2010 2010 2010 2010 2010 2010 2010 2010 2010</code></pre>
 <pre class="r"><code>#kui me tahame eemaldada read, kus on puuduvad väärtused, saab seda teha järgnevalt
 us_state_populations[complete.cases(us_state_populations), ]</code></pre>
 <p>Puuduvate väärtuste eemaldamiseks mingi funktsiooni kasutamisel on tihti funktsioonidel võimalus anda argument na.rm=T. Arvutuslike operatsioonide puhul on see vajalik, kuna puuduvad väärtused muudavad arvutuste tegemise keerukaks (kuidas puuduvast väärtustest kesmist võtta?).</p>
@@ -609,8 +619,8 @@ head(us_state_populations)</code></pre>
 ## [81] &quot;alaska&quot;                  &quot;hawaii&quot;                 
 ## [83] &quot;puerto_rico&quot;</code></pre>
 <p>Ei klapi, teeme väiketähtedeks ja asendame tühikud:</p>
-<pre class="r"><code>df_states$state=gsub(&quot; &quot;, &quot;_&quot;, df_states$state)
-df_states$state=tolower(df_states$state)
+<pre class="r"><code>df_states$state=gsub(&quot; &quot;, &quot;_&quot;, df_states$state)#asendame tühikud alakriipusga
+df_states$state=tolower(df_states$state)#teeme veeru state väiketähtedeks
 unique(df_states$state)</code></pre>
 <pre><code>##  [1] &quot;alabama&quot;              &quot;alaska&quot;               &quot;arizona&quot;             
 ##  [4] &quot;arkansas&quot;             &quot;california&quot;           &quot;colorado&quot;            
@@ -633,7 +643,7 @@ unique(df_states$state)</code></pre>
 <pre class="r"><code>df=merge(us_state_populations, df_states,by.x='state', by.y='state')
 head(df)</code></pre>
 <pre><code>##     state year population population_thousand      period region     pop
-## 1 alabama 2010    4779736            4779.736 (2009,2014]  South 4041000
+## 1 alabama 2010    4779736            4779.736        &lt;NA&gt;  South 4041000
 ## 2 alabama 1860     964201             964.201 (1859,1864]  South 4041000
 ## 3 alabama 1960    3266740            3266.740 (1959,1964]  South 4041000
 ## 4 alabama 1890    1513017            1513.017 (1889,1894]  South 4041000
@@ -675,7 +685,8 @@ head(df)</code></pre>
 ## 10  1880            48
 ## # ... with 13 more rows</code></pre>
 <p>Millised osariigid on puudu?</p>
-<pre class="r"><code>setdiff(unique(us_state_populations$state), unique(df$state))</code></pre>
+<pre class="r"><code>#setdiff näitab hulkade erinevust, millised osariigid on andmeraamis us_state_populations, mida pole andmeraamis df
+setdiff(unique(us_state_populations$state), unique(df$state))</code></pre>
 <pre><code>##  [1] &quot;southwest_territory&quot;     &quot;indiana_territory&quot;      
 ##  [3] &quot;mississippi_territory&quot;   &quot;northwest_territory&quot;    
 ##  [5] &quot;illinois_territory&quot;      &quot;louisiana_territory&quot;    
@@ -693,7 +704,7 @@ head(df)</code></pre>
 ## [29] &quot;oklahoma_territory&quot;      &quot;hawaii_territory&quot;       
 ## [31] &quot;persons_in_the_military&quot; &quot;puerto_rico&quot;</code></pre>
 <p>Praegu elame üle, et need välja jäävad, reaalses elus peame tähelepanelikult vaatama, mida me teeme.</p>
-<p>Lisaks on paar lihtsat viisi andmete ühendamiseks: <strong>rbind ja cbind</strong>. Esimene eeldab, et kaks andmeraami on samasuguse ridade jaotusega.</p>
+<p>Vahepõikena lisaks on paar lihtsat viisi andmete ühendamiseks: <strong>rbind ja cbind</strong>. Esimene eeldab, et kaks andmeraami on samasuguse ridade jaotusega.</p>
 <pre class="r"><code>df1=data.frame(
    emp_id = c (1:5), 
    emp_name = c(&quot;Rick&quot;,&quot;Dan&quot;,&quot;Michelle&quot;,&quot;Ryan&quot;,&quot;Gary&quot;),

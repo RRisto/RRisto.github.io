@@ -1,13 +1,22 @@
 ---
 title: "Koodihaldus, hea koodi põhimõtteid"
 author: "Risto Hinno"
-date: "4 jaanuar 2019"
+date: "12. jaanuar 2019"
 output: html_document
 ---
 
 ## Koodihaldus
 
-Koodi haldamiseks sobib enda arvuti väga hästi. Kui aga tekib tahtmine koodi jagada, soovitan kasutada githubi (https://github.com/), mis on tasuta (tasuline on privaatsete repode loomine). Koodi jagamiseks tuleks teha konto githubi. Windowsi arvutil on mugav programm: https://desktop.github.com/. Sellega saab ühenduda oma githubi kontole ja koodi sinna saata/sealt tõmmata.
+Koodi haldamiseks sobib enda arvuti väga hästi. Kui aga tekib tahtmine koodi jagada ning jälgida tehtud muudatusi, soovitan kasutada githubi (https://github.com/), mis on tasuta (tasuline on privaatsete repode loomine). Koodi jagamiseks tuleks teha konto githubi. Windowsi arvutil on mugav programm: https://desktop.github.com/. Sellega saab ühenduda oma githubi kontole ja koodi sinna saata/sealt tõmmata.
+
+Juhised github dekstopi kasutamiseks (nb enne peab githubi konto loodud olema):
+
+- installimine https://help.github.com/desktop/guides/getting-started-with-github-desktop/installing-github-desktop/
+- githubiga ühendamine: https://help.github.com/desktop/guides/getting-started-with-github-desktop/authenticating-to-github/
+- projekti lisaine githubi: https://help.github.com/desktop/guides/contributing-to-projects/adding-a-repository-from-your-local-computer-to-github-desktop/
+- muudatuste lisamine githubi: https://help.github.com/desktop/guides/contributing-to-projects/committing-and-reviewing-changes-to-your-project/
+
+Veel juhendeid: https://help.github.com/desktop/guides/contributing-to-projects/
 
 ## Mis on hea kood?
 
@@ -24,3 +33,9 @@ Selleks, et kood oleks selline, on mul mõned soovitused:
 - __võimalusel väldi koodi kordamist__, kasuta tsükleid, funktsioone (sh ise koostatud funktsioone). 
 - __ole võimalikult modulaarne__. St et iga koodi osa võiks teha korraga ühte asja. Erista sektsioonid, mis loevad andmeid sisse, puhastavad, visualiseerivaid neid jne. Siis on arusaadav, mis mida teeb (ja teeb jälgitavaks, kus midagi võib vussi minna). Vajadusel tee iga osa kohta eraldi raport või .R fail.
 - __kasuta pipe operaatorit__. See aitab oluliselt vähendada vahemuutujate hulka ja vähendab võimalust, et sa kirjutad mõne muutuja tahtmatult üle.
+
+Samas ei tasu vähemalt õpingute alguses koodi ilu pärast liiga palju muretseda, kasutades [Hadley Wickhami sõnu](https://twitter.com/hadleywickham/status/589068687669243905): 
+
+"_The only way to write good code is to write tons of shitty code first. Feeling shame about bad code stops you from getting to good code._"
+
+Oluline on kood esmalt tööle saada. Kogemuse kasvades võid juba võtta eesmärgiks oma varasemat koodi selgemaks ja lühemaks muuta. Ise olen tähendanud arengut, et kui vaatan enda aasta tagasi kirjutatud koodi, hakkab mul häbi. Järelikult on toimunud areng, mis on positiivne.

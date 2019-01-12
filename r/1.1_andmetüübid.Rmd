@@ -1,7 +1,7 @@
 ---
 title: "Baasandmetüübid"
 author: "Risto Hinno"
-date: "30 november 2018"
+date: "12. jaanuar 2019"
 output: html_document
 ---
 
@@ -22,11 +22,11 @@ a
 b
 c
 ```
-
+Eeltoodud näites lõime muutujad a, b ja c ning andsime neile väärtused. Vaata RStudio muutujate vaatest (paremal), kas muutujad on õigete väärtustega näha.
 
 #### Arvud
 
-Kõige lihtsamad asjad, mida Riga teha saab, on aritmeetilised operatsioonid.
+Kõige lihtsam, mida Riga teha saab, on aritmeetilised operatsioonid.
 ```{r}
 1+2
 2*2
@@ -37,8 +37,8 @@ Muutujate väärtustamine
 ```{r}
 x<-5
 y<-2
-+ x
-- x
++ x #muuda arv positiivseks
+- x #muuda arv negatiivseks
 x + y
 x - y
 x * y
@@ -54,7 +54,26 @@ x %/% y
 x<-2.5
 y<-6
 x %/% y
+
 ```
+
+```{r}
+sqrt(4) #ruutjuur
+log(10) #logaritm
+abs(-10) #absoluutväärtus
+```
+
+```{r}
+#tehete järjekorra hoidmiseks saab kasutada ümarsulgusid
+a<-5
+b<-10
+c<-20
+a+b*c
+(a+b)*c
+```
+
+##### Ülesanne
+On antud vektor c=c(4, 25, 49). Võta sellest ruutjuur ning liida juurde muutuja p, mille väärtus on 15. Mis on tulemuseks? Mis juhtub, kui p väärtuseks on hoopis c(15)? Aga kui p väärtuseks on c(15, 15, 15)? Ja viimasena, mis saab, kui p väärtuseks on hoopis c(15, 15) (ja miks selline tulemus tuli)?
 
  
 #### Loogilised operatsioonid
@@ -93,10 +112,21 @@ boolean1||boolean3
 isTRUE(boolean1)
 isTRUE(boolean3)
 ```
+##### Ülesanne
+
+Võttes aluseks eelmise näite muutujad:
+
+- boolean1=TRUE
+- boolean2=TRUE
+- boolean3=FALSE
+
+Mis võiks olla järgneva operatsiooni tulemus: 
+(boolean1|boolean3)&boolean1
 
 ## Komposiitandmetüübid
 
 ### Vektor
+Nagu alltoodud näidetes näha, on muutujatele võimalik anda väärtusi kasutads = märki, see on tihti mugavam kui <-. Ja see on ka täiesti lubatud.
 ```{r}
 #vektoriga oleme juba tuttavad, vektoriga saab teha tehteid
 vec1=c(1,2,3,4)
@@ -109,7 +139,7 @@ vec1+vec2
 vec1+vec3
 
 vec1+vec4
-vec1+vec5
+vec1+vec5#siin on viimane arv huvitav, kuna lühema vektori pikkus ei ole pikema vektori pikkusega võrdne (või siis täpselt jagatav pikkusega), hakkab ta lühema vektori algusest väärtusi võtma.
 ```
 
 ```{r}
@@ -122,6 +152,16 @@ vec1=c("tere", "halloo")
 vec2=c("maja", "auto")
 
 ```
+
+```{r}
+#järjestikust arvudest koosnevat vektorit saab luua nii
+vec1=c(1:10)
+vec1
+#sama asi aga tagurpidi
+vec2=c(10:1)
+vec2
+```
+
 __Ülesanded__
 
 - vec1+vec2 mis võib olla tulemuseks?
@@ -132,18 +172,30 @@ Elementidele viitamine (NB! vektor võib koosneda eri andmetüüpi elementidest)
 vec=c(1,2, "auto", TRUE)
 #indeksiga
 vec[1]
-#vahemiku indeks
+#vahemiku indeks (length näitab vektori pikkust)
 vec[1:length(vec)]
+#ma saame vahemiku ka tagurpidi pöörata
+vec[length(vec):1]
 vec[1:2]
+
 #vektor indeksitest
 vec[c(1,3)]
 #miinus näitab indeksit, mida me ei taha
 vec[-1]
 vec[-c(1,3)]
+
 ```
+##### Ülesanne
+
+On vektor c=c("kool", "lasteaed", "pood", "ladu")
+Leia vektori:
+ - teine element, 
+ - elemendid esimesest kuni kolmandani
+ - viimane element
+
 ### Andmeraam (dataframe)
 
-Põhilisemaid andmetüüpe R-s.
+Põhilisemaid andmetüüpe R-s. Võrreldav tabeliga.
 
 ```{r}
 #andmeraami võib vaadelda kui vektorite kogumit, kus read ja veerud koosnevad vektoritest
@@ -155,8 +207,11 @@ names(mydata) <- c("ID","Color","Passed") # variable names
 mydata
 ```
 Elementidele viitamine:
+
+ - andmeraam[veeru_indeks/nimi]
+ - andmeraam[rea_indeks/nimi, veeru_indeks/nimi]
 ```{r}
-mydata[1:2] # veerud 3,4,5 
+mydata[1:2] # veerud 1,2
 mydata[c("ID","Color")] # veerud ID ja Color 
 mydata$Passed # muutuja Passed 
 
@@ -192,7 +247,12 @@ __Ülesanne__
 
 Funktsioonid rbind ja cbind lisavad vastavalt kas rea või veeru:
 ```{r}
+cbind(mydata,(rep("uus", nrow(mydata))))
+```
+
+```{r}
 #eemaldame viimase rea
+#nrow näitab mitu rida on (ehk sisuliselt viimase rea indeks), meie paneme miinuse ette, et seda eemaldada
 mydata <- mydata[-nrow(mydata),] 
 mydata
 ```
@@ -200,24 +260,27 @@ __Ülesanne__
 
 - miks on hea kasutada versiooni mydata[-nrow(mydata),] mitte mydata[-5,]? Millal võiks viimast kasutada?
 ```{r}
+#välja arvatud esimene rida
 mydata[-1,]
 ```
 Loogilised operatioonid andmeraami alamhulga leidmiseks:
 ```{r}
+#read, kus uus_veerg väärtus on>10 ja Passed on TRUE, kõik veerud
 mydata[ which(mydata$uus_veerg>10& mydata$Passed==TRUE), ]
 
+#read, kus uus_veerg>10 ja Passed on >TRUE, veerud Passed ja Color
 mydata[ (mydata$uus_veerg>10& mydata$Passed==TRUE), c("Passed","Color")]
 ```
-```{r}
 
-subset(mydata, uus_veerg>10| mydata$Passed==TRUE,select=c(Color, Passed))
-```
 Veel võimalusi alamhulkade leidmiseks.
 ```{r}
-subset(mydata, uus_veerg>10 & mydata$Passed==TRUE,select=c(Color, Passed))
+#read, kus uus_veerg>10 või Passed on >TRUE, veerud Passed ja Color
+#alternatiiv ülemisele
+subset(mydata, uus_veerg>10| mydata$Passed==TRUE,select=c(Color, Passed))
 ```
 ```{r}
-newdata <- mydata[c(-3,-5)]
+#mydata alamhulk, kust on eemaldatud veerud number 3 ja 4.
+newdata <- mydata[c(-3,-4)]
 newdata
 ```
 
@@ -231,9 +294,10 @@ __Ülesanne__
 y<-matrix(1:20, nrow=5,ncol=4)
 y
 
-cells <- c(1,26,24,68)
-rnames <- c("R1", "R2")
-cnames <- c("C1", "C2") 
+cells <- c(1,26,24,68)#väärtused
+rnames <- c("R1", "R2")#reanimed
+cnames <- c("C1", "C2") #veerunimed
+#loome maatriksi
 mymatrix <- matrix(cells, nrow=2, ncol=2, byrow=TRUE,
   dimnames=list(rnames, cnames))
 mymatrix
@@ -244,6 +308,11 @@ y[,4] # 4. veerg
 y[3,] # 3. rida 
 y[2:4,1:3] # read 2,3,4 veerud 1,2,3
 ```
+```{r}
+#saame ka veeru ja rea nimede järgi alamhulki leida, kuid nimed peavad olema määratud. Maatriksil y neid pole 
+mymatrix["R1","C1"]
+```
+
 
 ### Lists
 
@@ -262,11 +331,15 @@ v <- c(w,w)
 v
 ```
 ```{r}
+#elemendi nime järgi leidmine
 v$name
+#veel üks võimalus nime jrgi leidmiseks
 v[["name"]]
+#indeksi järgi leidmine
 v[1]
+#listi esimese elemendi väärtus
 v[[1]] 
-
+#lsiti elemendi mymatrix read 1,2 ja veerud 3, 4
 v$mymatrix[1:2,3:4]
 ```
 

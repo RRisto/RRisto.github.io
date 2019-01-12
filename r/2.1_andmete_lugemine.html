@@ -11,7 +11,6 @@
 
 <meta name="author" content="Risto Hinno" />
 
-<meta name="date" content="2018-11-30" />
 
 <title>Andmete lugemine</title>
 
@@ -124,18 +123,22 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Andmete lugemine</h1>
 <h4 class="author"><em>Risto Hinno</em></h4>
-<h4 class="date"><em>30 november 2018</em></h4>
+<h4 class="date"><em><ol start="12" style="list-style-type: decimal">
+<li>jaanuar 2019</li>
+</ol></em></h4>
 
 </div>
 
 
 <div id="andmete-lugemine" class="section level2">
 <h2>Andmete lugemine</h2>
-<p>Andmeid on võimalik sisse lugeda erinevas formaadis. Lihtsam viis on excel, csv, txt jms failid (states.csv is on siin: <a href="https://github.com/RRisto/RRisto.github.io/blob/master/r/data/states.csv" class="uri">https://github.com/RRisto/RRisto.github.io/blob/master/r/data/states.csv</a>)</p>
-<pre class="r"><code>states=read.csv('data/states.csv')
+<p>Andmeid on võimalik sisse lugeda erinevas formaadis. Lihtsam viis on excel, csv, txt jms failid (states.csv is on siin: <a href="https://github.com/RRisto/RRisto.github.io/blob/master/r/data/states.csv" class="uri">https://github.com/RRisto/RRisto.github.io/blob/master/r/data/states.csv</a>, vajuta nuppu “Raw” ja seejärale ctrl+s ning salvesta fail)</p>
+<pre class="r"><code>#eeldab, et andmed on data kaustas
+states=read.csv('data/states.csv')
 class(states)</code></pre>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<pre class="r"><code>dim(states)</code></pre>
+<pre class="r"><code>#vaatame andmeraami dimensioone - ridade ja veergude arvu
+dim(states)</code></pre>
 <pre><code>## [1] 51 21</code></pre>
 <p>Muutujate kirjeldus:</p>
 <pre class="r"><code>str(states)</code></pre>
@@ -162,7 +165,8 @@ class(states)</code></pre>
 ##  $ high   : num  66.9 86.6 78.7 66.3 76.2 ...
 ##  $ college: num  15.7 23 20.3 13.3 23.4 ...</code></pre>
 <p>Alati kontrolli, kas asjad on korras:</p>
-<pre class="r"><code>head(states)</code></pre>
+<pre class="r"><code>#esimesed read
+head(states)</code></pre>
 <pre><code>##        state region      pop   area density metro waste energy miles toxic
 ## 1    Alabama  South  4041000  52423   77.08  67.4  1.11    393 10500 27.86
 ## 2     Alaska   West   550000 570374    0.96  41.1  0.91    991  7200 37.41
@@ -177,7 +181,8 @@ class(states)</code></pre>
 ## 4 26.04    25     37 1005  482  523       6    3700  24643 66.3    13.3
 ## 5 15.65    50     47  897  415  482      47    4491  41716 76.2    23.4
 ## 6 21.89    36     58  959  453  506      29    5064  35123 84.4    27.0</code></pre>
-<pre class="r"><code>tail(states)</code></pre>
+<pre class="r"><code>#viimased read
+tail(states)</code></pre>
 <pre><code>##            state  region     pop  area density metro waste energy miles
 ## 46       Vermont N. East  563000  9249   60.87  23.4  0.69    232 10400
 ## 47      Virginia   South 6187000 39598  156.25  72.5  1.45    306  9700
@@ -258,7 +263,7 @@ class(states)</code></pre>
 <p>Exceli sisselugemine on sarnane (HDIdat.xls.xlsx on siin: <a href="https://github.com/RRisto/RRisto.github.io/blob/master/r/data/HDIdat.xls.xlsx" class="uri">https://github.com/RRisto/RRisto.github.io/blob/master/r/data/HDIdat.xls.xlsx</a>):</p>
 <pre class="r"><code>library(readxl)
 hdi=read_excel(&quot;data/HDIdat.xls.xlsx&quot;)</code></pre>
-<pre class="r"><code>head(hdi, 20)</code></pre>
+<pre class="r"><code>head(hdi, 20)#lisaargument näitab mitu rida tahame sisse lugeda</code></pre>
 <pre><code>## # A tibble: 20 x 25
 ##    `International ~ X__1  X__2  X__3  X__4  X__5  X__6  X__7  X__8  X__9 
 ##    &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt; &lt;lgl&gt; &lt;chr&gt; &lt;lgl&gt;
@@ -287,7 +292,7 @@ hdi=read_excel(&quot;data/HDIdat.xls.xlsx&quot;)</code></pre>
 ## #   X__18 &lt;chr&gt;, X__19 &lt;lgl&gt;, X__20 &lt;chr&gt;, X__21 &lt;lgl&gt;, X__22 &lt;chr&gt;,
 ## #   X__23 &lt;lgl&gt;, X__24 &lt;chr&gt;</code></pre>
 <p>Siin on mure, excelist on ka palju muud peale andmete. Peaksime mõned read algusest vahele jätma.</p>
-<pre class="r"><code>hdi_orig=read_excel(&quot;data/HDIdat.xls.xlsx&quot;, skip = 19)
+<pre class="r"><code>hdi_orig=read_excel(&quot;data/HDIdat.xls.xlsx&quot;, skip = 19) #jätame esimesed 19 rida vahele
 head(hdi_orig)</code></pre>
 <pre><code>## # A tibble: 6 x 25
 ##   `HDI Rank` Country `1980` X__1  `1985` X__2  `1990` X__3  `1995` X__4 
@@ -326,9 +331,11 @@ head(hdi_orig)</code></pre>
 ## #   `2008` &lt;chr&gt;, X__9 &lt;lgl&gt;, `2009` &lt;chr&gt;, X__10 &lt;lgl&gt;, `2010` &lt;chr&gt;,
 ## #   X__11 &lt;lgl&gt;, `2011` &lt;chr&gt;</code></pre>
 <p>Ka lõpus on sama jama.</p>
-<pre class="r"><code>nrow(hdi_orig)</code></pre>
+<pre class="r"><code>#ridade arv
+nrow(hdi_orig)</code></pre>
 <pre><code>## [1] 209</code></pre>
-<pre class="r"><code>hdi=hdi_orig[-c((nrow(hdi_orig)-10):nrow(hdi_orig)),]
+<pre class="r"><code>#välsitame viimased 10 rida
+hdi=hdi_orig[-c((nrow(hdi_orig)-10):nrow(hdi_orig)),]
 tail(hdi)</code></pre>
 <pre><code>## # A tibble: 6 x 25
 ##   `HDI Rank` Country `1980` X__1  `1985` X__2  `1990` X__3  `1995` X__4 
@@ -345,7 +352,7 @@ tail(hdi)</code></pre>
 ## #   X__11 &lt;lgl&gt;, `2011` &lt;chr&gt;</code></pre>
 <pre class="r"><code>dim(hdi)</code></pre>
 <pre><code>## [1] 198  25</code></pre>
-<pre class="r"><code>#võime ka kohe ala ette anda
+<pre class="r"><code>#võime ka kohe ala ette anda, kui näeme excelist, kus andmed on
 hdi=read_excel(&quot;data/HDIdat.xls.xlsx&quot;, range = &quot;HDIdat!A20:Y218&quot;)
 dim(hdi)</code></pre>
 <pre><code>## [1] 198  25</code></pre>
