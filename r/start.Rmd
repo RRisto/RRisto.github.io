@@ -1,13 +1,14 @@
 ---
 title: "Sissejuhatus"
 author: "Risto Hinno"
-date: "30 november 2018"
+date: "12. jaanuar 2018"
 output: html_document
 ---
 # Kursuse ülevaade
 
 Käsitletavad teemad:
 
+ - [rstudio](0.0_rstudio)
  - [andmetüübid](1.1_andmet%C3%BC%C3%BCbid)
  - [tingimuslause, tsükkel ja funktsioon](1.2_tingimuslause_tsykkel)
  - [paketid](1.3_paketid)
@@ -69,4 +70,23 @@ Kuidas õppida?
 
 Kui on abi vaja, siis alusta ülaltoodud abi leidmise viisidest. Kui jääd hätta, võid ka minu käest küsida. Kirjuta mure siia: https://github.com/RRisto/RRisto.github.io/issues (palun pane nii selge pealkiri kui oskad) ning pane kaasa minimaalne koodiosa (kui küsimus on konkreetse näitega seotud) koos andmetega, et saaksin sinu viga/mure luua. Kui postitad sinna, siis näevad sinu küsimust ka teised ning saavad samuti abi.
 
+
+## Veel materjale/abivahendeid R-i õppimiseks
+
+- Swirl, on interaktiivne pakett, mis õpetab Ri kasutama. installi pakett "swirl" koos sobiva kursusega. Juhend selle kohta on siin: https://swirlstats.com/students.html Käsud on sellised:
+
+    - install.packages("swirl") #paketi pead ainult korra installima
+    - library(swirl)
+    - install_course("kursuse nimi") #kursuse nimi tuleb asendada tegeliku kursuse nimega, nimed on siin: https://github.com/swirldev/swirl_courses#swirl-courses
+    - swirl()
     
+- online kursused. Neid võib leida näiteks https://www.coursera.org lehelt. 
+
+    - Ise julgen soovitada: https://www.coursera.org/specializations/jhu-data-science (otseselt Ri programmeerimise kohta on see osa: https://www.coursera.org/learn/r-programming kuid kogu kursuse vältel toimub tegevus Ris).
+    - Datacamp: https://www.datacamp.com/courses/free-introduction-to-r
+    - edX: https://www.edx.org/course/introduction-r-data-science-3
+    
+Õppimise seisukohalt soovitan võtta üks kursus ja proovida see läbi teha (ei ole mõtet kursust pooleli jätta, lootes, et kuskil on veel parem kursus). Samuti on väga efektiivne õppevorm leida mõni eluline probleem, mida tahaksid Riga lahendada (nt teha analüüs, raport) ning hakata seda tegema. Kui mingi koht tundub keeruline, siis otsida konkreetse teema kohta materjali.
+
+
+        

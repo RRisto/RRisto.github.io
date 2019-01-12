@@ -1,0 +1,44 @@
+---
+title: "RStudio"
+author: "Risto Hinno"
+date: "12. jaanuar 2019"
+output: html_document
+---
+
+
+RStudio on Ri programmeerimise integreeritud arenduskeskkond (_integrated development environment_ ehk  IDE). Võttes RStudio lahti, avaneb selline vaade:
+
+![RStudio](figure/rstudio.png)
+Allikas: https://ipam2018ws.rbind.io/post/tutorial/r-studio/
+
+Mõni sõna tähendustest:
+
+- __Editor window__ (editor) - koht, kuhu saab kirjutada koodi. Siia kirjutatud koodi saad salvestada faili.
+- __R console__ (konsool) - koht, kus koodi jooksutatakse. Ka siia saab koodi kirjutada ning kohe jooksutada. Siia kirjutatud koodi ei salevstata. See läheb pärast RStudio sulgemist kaduma
+- __Workplace items__ (töökeskkonna muutujad) - käesoleva keskkonna muutujad. Siit saad näha, mis muutujad ole juba loonud, mis andmed oled sisse lugenud. Tabi "History" alt näed eelnevaid käske.
+- __Files in working directory__ - näed käesoleva projekti faile.
+- __Tabs for switching views__ - saad vahetada vaadet, failide asemel vaadata graafikuid (kui sa neid Riga tegema hakkavad tulevad need automaatselt esimeseks vaateks), pakette (mis on üldse sul olemas ja millised neist on aktiivsed) ning otsida abi.
+
+__Ülesanne__
+
+Kirjuta editori aknasse järgnevad read (iga rida eraldi reale):
+
+a<-3
+
+b<-4
+
+a+b
+
+Märgi eelnevad read ning vajuta ctrl+Enter. Vaata, mis toimub konsoolis ning töökeskkonna muutujate vaadetes.
+
+__Kiirkäsud__
+
+Eelnevas ülesndes kasutasime kiirkäsku ctrl+Enter. Neid on tegelikult veel. Neid võib näha nii menüüdes (nt "View" menüüs on paljudel käskudel kiirkäsu variandid). Lisaks on olemas ka abimaterjale: https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf
+
+Kiirkäsud teevad Ri kasutamise oluliselt kiiremaks. Kõiki neid ei lähe vaja (3-5 enimkasutatavat käsku võiks olla küll peas). Ise kasutan põhiliselt neid kahte käsku:
+
+- ctrl+Enter (jooksutab konsoolis koodiread, mis on editoris aktiivseks tehtud)
+- ctrl+shift+Enter (jooksutab konsoolis kõik editoris olevad read)
+- ctrl+s (salvestab editoris oleva faili)
+- ctrl+c (kopeerib aktiivse osa)
+- ctrl+p (kleebib kopeeritud osa kohta, kus kursor on aktiivne)
