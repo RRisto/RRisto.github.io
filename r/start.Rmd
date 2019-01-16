@@ -18,7 +18,9 @@ Käsitletavad teemad:
  - [graafikud](3.1_graafikud)
  - [raportite tegemine](3.2_raportid)
  - [koodi jagamine, hea koodi põhimõtteid](4.0_kood)
+ - [masinõpe](5.0_masinope)
  
+Kõiki teemasid ei jõua loengutes põhjalikult käsitleda, selleks käesoleva veebimaterjal, mis võiks aidata ise pusimisele kaasa.
 
 ## R-st
 

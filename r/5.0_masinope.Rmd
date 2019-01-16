@@ -1,0 +1,156 @@
+---
+title: "Masinõpe"
+author: "Risto Hinno"
+date: "16. jaanuar 2019"
+output: html_document
+---
+
+Käesolev peatükk annab põgusa näite, kuidas masinõpet kasutada. Masinõpe eesmärgiks on luua võimalikult hea algoritm määratud ülesande täitmiseks (https://en.wikipedia.org/wiki/Machine_learning). Ülesanded võivad olla erinevad: piltidelt objektide leidmine, toote hinna ennustamine jne. Tegemist on suure ja väga kiiresti areneva alaga. Kellel teema vastu rohkem huvi, siis soovitan teha läbi mõni e-kursus (https://www.coursera.org/learn/practical-machine-learning, kuid paha ei teeks ka kogu kursuste kogumiku läbimine: https://www.coursera.org/specializations/jhu-data-science). On olemas ka raamat, mis on küllaltki hea (alguses võib teooria hirmutav tunduda, see polegi nii tähtis. Raamatu tugevuses on koodinäidised): http://www-bcf.usc.edu/~gareth/ISL/ISLR%20Seventh%20Printing.pdf. Nüd asja juurde.
+
+Näidise olen häbitult võtnud siit: https://machinelearningmastery.com/machine-learning-in-r-step-by-step/
+
+## Paketid
+Meil on vaja careti paketti ja e1071 paketti
+```{r,eval=FALSE}
+install.packages('caret', dependencies=T) #siin on vaja ka teisi pakette, millest see pakett sõltub
+install.packages('e1071')
+```
+
+## Andmed
+
+Esmalt laeme sisse andmed:
+```{r}
+library(caret)
+library(e1071)
+#see on Riga kaasasolev andmehulk, laeme selle sisse
+data(iris)
+# nimetame selle ümber
+dataset <- iris
+```
+
+## Treening- ja testandmestik
+
+Masinõppe üks baaskontseptsioone on treening- ja testandmestik. Selleks, et hinnata, kui hea meie mudel on, on meil vaja andmestikku, mida mudel ei ole näinud. Kui me kasutaks andmeid, mida mudel on näinud, saaksime liiga optimistliku hinnangu. Meie eesmärk on, et mudel õpiks üldistama, mis aitab saavutada täpseimat tulemust Me soovime vältida olukordi, kus mudel on midagi konkreetset "pähe tuupinud". 
+
+Selleks loome treening- ja testandmestiku. Tavaliselt jäetakse testandmestikuks 10%-20% andmetest.
+```{r}
+# teeme indexi species veerust indeksi, mis võtab 80% väärtustest juhuslikult
+validation_index <- createDataPartition(dataset$Species, p=0.80, list=FALSE)
+# 20% valideerimisandmestiku loomine
+validation <- dataset[-validation_index,]
+#80% treeningandmetikuks
+dataset <- dataset[validation_index,]
+```
+
+##Ülevaade andmetest
+
+Viskame andmetele pilgu peale.
+
+```{r}
+dim(dataset)
+head(dataset)
+#Species tasemed
+levels(dataset$Species)
+
+#Species jaotus (võid proovida seda teha ka tidyverse abiga)
+percentage <- prop.table(table(dataset$Species)) * 100
+cbind(freq=table(dataset$Species), percentage=percentage)
+```
+```{r}
+	
+# kokkuvõte
+summary(dataset)
+```
+```{r}
+
+# teeme sisendmuutujatest ja väljundmuutujast eraldi muutujad
+x <- dataset[,1:4]
+y <- dataset[,5]
+# scatterplot maatriks, alusena kasutab paketti lattice
+obj <- featurePlot(x=x, y =y, plot="pairs")
+print(obj)
+```
+
+Ksutame ka ggploti, enne on vaja andmed pikka formaati viia.
+
+```{r}
+library(reshape2)
+dataset_long=melt(dataset, id.vars=c("Species"))
+```
+
+```{r}
+ggplot(dataset_long, aes(x=value, group=Species, color=Species))+
+  geom_density()+
+  facet_grid(.~variable, scales="free")+
+  theme_minimal()
+```
+
+## Ristvalideerimine
+
+Lisaks testandmetele, mida peaksime ideaalsi kasutama ühe korra lõpliku mudeli hindamiseks, kasutame ka ristvalideerimist. See tähendab, et võtame treeningandmed ja jagame need n tükiks (meiep uhul 10-ks). Ja siis teeme nii:
+  - võtame tükid 1-9, treenime mudeli
+  - võtame tüki 10 ja hindame mudeli täpsust
+  - võtame järgmised tükid 2-10, treenime uue mudeli
+  - võtame tüki 1 ja hindame mudeli täpsust
+  - kordame kuni kõik tükid on kasutatud nii treenimisel ja hindamisel
+  
+Ristvalideerimise plussiks on, et saame teada ka kui stabiilne täpsus on sõltuvalt mudelisse sattuvatest andmetest.
+```{r}
+#meie jagame andmed 10ks tükiks, "cv" tähendab cross-validationit ehk ristvalideerimist
+control <- trainControl(method="cv", number=10)
+#ütleme, kuidas mudeli headust mõõdame
+metric <- "Accuracy"
+```
+Kui on soov kasutada muud muutrikat, siis võib selle kohta lugeda siit: https://topepo.github.io/caret/model-training-and-tuning.html#metrics
+
+## Treenimine
+
+Me kasutame erinevaid algoritem mudelite treenimiseks. Panen siia nende nimed (nende mudelite hingeelu lahkamine pole kahjuks selle kursuse eesmärk, see nõuaks eraldi kursust):
+
+- Linear Discriminant Analysis (LDA)
+- Classification and Regression Trees (CART).
+- k-Nearest Neighbors (kNN).
+- Support Vector Machines (SVM) with a linear kernel.
+- Random Forest (RF)
+```{r}
+set.seed(7) #see määrab, juhuslikkuse, mida mudeli treenimiseks kasutatakse. Ilma selleta saaksime iga kord kui mudelit treenimine veidi erineva tulemuse juhuslikkuse tõttu.
+fit.lda <- train(Species~., data=dataset, method="lda", metric=metric, trControl=control)
+# CART
+set.seed(7)
+fit.cart <- train(Species~., data=dataset, method="rpart", metric=metric, trControl=control)
+# kNN
+set.seed(7)
+fit.knn <- train(Species~., data=dataset, method="knn", metric=metric, trControl=control)
+# SVM
+set.seed(7)
+fit.svm <- train(Species~., data=dataset, method="svmRadial", metric=metric, trControl=control)
+# Random Forest
+set.seed(7)
+fit.rf <- train(Species~., data=dataset, method="rf", metric=metric, trControl=control)
+```
+
+
+##Tulemused
+
+caret pakett hoolitseb kogu treenimise ja hindamise eest, meie korjame ainult tulemused kokku. Ristvalideerimise tulemused.
+```{r}
+# väga mugav funktsioon tulemuste kokku korjamiseks
+results <- resamples(list(lda=fit.lda, cart=fit.cart, knn=fit.knn, svm=fit.svm, rf=fit.rf))
+summary(results)
+```
+Sama asi ka joonisel:
+```{r}
+dotplot(results)
+```
+
+
+## Testimine
+
+Nüüd toome mängu andmed, mida mudel näinud pole, see peaks andma meile üsna reaalse hinnangu mudeli täpsusest.
+
+```{r}
+#siin kasutan ainult LDA algoritmi, teie ülesandeks jääb ka teiste kasutamine
+predictions <- predict(fit.lda, validation)
+confusionMatrix(predictions, validation$Species)
+```
+Nagu näha saime väga täpse mudeli (täpsus on 1 ehk 100%), mis praktikas võiks teha veidi kahtlevaks. Samas käesoleval juhul oli tegemist ka küllaltki lihtsa andmestikuga. Nagu näha saame mudeli täpsuse kohta päris täpse ja suhteliselt palju infot.
