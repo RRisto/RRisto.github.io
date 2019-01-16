@@ -189,6 +189,7 @@ vec[-c(1,3)]
 
 On vektor c=c("kool", "lasteaed", "pood", "ladu")
 Leia vektori:
+
  - teine element, 
  - elemendid esimesest kuni kolmandani
  - viimane element

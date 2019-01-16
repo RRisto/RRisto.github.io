@@ -70,7 +70,7 @@ Kuidas õppida?
 - asjad, mis on ebaselged, pole meeles, kuid, mida oleks vaja teada. Tee nende kohta __mõttekaardid__ ja korda, kui mõni vaba hetk on. Ise kasutan appi: https://apps.ankiweb.net/. 10 min päevas ning sa üllatud kui kiiresti sa asjad selgeks saad. Pähe tuupimine pole eesmärk, kuid baasfunktsioonid, ja -tõed peaksid olema peas. See teeb suu palju kiiremaks ning võimaldab omandada juba keerukamat infot.
 - kui sa ei usu, et sinu aju suudab seda õppida, __loe läbi raamat__: https://www.amazon.com/Mind-Numbers-Science-Flunked-Algebra/dp/039916524X ja põhjenda, mis sinus nii erilist on, et ei suuda Ri õppida
 
-Kui on abi vaja, siis alusta ülaltoodud abi leidmise viisidest. Kui jääd hätta, võid ka minu käest küsida. Kirjuta mure siia: https://github.com/RRisto/RRisto.github.io/issues (palun pane nii selge pealkiri kui oskad) ning pane kaasa minimaalne koodiosa (kui küsimus on konkreetse näitega seotud) koos andmetega, et saaksin sinu viga/mure luua. Kui postitad sinna, siis näevad sinu küsimust ka teised ning saavad samuti abi.
+Kui on abi vaja, siis alusta ülaltoodud abi leidmise viisidest. Kui jääd hätta, võid ka minu käest küsida. Kirjuta mure siia: https://github.com/RRisto/RRisto.github.io/issues (palun pane nii selge pealkiri kui oskad) ning pane kaasa minimaalne koodiosa (kui küsimus on konkreetse näitega seotud) koos andmetega, et saaksin sinu viga/mure luua. Kui sul githubi kontot pole, siis kirjuta e-kiri ristohinno@gmail.com (lisa sama info, mis oleks ka githubis). Kui postitad sinna, siis näevad sinu küsimust ka teised ning saavad samuti abi.
 
 
 ## Veel materjale/abivahendeid R-i õppimiseks
