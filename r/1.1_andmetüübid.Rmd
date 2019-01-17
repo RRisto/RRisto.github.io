@@ -148,9 +148,17 @@ vec2=c(FALSE,FALSE, TRUE)
 vec1+vec2
 ```
 ```{r}
+#võrdlene kas vekoritd on samad
 vec1=c("tere", "halloo")
 vec2=c("maja", "auto")
-
+all.equal(vec1, vec2)
+```
+```{r}
+vec1==vec2
+vec1=c("tere", "halloo")
+vec2=c("tere", "halloo")
+all.equal(vec1, vec2)
+vec1==vec2
 ```
 
 ```{r}
@@ -209,8 +217,8 @@ mydata
 ```
 Elementidele viitamine:
 
- - andmeraam[veeru_indeks/nimi]
- - andmeraam[rea_indeks/nimi, veeru_indeks/nimi]
+ - andmeraam[veeru_indeks/nimi] - annab konkreetse veeru
+ - andmeraam[rea_indeks/nimi, veeru_indeks/nimi]- annab konkreetse rea/ridaded väärtuse(d) konkreetses veerus/veergudes
 ```{r}
 mydata[1:2] # veerud 1,2
 mydata[c("ID","Color")] # veerud ID ja Color 

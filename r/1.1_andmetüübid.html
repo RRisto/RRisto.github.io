@@ -291,8 +291,19 @@ vec1+vec2</code></pre>
 vec2=c(FALSE,FALSE, TRUE)
 vec1+vec2</code></pre>
 <pre><code>## [1] 1 0 2</code></pre>
+<pre class="r"><code>#võrdlene kas vekoritd on samad
+vec1=c(&quot;tere&quot;, &quot;halloo&quot;)
+vec2=c(&quot;maja&quot;, &quot;auto&quot;)
+all.equal(vec1, vec2)</code></pre>
+<pre><code>## [1] &quot;2 string mismatches&quot;</code></pre>
+<pre class="r"><code>vec1==vec2</code></pre>
+<pre><code>## [1] FALSE FALSE</code></pre>
 <pre class="r"><code>vec1=c(&quot;tere&quot;, &quot;halloo&quot;)
-vec2=c(&quot;maja&quot;, &quot;auto&quot;)</code></pre>
+vec2=c(&quot;tere&quot;, &quot;halloo&quot;)
+all.equal(vec1, vec2)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>vec1==vec2</code></pre>
+<pre><code>## [1] TRUE TRUE</code></pre>
 <pre class="r"><code>#järjestikust arvudest koosnevat vektorit saab luua nii
 vec1=c(1:10)
 vec1</code></pre>
