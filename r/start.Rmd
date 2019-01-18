@@ -1,10 +1,10 @@
 ---
-title: "Sissejuhatus"
+title: "R-i lühikursus"
 author: "Risto Hinno"
 date: "12. jaanuar 2019"
 output: html_document
 ---
-# Kursuse ülevaade
+## Kursuse ülevaade
 
 Käsitletavad teemad:
 
