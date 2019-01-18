@@ -20,7 +20,7 @@ Käsitletavad teemad:
  - [koodi jagamine, hea koodi põhimõtteid](4.0_kood)
  - [masinõpe](5.0_masinope)
  
-Kõiki teemasid ei jõua loengutes põhjalikult käsitleda, selleks käesoleva veebimaterjal, mis võiks aidata ise pusimisele kaasa.
+Kõiki teemasid ei jõua loengutes põhjalikult käsitleda, mistõttu on abiks käesolev veebimaterjal, mis võiks aidata iseseisvale pusimisele kaasa.
 
 ## R-st
 
