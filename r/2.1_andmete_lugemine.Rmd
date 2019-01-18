@@ -2,14 +2,16 @@
 title: "Andmete lugemine"
 author: "Risto Hinno"
 date: "12. jaanuar 2019"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 ## Andmete lugemine
 
 Andmeid on võimalik sisse lugeda erinevas formaadis. Lihtsam viis on excel, csv, txt jms failid
-(states.csv is on siin: https://github.com/RRisto/RRisto.github.io/blob/master/r/data/states.csv, vajuta nuppu "Raw" ja seejärale ctrl+s ning salvesta fail)
+(states.csv is on siin: https://github.com/RRisto/RRisto.github.io/blob/master/r/data/states.csv, vajuta nuppu "Raw" ja seejärale ctrl+s ning salvesta fail NB! kasuta allalaadmiseks chrome'i või firefoxi brauserit, internet explorer mudib faili liiga palju)
 ```{r}
-#eeldab, et andmed on data kaustas
+#eeldab, et andmed on data kaustas, NB! kausta järel peab olema /
 states=read.csv('data/states.csv')
 class(states)
 #vaatame andmeraami dimensioone - ridade ja veergude arvu
@@ -97,7 +99,7 @@ Internet:
 ```{r, eval=FALSE}
 library(httr)
 url='https://evs.nci.nih.gov/ftp1/CDISC/SDTM/SDTM%20Terminology.xls'
-#tõmbab faili alla, teeb ajutise faili, leob sisse
+#tõmbab faili alla, teeb ajutise faili, loeb sisse
 GET(url, write_disk(tf <- tempfile(fileext = ".xls")))
 df <- read_excel(tf, 2L)
 ```

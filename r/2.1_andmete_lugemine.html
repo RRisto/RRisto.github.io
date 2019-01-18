@@ -132,8 +132,8 @@ $(document).ready(function () {
 
 <div id="andmete-lugemine" class="section level2">
 <h2>Andmete lugemine</h2>
-<p>Andmeid on võimalik sisse lugeda erinevas formaadis. Lihtsam viis on excel, csv, txt jms failid (states.csv is on siin: <a href="https://github.com/RRisto/RRisto.github.io/blob/master/r/data/states.csv" class="uri">https://github.com/RRisto/RRisto.github.io/blob/master/r/data/states.csv</a>, vajuta nuppu “Raw” ja seejärale ctrl+s ning salvesta fail)</p>
-<pre class="r"><code>#eeldab, et andmed on data kaustas
+<p>Andmeid on võimalik sisse lugeda erinevas formaadis. Lihtsam viis on excel, csv, txt jms failid (states.csv is on siin: <a href="https://github.com/RRisto/RRisto.github.io/blob/master/r/data/states.csv" class="uri">https://github.com/RRisto/RRisto.github.io/blob/master/r/data/states.csv</a>, vajuta nuppu “Raw” ja seejärale ctrl+s ning salvesta fail NB! kasuta allalaadmiseks chrome’i või firefoxi brauserit, internet explorer mudib faili liiga palju)</p>
+<pre class="r"><code>#eeldab, et andmed on data kaustas, NB! kausta järel peab olema /
 states=read.csv('data/states.csv')
 class(states)</code></pre>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
@@ -394,7 +394,7 @@ dim(hdi)</code></pre>
 <p>Internet:</p>
 <pre class="r"><code>library(httr)
 url='https://evs.nci.nih.gov/ftp1/CDISC/SDTM/SDTM%20Terminology.xls'
-#tõmbab faili alla, teeb ajutise faili, leob sisse
+#tõmbab faili alla, teeb ajutise faili, loeb sisse
 GET(url, write_disk(tf &lt;- tempfile(fileext = &quot;.xls&quot;)))
 df &lt;- read_excel(tf, 2L)</code></pre>
 <p><strong>Ülesanne</strong></p>

@@ -10,7 +10,7 @@ Järgnevalt näitan põgusalt mõningaid võimalusi mida R andmetega teha võima
 
 ### Andmed
 
-Laeme andmed sisse (andmed on siin: https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv, vajuta nuppu "Raw" ja siis ctrl+s ning salvesta fail):
+Laeme andmed sisse (andmed on siin: https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv, vajuta nuppu "Raw" ja siis ctrl+s ning salvesta fail, kasuta allalaadimiseksk chrome'i või firefoxi brauserit):
 ```{r}
 us_state_populations<-read.csv("data/introductory_state_example.csv")
 #esimesed 6 rida andmetest
@@ -113,7 +113,9 @@ us_state_populations %>%
   #grupeerime osariigi järgi
   group_by(state)%>%
   #arvutame iga grupi kohta keskmise ja st. hälve
-  summarise(keskmine=mean(population),mediaan=median(population), mood=mode(population),
+  summarise(keskmine=mean(population),
+            mediaan=median(population), 
+            mood=mode(population),
             sandardhälve=sd(population))
 
 ```
@@ -125,11 +127,13 @@ head(us_state_populations)
 # dplyr approach
 us_state_populations %>%
     select(state, year) %>%
+  #kasvavas järjestuses
     arrange(state)%>%
   head()
 
 us_state_populations %>%
     select(state, year) %>%
+  #kahanevas järjestuses
     arrange(desc(state))%>%
   head()
 ```

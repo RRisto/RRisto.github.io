@@ -133,7 +133,7 @@ $(document).ready(function () {
 <p>Järgnevalt näitan põgusalt mõningaid võimalusi mida R andmetega teha võimaldab. Tegemist on kerge ülevaatega, Riga saab teha veel palju muudki.</p>
 <div id="andmed" class="section level3">
 <h3>Andmed</h3>
-<p>Laeme andmed sisse (andmed on siin: <a href="https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv" class="uri">https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv</a>, vajuta nuppu “Raw” ja siis ctrl+s ning salvesta fail):</p>
+<p>Laeme andmed sisse (andmed on siin: <a href="https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv" class="uri">https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv</a>, vajuta nuppu “Raw” ja siis ctrl+s ning salvesta fail, kasuta allalaadimiseksk chrome’i või firefoxi brauserit):</p>
 <pre class="r"><code>us_state_populations&lt;-read.csv(&quot;data/introductory_state_example.csv&quot;)
 #esimesed 6 rida andmetest
 head(us_state_populations)</code></pre>
@@ -186,8 +186,9 @@ dim(us_state_populations)</code></pre>
 <div id="filtreerimine-pipe" class="section level3">
 <h3>Filtreerimine, pipe</h3>
 <p>Ütleme, et tahame filtreerida välja read, mis käivad California ja New York’i kohta:</p>
-<pre class="r"><code>library(tidyverse)
-#tulemus omistatakse muutujale df_california_ny, aluseks võtame andmed
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## Warning: package 'ggplot2' was built under R version 3.5.2</code></pre>
+<pre class="r"><code>#tulemus omistatakse muutujale df_california_ny, aluseks võtame andmed
 #muutujast us_state_populations
 df_california_ny&lt;-us_state_populations %&gt;% 
   #filtreerimne välja osariigid, millen nimed on alltoodud vektoris c(...)
@@ -264,7 +265,9 @@ us_state_populations %&gt;%
   #grupeerime osariigi järgi
   group_by(state)%&gt;%
   #arvutame iga grupi kohta keskmise ja st. hälve
-  summarise(keskmine=mean(population),mediaan=median(population), mood=mode(population),
+  summarise(keskmine=mean(population),
+            mediaan=median(population), 
+            mood=mode(population),
             sandardhälve=sd(population))</code></pre>
 <pre><code>## # A tibble: 2 x 5
 ##   state       keskmine mediaan mood    sandardhälve
@@ -285,6 +288,7 @@ us_state_populations %&gt;%
 <pre class="r"><code># dplyr approach
 us_state_populations %&gt;%
     select(state, year) %&gt;%
+  #kasvavas järjestuses
     arrange(state)%&gt;%
   head()</code></pre>
 <pre><code>##     state year
@@ -296,6 +300,7 @@ us_state_populations %&gt;%
 ## 6 Alabama 1870</code></pre>
 <pre class="r"><code>us_state_populations %&gt;%
     select(state, year) %&gt;%
+  #kahanevas järjestuses
     arrange(desc(state))%&gt;%
   head()</code></pre>
 <pre><code>##               state year

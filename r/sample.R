@@ -1,11 +1,8 @@
-a=c(1,2,3)
-b=c(4,5,6)
-
-tulemus=c()
-for (i in 1:length(a)) {
-  tulemus[i]=a[i]+b[i]
-}
-
-tulemus
-
+a=1
+b=2
+#kommentaar
+a<-1 #kommentaar 2
+#ededede
+#deededededededeedede
 a+b
+2
