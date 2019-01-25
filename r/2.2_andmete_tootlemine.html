@@ -311,6 +311,8 @@ us_state_populations %&gt;%
 ## 5           Wyoming 1910
 ## 6           Wyoming 1920</code></pre>
 <pre class="r"><code>#ilma tidyversita
+#c(&quot;state&quot;, &quot;year&quot;) valib veerud year ja state
+#order(us_state_populations$state) muudab ridade järjestuse arvestades state muutuja tähestikulist järjestus
 head(us_state_populations[order(us_state_populations$state), c(&quot;state&quot;, &quot;year&quot;)])</code></pre>
 <pre><code>##       state year
 ## 60  Alabama 1820
