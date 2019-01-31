@@ -10,7 +10,7 @@ Järgnevalt näitan põgusalt mõningaid võimalusi mida R andmetega teha võima
 
 ### Andmed
 
-Laeme andmed sisse (andmed on siin: https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv, vajuta nuppu "Raw" ja siis ctrl+s ning salvesta fail, kasuta allalaadimiseksk chrome'i või firefoxi brauserit):
+Laeme andmed sisse (andmed on siin: https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv, vajuta nuppu "Raw" ja siis ctrl+s ning salvesta fail, kasuta allalaadimiseks chrome'i või firefoxi brauserit):
 ```{r}
 us_state_populations<-read.csv("data/introductory_state_example.csv")
 #esimesed 6 rida andmetest
@@ -24,11 +24,13 @@ tail(us_state_populations)
 
 Vaatame, mis andmetes on.
 ```{r}
+#kirjeldab, mis veerud ja mis tüüpi andmed on (int - täisarv, Factor - kategooriline muutuja)
 str(us_state_populations)
+#tagastab muutuja jatouse info (pidev muutuja) või arvu iga kategooria taseme kohta (kategooriline muutuja)
 summary(us_state_populations)
 ```
 ```{r}
-#andmeraami dimensioonid
+#andmeraami dimensioonid - read, veerud
 dim(us_state_populations)
 ```
 

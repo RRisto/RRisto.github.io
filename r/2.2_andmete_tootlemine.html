@@ -133,7 +133,7 @@ $(document).ready(function () {
 <p>Järgnevalt näitan põgusalt mõningaid võimalusi mida R andmetega teha võimaldab. Tegemist on kerge ülevaatega, Riga saab teha veel palju muudki.</p>
 <div id="andmed" class="section level3">
 <h3>Andmed</h3>
-<p>Laeme andmed sisse (andmed on siin: <a href="https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv" class="uri">https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv</a>, vajuta nuppu “Raw” ja siis ctrl+s ning salvesta fail, kasuta allalaadimiseksk chrome’i või firefoxi brauserit):</p>
+<p>Laeme andmed sisse (andmed on siin: <a href="https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv" class="uri">https://github.com/RRisto/RRisto.github.io/blob/master/r/data/introductory_state_example.csv</a>, vajuta nuppu “Raw” ja siis ctrl+s ning salvesta fail, kasuta allalaadimiseks chrome’i või firefoxi brauserit):</p>
 <pre class="r"><code>us_state_populations&lt;-read.csv(&quot;data/introductory_state_example.csv&quot;)
 #esimesed 6 rida andmetest
 head(us_state_populations)</code></pre>
@@ -154,12 +154,14 @@ tail(us_state_populations)</code></pre>
 ## 980 2010       Wyoming     563626
 ## 981 2010   Puerto Rico    3725789</code></pre>
 <p>Vaatame, mis andmetes on.</p>
-<pre class="r"><code>str(us_state_populations)</code></pre>
+<pre class="r"><code>#kirjeldab, mis veerud ja mis tüüpi andmed on (int - täisarv, Factor - kategooriline muutuja)
+str(us_state_populations)</code></pre>
 <pre><code>## 'data.frame':    981 obs. of  3 variables:
 ##  $ year      : int  1790 1790 1790 1790 1790 1790 1790 1790 1790 1790 ...
 ##  $ state     : Factor w/ 83 levels &quot;Alabama&quot;,&quot;Alaska&quot;,..: 11 13 17 34 35 48 49 52 55 64 ...
 ##  $ population: int  237655 59096 82548 319728 475199 141899 184139 340241 395005 433611 ...</code></pre>
-<pre class="r"><code>summary(us_state_populations)</code></pre>
+<pre class="r"><code>#tagastab muutuja jatouse info (pidev muutuja) või arvu iga kategooria taseme kohta (kategooriline muutuja)
+summary(us_state_populations)</code></pre>
 <pre><code>##       year                state       population      
 ##  Min.   :1790   Connecticut  : 23   Min.   :    4762  
 ##  1st Qu.:1870   Delaware     : 23   1st Qu.:  412198  
@@ -168,7 +170,7 @@ tail(us_state_populations)</code></pre>
 ##  3rd Qu.:1970   Massachusetts: 23   3rd Qu.: 2915841  
 ##  Max.   :2010   New Hampshire: 23   Max.   :37253956  
 ##                 (Other)      :843</code></pre>
-<pre class="r"><code>#andmeraami dimensioonid
+<pre class="r"><code>#andmeraami dimensioonid - read, veerud
 dim(us_state_populations)</code></pre>
 <pre><code>## [1] 981   3</code></pre>
 </div>

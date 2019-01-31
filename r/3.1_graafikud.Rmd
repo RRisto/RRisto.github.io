@@ -1,5 +1,5 @@
 ---
-title: "Andmete töötlemine"
+title: "Graafikud"
 author: "Risto Hinno"
 date: "12. jaanuar 2019"
 output: html_document
@@ -370,7 +370,7 @@ ggplot(us_state_populations, aes(x=population_thousand))+
   geom_density(color="black", fill="lightblue", linetype="dashed")+
   theme_light()
 #salvestab välja prinditud ploti faili
-ggsave("myplot.png")
+ggsave("myplot.png", width = 4, height = 4)
 ```
 
 
