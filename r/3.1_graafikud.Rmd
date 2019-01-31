@@ -35,6 +35,8 @@ hist(us_state_populations$population_thousand, main="Histogram of population")
 boxplot(us_state_populations$population_thousand, main="Boxplot of population")
 
 ```
+
+
 ## Lattice
 
 Lattice on üks pakett graafikute tegemiseks. Annab veidi ilusamaid graafikuid kui baasgraafikud. Kuid isiklikult ei kasuta peaaegu üldse. Siin on paar näidet.
