@@ -1,9 +1,9 @@
 library(readxl)
 #leiame kõik .xlsx lõpuga failid ette antud kaustas
-xlsx_files=list.files('data/example_csv/',pattern = '*xlsx')
+csv_files=list.files('data/example_csv/',pattern = '*xlsx')
 
 #ükshaaval käime failid läbi ja teeme järgnevad operatsioonid
-for (fl in xlsx_files) {
+for (fl in csv_files) {
   #prindime faili nime välja
   print(fl)
   #loome stringi, mis on teekond failini
