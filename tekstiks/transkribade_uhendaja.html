@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8">
+  <title>Transkriptsioonide ühendaja</title>
+</head>
+<body>
+  <h2>Ühenda <a href="https://tekstiks.ee/" target="_blank">tekstiks.ee</a> transkriptsioonid üheks .txt failiks</h2>
+
+  <div id="fileList"></div>
+  <button onclick="addFileInput()">Lisa uus transkriptsioon</button><br><br>
+
+  <label><input type="checkbox" id="segmentLevel">Iga sõna/fraasi ajatempel</label><br><br>
+  <button onclick="mergeTranscripts()">Ühenda ja ekspordi</button>
+
+  <h3>Eelvaade</h3>
+  <pre id="output" style="white-space: pre-wrap; max-height: 300px; overflow-y: auto;"></pre>
+  <a id="downloadLink" style="display:none" download="merged_transcript.txt">Tõmba alla</a>
+
+  <script>
+    let fileInputs = [];
+
+    function formatTime(seconds) {
+      const date = new Date(seconds * 1000);
+      return date.toISOString().substr(11, 12); // HH:MM:SS.sss
+    }
+
+    function addFileInput() {
+      const index = fileInputs.length;
+      const wrapper = document.createElement("div");
+      wrapper.style.marginBottom = "10px";
+
+      const fileInput = document.createElement("input");
+      fileInput.type = "file";
+      fileInput.accept = ".json";
+      fileInput.required = true;
+
+      const durationInput = document.createElement("input");
+      durationInput.type = "number";
+      durationInput.min = "0";
+      durationInput.step = "any";
+      durationInput.placeholder = "Kestus sekundites";
+      durationInput.style.marginLeft = "10px";
+      durationInput.required = true;
+
+      wrapper.appendChild(document.createTextNode(`Transkriptsioon ${index + 1}: `));
+      wrapper.appendChild(fileInput);
+      wrapper.appendChild(durationInput);
+
+      document.getElementById("fileList").appendChild(wrapper);
+      fileInputs.push({ fileInput, durationInput });
+    }
+
+    async function mergeTranscripts() {
+      const segmentLevel = document.getElementById('segmentLevel').checked;
+
+      let offset = 0;
+      let allLines = [];
+
+      for (let i = 0; i < fileInputs.length; i++) {
+        const file = fileInputs[i].fileInput.files[0];
+        const duration = parseFloat(fileInputs[i].durationInput.value);
+
+        if (!file || isNaN(duration)) {
+          alert(`Palun lae üles fail ja sisesta kestus ${i + 1}. transkriptsioonile.`);
+          return;
+        }
+
+        const text = await file.text();
+        const json = JSON.parse(text);
+
+        for (const speakerBlock of json.content) {
+          const speaker = speakerBlock.attrs?.["data-name"] || "TUNDMATU";
+
+          if (segmentLevel) {
+            for (const segment of speakerBlock.content) {
+              if (segment.type === "text" && segment.marks) {
+                const mark = segment.marks.find(m => m.type === "word");
+                if (mark?.attrs?.start !== undefined) {
+                  const correctedTime = mark.attrs.start + offset;
+                  const text = segment.text?.trim();
+                  if (text) {
+                    allLines.push(`${formatTime(correctedTime)} | ${speaker} | ${text}`);
+                  }
+                }
+              }
+            }
+          } else {
+            let blockText = "";
+            let startTime = null;
+
+            for (const segment of speakerBlock.content) {
+              if (segment.type === "text") {
+                const marks = segment.marks || [];
+                const word = segment.text || "";
+
+                const timeMark = marks.find(m => m.type === "word");
+                if (timeMark?.attrs?.start !== undefined) {
+                  const correctedTime = timeMark.attrs.start + offset;
+                  if (startTime === null) startTime = correctedTime;
+                }
+
+                blockText += word;
+              }
+            }
+
+            if (blockText.trim() && startTime !== null) {
+              allLines.push(`${formatTime(startTime)} | ${speaker} | ${blockText.trim()}`);
+            }
+          }
+        }
+
+        offset += duration;
+      }
+
+      const finalText = allLines.join('\n');
+      document.getElementById('output').textContent = finalText;
+
+      const blob = new Blob([finalText], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const link = document.getElementById('downloadLink');
+      link.href = url;
+      link.style.display = "inline-block";
+      link.textContent = "Laadi alla ühendatud fail";
+    }
+
+    // Lisa esimene väli kohe alguses
+    addFileInput();
+  </script>
+</body>
+</html>
