@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="et">
+<head>
+  <meta charset="UTF-8" />
+  <title>AHP (Saaty) – ühe valikureaga harjutus</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      line-height: 1.5;
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 0.5rem;
+    }
+    h2 {
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+    }
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 0.75rem;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+    label {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-weight: 600;
+    }
+    input[type="text"],
+    input[type="number"] {
+      padding: 0.35rem 0.5rem;
+      border-radius: 0.4rem;
+      border: 1px solid #ccc;
+      font-size: 0.95rem;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .row {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+    .row > div {
+      flex: 1 1 220px;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.95rem;
+      cursor: pointer;
+      background: #2563eb;
+      color: white;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+    button.secondary {
+      background: #6b7280;
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+    .hint {
+      font-size: 0.85rem;
+      color: #555;
+      margin-top: 0.3rem;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 0.35rem 0.4rem;
+      text-align: center;
+    }
+    th {
+      background: #f3f4f6;
+      font-weight: 600;
+    }
+    .results-table td {
+      text-align: right;
+    }
+    .results-table td:first-child {
+      text-align: left;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 0.75rem;
+      margin-left: 0.25rem;
+    }
+    .question-box {
+      padding: 0.75rem 0.9rem;
+      border-radius: 0.75rem;
+      background: #f9fafb;
+      border: 1px dashed #d1d5db;
+      margin-top: 0.5rem;
+    }
+    .question-main {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+    }
+    .progress {
+      font-size: 0.85rem;
+      color: #4b5563;
+      margin-bottom: 0.25rem;
+    }
+    .radio-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+    .radio-row label {
+      font-weight: 400;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid #d1d5db;
+      background: white;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .radio-row input {
+      accent-color: #2563eb;
+    }
+    .radio-row label.equal {
+      background: #e5e7eb;
+    }
+    .pill-explainer {
+      font-size: 0.8rem;
+      color: #4b5563;
+      margin-top: 0.35rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>AHP (Saaty) – ühe valikureaga harjutus</h1>
+  <p>
+    Sisesta kriteeriumid või kasuta vaikimisi väärtusi. Seejärel vastad paarikaupa
+    küsimustele ühe klõpsuga (nt <em>„Ökoloogia - palju olulisem kui Majandus“</em>).
+    Lõpus näed AHP maatriksit, kaalusid (eigenvektori meetod) ja konsistentsi suhet.
+  </p>
+
+  <!-- 1. Kriteeriumid -->
+  <div class="card">
+    <h2>1. Kriteeriumid</h2>
+    <div class="row">
+      <div>
+        <label for="criteriaNames">Kriteeriumide nimed (komadega)</label>
+        <input id="criteriaNames"
+               type="text"
+               value="Ökoloogia, Majandus, Kultuur, Sotsiaal" />
+        <div class="hint">
+          Vaikimisi: Ökoloogia, Majandus, Kultuur, Sotsiaal. Soovi korral muuda.
+        </div>
+      </div>
+      <div>
+        <label for="criteriaCount">Kriteeriumide arv</label>
+        <input id="criteriaCount" type="number" min="2" max="9" value="4" />
+        <div class="hint">
+          Kasutatakse ainult siis, kui ülal nimetusi ei anta.
+        </div>
+      </div>
+      <div>
+        <button id="startBtn">Alusta võrdlemist</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Küsimused -->
+  <div class="card" id="questionCard" style="display:none;">
+    <h2>2. Paarvõrdlused</h2>
+    <p class="hint">
+      Iga küsimuse puhul vali <strong>üks nupp</strong>:
+      kas vasak kriteerium (A) on olulisem, parem (B) on olulisem
+      või on nad samaväärsed. Arvutused teeb kalkulaator ise.
+    </p>
+    <div id="questionArea"></div>
+    <div style="margin-top:0.75rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+      <button id="nextBtn">Salvesta &amp; järgmine</button>
+      <button id="restartBtn" class="secondary">Alusta uuesti</button>
+    </div>
+  </div>
+
+  <!-- 3. Tulemused -->
+  <div class="card" id="resultsCard" style="display:none;">
+    <h2>3. Maatriks ja kaalud</h2>
+    <div id="matrixContainer"></div>
+    <div id="results"></div>
+  </div>
+
+  <script>
+    let criteriaLabels = [];
+    let n = 0;
+    let pairs = [];
+    let currentPairIndex = 0;
+    let matrix = [];
+
+    const startBtn = document.getElementById("startBtn");
+    const questionCard = document.getElementById("questionCard");
+    const questionArea = document.getElementById("questionArea");
+    const nextBtn = document.getElementById("nextBtn");
+    const restartBtn = document.getElementById("restartBtn");
+    const resultsCard = document.getElementById("resultsCard");
+    const matrixContainer = document.getElementById("matrixContainer");
+    const resultsDiv = document.getElementById("results");
+
+    function initMatrix(size) {
+      matrix = Array.from({ length: size }, (_, i) =>
+        Array.from({ length: size }, (_, j) => (i === j ? 1 : 1))
+      );
+    }
+
+    function buildPairs(size) {
+      pairs = [];
+      for (let i = 0; i < size; i++) {
+        for (let j = i + 1; j < size; j++) {
+          pairs.push([i, j]);
+        }
+      }
+    }
+
+    function showCurrentQuestion() {
+      const total = pairs.length;
+      if (currentPairIndex >= total) {
+        finishQuestions();
+        return;
+      }
+
+      const [i, j] = pairs[currentPairIndex];
+      const A = criteriaLabels[i];
+      const B = criteriaLabels[j];
+
+      questionArea.innerHTML = "";
+
+      const box = document.createElement("div");
+      box.className = "question-box";
+
+      const progress = document.createElement("div");
+      progress.className = "progress";
+      progress.textContent = `Võrdlus ${currentPairIndex + 1} / ${total}`;
+      box.appendChild(progress);
+
+      const main = document.createElement("div");
+      main.className = "question-main";
+      main.textContent = `Kumb on olulisem: "${A}" või "${B}"?`;
+      box.appendChild(main);
+
+      const radioRow = document.createElement("div");
+      radioRow.className = "radio-row";
+
+      // value = A/B suhe (nt 7 tähendab A 7× olulisem, 1/5 tähendab B 5× olulisem)
+      const options = [
+	  { label: `${A} – väga palju olulisem`, value: 9 },
+	  { label: `${A} – palju olulisem`, value: 7 },
+	  { label: `${A} – keskmiselt olulisem`, value: 5 },
+	  { label: `${A} – natuke olulisem`, value: 3 },
+
+	  { label: "Võrdsed", value: 1, equal: true },
+
+	  { label: `${B} – natuke olulisem`, value: 1/3 },
+	  { label: `${B} – keskmiselt olulisem`, value: 1/5 },
+	  { label: `${B} – palju olulisem`, value: 1/7 },
+	  { label: `${B} – väga palju olulisem`, value: 1/9 },
+	];
+
+
+      options.forEach((opt, idx) => {
+        const lbl = document.createElement("label");
+        if (opt.equal) lbl.classList.add("equal");
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "pairChoice";
+        radio.value = opt.value;
+        if (idx === 4) {
+          // vaikimisi "võrdselt olulised"
+          radio.checked = true;
+        }
+        lbl.appendChild(radio);
+        const span = document.createElement("span");
+        span.textContent = opt.label;
+        lbl.appendChild(span);
+        radioRow.appendChild(lbl);
+      });
+
+      box.appendChild(radioRow);
+
+      const expl = document.createElement("div");
+      expl.className = "pill-explainer";
+      expl.textContent =
+        "Näide: kui valid „" + A + " 5×“, siis tähendab see, et " +
+        A + " on 5 korda olulisem kui " + B + ". Kui valid „" +
+        B + " 3×“, siis " + B + " on 3 korda olulisem kui " + A + ".";
+      box.appendChild(expl);
+
+      questionArea.appendChild(box);
+    }
+
+    function readCurrentAnswer() {
+      const radios = document.querySelectorAll('input[name="pairChoice"]');
+      let selected = 1;
+      radios.forEach((r) => {
+        if (r.checked) {
+          selected = parseFloat(r.value);
+        }
+      });
+      if (!selected || selected <= 0) selected = 1;
+
+      const [i, j] = pairs[currentPairIndex];
+      matrix[i][j] = selected;
+      matrix[j][i] = 1 / selected;
+    }
+
+    function finishQuestions() {
+      questionCard.style.display = "none";
+      computeAndShowResults();
+    }
+
+    // --- Eigenvektori meetod (power iteration) ---
+    function powerIteration(A, maxIter = 1000, tol = 1e-9) {
+      const n = A.length;
+      let v = Array.from({ length: n }, () => 1 / n);
+
+      for (let iter = 0; iter < maxIter; iter++) {
+        // w = A * v
+        const w = Array.from({ length: n }, () => 0);
+        for (let i = 0; i < n; i++) {
+          for (let j = 0; j < n; j++) {
+            w[i] += A[i][j] * v[j];
+          }
+        }
+        // normaliseeri
+        let norm = w.reduce((a, b) => a + b, 0);
+        if (norm === 0) norm = 1;
+        const vNew = w.map((x) => x / norm);
+
+        // kontrolli kokkulangevust
+        let diff = 0;
+        for (let i = 0; i < n; i++) {
+          diff += Math.abs(vNew[i] - v[i]);
+        }
+        v = vNew;
+        if (diff < tol) break;
+      }
+
+      // λ_max Rayleigh-quote abil
+      const Av = Array.from({ length: n }, () => 0);
+      for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+          Av[i] += A[i][j] * v[j];
+        }
+      }
+      let num = 0;
+      let den = 0;
+      for (let i = 0; i < n; i++) {
+        num += Av[i] * v[i];
+        den += v[i] * v[i];
+      }
+      const lambda = den === 0 ? 0 : num / den;
+
+      return { weights: v, lambda };
+    }
+
+    function computeAndShowResults() {
+      const size = n;
+
+      // 1) Eigenvektori meetod
+      const { weights: rawWeights, lambda } = powerIteration(matrix);
+      const sumW = rawWeights.reduce((a, b) => a + b, 0) || 1;
+      const normWeights = rawWeights.map((w) => w / sumW);
+
+      // 2) Konsistentsi indeks ja suhe
+      let CI = 0;
+      let CR = null;
+      if (size > 2) {
+        CI = (lambda - size) / (size - 1);
+
+        // Saaty RI (Random Index) väärtused n=1..10
+        const RI_TABLE = {
+          1: 0.00,
+          2: 0.00,
+          3: 0.58,
+          4: 0.90,
+          5: 1.12,
+          6: 1.24,
+          7: 1.32,
+          8: 1.41,
+          9: 1.45,
+          10: 1.49
+        };
+        const RI = RI_TABLE[size] || 1.49;
+        if (RI > 0) {
+          CR = CI / RI;
+        }
+      }
+
+      // sortimiseks abimassiiv
+      const items = normWeights.map((w, idx) => ({
+        idx,
+        label: criteriaLabels[idx],
+        w
+      }));
+      items.sort((a, b) => b.w - a.w);
+
+      // 3) maatriksi tabel (originaaljärjekorras)
+      const table = document.createElement("table");
+      const thead = document.createElement("thead");
+      const headRow = document.createElement("tr");
+
+      const emptyTh = document.createElement("th");
+      headRow.appendChild(emptyTh);
+      criteriaLabels.forEach((label) => {
+        const th = document.createElement("th");
+        th.textContent = label;
+        headRow.appendChild(th);
+      });
+      thead.appendChild(headRow);
+      table.appendChild(thead);
+
+      const tbody = document.createElement("tbody");
+      for (let i = 0; i < size; i++) {
+        const tr = document.createElement("tr");
+        const rowHead = document.createElement("th");
+        rowHead.textContent = criteriaLabels[i];
+        tr.appendChild(rowHead);
+        for (let j = 0; j < size; j++) {
+          const td = document.createElement("td");
+          td.textContent = matrix[i][j].toFixed(3);
+          tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+      }
+      table.appendChild(tbody);
+
+      matrixContainer.innerHTML = "";
+      matrixContainer.appendChild(table);
+
+      // 4) kaalude tabel (sortitud kaalu järgi)
+      const resultTable = document.createElement("table");
+      resultTable.classList.add("results-table");
+
+      const rHead = document.createElement("thead");
+      const rHeadRow = document.createElement("tr");
+      ["Kriteerium", "Kaal", "Kaal (%)"].forEach((txt) => {
+        const th = document.createElement("th");
+        th.textContent = txt;
+        rHeadRow.appendChild(th);
+      });
+      rHead.appendChild(rHeadRow);
+      resultTable.appendChild(rHead);
+
+      const rBody = document.createElement("tbody");
+      items.forEach((item) => {
+        const tr = document.createElement("tr");
+        const tdName = document.createElement("td");
+        tdName.textContent = item.label;
+
+        const tdW = document.createElement("td");
+        tdW.textContent = item.w.toFixed(4);
+
+        const tdPct = document.createElement("td");
+        tdPct.textContent = (item.w * 100).toFixed(1) + " %";
+
+        tr.appendChild(tdName);
+        tr.appendChild(tdW);
+        tr.appendChild(tdPct);
+        rBody.appendChild(tr);
+      });
+      resultTable.appendChild(rBody);
+
+      resultsDiv.innerHTML = "";
+      resultsDiv.appendChild(resultTable);
+
+      const info = document.createElement("div");
+      info.className = "hint";
+
+      let crText = "";
+      if (CR !== null) {
+        const crPct = (CR * 100).toFixed(1);
+        const status = CR <= 0.1 ? "hea (≤ 10%)" : "nõrk (> 10%)";
+        crText =
+          `<br/>Konsistentsi suhe CR ≈ <strong>${crPct}%</strong> – ${status}.`;
+      } else {
+        crText =
+          "<br/>Konsistentsi suhet (CR) arvutatakse alates n ≥ 3.";
+      }
+
+      info.innerHTML =
+        'Kaalud on arvutatud AHP <span class="badge">eigenvektori</span> meetodiga (power iteration).' +
+        crText;
+      resultsDiv.appendChild(info);
+
+      resultsCard.style.display = "block";
+    }
+
+    function resetAll() {
+      criteriaLabels = [];
+      n = 0;
+      pairs = [];
+      currentPairIndex = 0;
+      matrix = [];
+      questionArea.innerHTML = "";
+      matrixContainer.innerHTML = "";
+      resultsDiv.innerHTML = "";
+      questionCard.style.display = "none";
+      resultsCard.style.display = "none";
+    }
+
+    startBtn.addEventListener("click", () => {
+      resetAll();
+
+      const namesRaw = document.getElementById("criteriaNames").value.trim();
+      if (namesRaw.length > 0) {
+        criteriaLabels = namesRaw
+          .split(",")
+          .map((s) => s.trim())
+          .filter((s) => s.length > 0);
+      } else {
+        const nInput = parseInt(
+          document.getElementById("criteriaCount").value,
+          10
+        );
+        const count = isNaN(nInput) ? 4 : Math.min(Math.max(nInput, 2), 9);
+        criteriaLabels = Array.from({ length: count }, (_, i) => `K${i + 1}`);
+      }
+
+      n = criteriaLabels.length;
+      initMatrix(n);
+      buildPairs(n);
+      currentPairIndex = 0;
+
+      questionCard.style.display = "block";
+      resultsCard.style.display = "none";
+      showCurrentQuestion();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (!pairs.length) return;
+      readCurrentAnswer();
+      currentPairIndex += 1;
+      showCurrentQuestion();
+    });
+
+    restartBtn.addEventListener("click", () => {
+      resetAll();
+    });
+  </script>
+</body>
+</html>
