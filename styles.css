@@ -1,0 +1,213 @@
+:root {
+  --accent: #0d9187;
+  --accent-hover: #07b2a5;
+  --text: #1a1a1a;
+  --text-muted: #6b7280;
+  --border: #e5e7eb;
+  --bg: #ffffff;
+  --bg-alt: #f9fafb;
+  --max-width: 960px;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: "Raleway", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg);
+}
+
+h1, h2, h3, h4 {
+  font-family: "Poppins", system-ui, sans-serif;
+  color: var(--accent);
+  font-weight: 500;
+  line-height: 1.25;
+  margin: 0 0 0.5em;
+}
+
+h1 { font-size: 2.75rem; font-weight: 600; }
+h2 { font-size: 2rem; margin-top: 1.5em; }
+h3 { font-size: 1.35rem; margin-top: 1.5em; }
+h4 { font-size: 1.1rem; color: var(--text); font-weight: 600; margin-top: 1.5em; }
+
+p { margin: 0 0 1em; }
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+a:hover { color: var(--accent-hover); }
+
+img { max-width: 100%; height: auto; display: block; }
+
+blockquote {
+  margin: 1.5em 0;
+  padding: 0.75em 1.25em;
+  border-left: 3px solid var(--accent);
+  background: var(--bg-alt);
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+ul { padding-left: 1.25em; }
+li { margin-bottom: 0.35em; }
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 2em 0;
+}
+
+/* Layout */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Header */
+.site-header {
+  background: var(--accent);
+  color: #fff;
+  padding: 1rem 0;
+}
+.site-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.site-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #fff;
+  text-decoration: none;
+}
+.site-title:hover { color: #fff; opacity: 0.85; }
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 400;
+}
+.nav a:hover { color: #fff; opacity: 0.85; }
+.nav a.active { font-weight: 600; }
+.lang {
+  margin-left: auto;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+.lang a { color: #fff; }
+
+/* Main */
+main { padding: 3rem 0; }
+
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  align-items: center;
+}
+.hero-text h1 { margin-bottom: 0.25em; }
+.hero-text h2 {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-top: 0;
+}
+.hero-photo img {
+  width: 260px;
+  border-radius: 4px;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+  font-size: 0.95rem;
+}
+td, th {
+  padding: 0.6em 0.75em;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+td:first-child {
+  color: var(--text-muted);
+  white-space: nowrap;
+  width: 30%;
+}
+
+/* Two-column grid (about page) */
+.cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+.cols--about {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+.cols--about img {
+  width: 180px;
+  border-radius: 4px;
+}
+
+/* Projects / article images */
+.project-img {
+  margin: 1.5em 0;
+  max-width: 700px;
+}
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 0;
+  margin-top: 4rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+.site-footer .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+.site-footer a { color: var(--accent); }
+.site-footer strong { color: var(--text); }
+.socials {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  body { font-size: 17px; }
+  h1 { font-size: 2.25rem; }
+  h2 { font-size: 1.6rem; }
+  .hero { grid-template-columns: 1fr; text-align: center; }
+  .hero-photo { justify-self: center; }
+  .cols, .cols--about { grid-template-columns: 1fr; }
+  .site-footer .container { grid-template-columns: 1fr; }
+  .nav { gap: 1rem; font-size: 0.95rem; }
+  .lang { margin-left: 0; }
+}
