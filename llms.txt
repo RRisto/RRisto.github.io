@@ -1,0 +1,26 @@
+# Risto Hinno
+
+> Data scientist and Product Owner specialising in speech recognition (ASR), NLP, and LLM applications.
+
+Risto Hinno is an Estonian data scientist focused on turning speech and text into business insights. He works on ASR solutions, conversation analytics, LLM applications, and AI project leadership and consulting.
+
+## Pages
+
+- [Home (EN)](https://ristohinno.com/en.html): English landing page
+- [Home (ET)](https://ristohinno.com/et.html): Estonian landing page
+- [About](https://ristohinno.com/about.html): Background, roles, and interests
+- [Data Science Projects (EN)](https://ristohinno.com/data-science-projects.html): Speech recognition models, topic modelling, NLP projects
+- [Data Science Projects (ET)](https://ristohinno.com/andmeteaduse-projektid.html): Same content in Estonian
+- [Articles (EN)](https://ristohinno.com/articles.html): Blog posts and writings
+- [Articles (ET)](https://ristohinno.com/artiklid.html): Same content in Estonian
+- [Contact (EN)](https://ristohinno.com/contact.html): ristohinno@gmail.com
+- [Contact (ET)](https://ristohinno.com/kontakt.html): ristohinno@gmail.com
+
+## External profiles
+
+- GitHub: https://github.com/RRisto
+- LinkedIn: https://www.linkedin.com/in/ristohinno
+- Hugging Face: https://huggingface.co/rristo
+- Medium: https://medium.com/@ristohinno / https://ristohinno.medium.com
+- Twitter/X: https://twitter.com/RistoHinno
+- Goodreads: https://www.goodreads.com/user/show/43456266-risto-hinno
