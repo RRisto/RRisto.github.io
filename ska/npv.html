@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="et">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Interaktiivne diskonteerimise ja nüüdisväärtuse kalkulaator avaliku sektori tasuvusanalüüsi õppimiseks." />
+  <title>Diskonteerimise kalkulaator</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #5f6b7a;
+      --primary: #2457d6;
+      --primary-dark: #183f9f;
+      --border: #dbe2ee;
+      --good: #16794c;
+      --bad: #b42318;
+      --shadow: 0 12px 32px rgba(22, 34, 55, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #eef3ff 0, var(--bg) 280px);
+      line-height: 1.5;
+    }
+
+    .wrap { width: min(1100px, calc(100% - 32px)); margin: 0 auto; }
+    header { padding: 48px 0 28px; }
+    h1 { margin: 0 0 10px; font-size: clamp(2rem, 5vw, 3.6rem); line-height: 1.04; }
+    header p { margin: 0; max-width: 760px; color: var(--muted); font-size: 1.08rem; }
+
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; padding-bottom: 24px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .card h2 { margin: 0 0 6px; font-size: 1.35rem; }
+    .sub { color: var(--muted); margin: 0 0 18px; font-size: .95rem; }
+
+    label { display: block; font-weight: 700; margin: 14px 0 7px; }
+    .input-wrap { position: relative; }
+    input, select {
+      width: 100%;
+      padding: 13px 44px 13px 13px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+    }
+    input:focus, select:focus { outline: 3px solid rgba(36,87,214,.14); border-color: var(--primary); }
+    .unit { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+
+    .result {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 14px;
+      background: #edf3ff;
+      border: 1px solid #cbd9ff;
+    }
+    .result .label { color: var(--muted); font-size: .92rem; }
+    .result .value { font-size: clamp(1.8rem, 4vw, 2.7rem); font-weight: 800; margin-top: 2px; }
+    .formula { margin-top: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9rem; color: #3a4657; overflow-wrap: anywhere; }
+
+    .full { grid-column: 1 / -1; }
+    .toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 15px; }
+    button {
+      border: 0;
+      border-radius: 11px;
+      padding: 11px 15px;
+      font: inherit;
+      font-weight: 750;
+      cursor: pointer;
+      background: var(--primary);
+      color: white;
+    }
+    button:hover { background: var(--primary-dark); }
+    button.secondary { background: #e9eef8; color: var(--text); }
+    button.secondary:hover { background: #dfe7f4; }
+    button.danger { background: #fff0ee; color: var(--bad); }
+
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; min-width: 720px; }
+    th, td { padding: 10px 8px; border-bottom: 1px solid var(--border); text-align: right; }
+    th:first-child, td:first-child { text-align: left; }
+    th { color: var(--muted); font-size: .88rem; }
+    td input { min-width: 120px; padding: 9px 10px; text-align: right; }
+    td button { padding: 8px 11px; }
+
+    .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
+    .metric { padding: 15px; border: 1px solid var(--border); border-radius: 14px; background: #fbfcfe; }
+    .metric span { color: var(--muted); font-size: .88rem; display: block; }
+    .metric strong { font-size: 1.45rem; display: block; margin-top: 3px; }
+    .positive { color: var(--good); }
+    .negative { color: var(--bad); }
+
+    .lesson { margin: 22px 0 48px; }
+    .lesson details { border-top: 1px solid var(--border); padding: 14px 0; }
+    .lesson details:first-of-type { border-top: 0; }
+    summary { cursor: pointer; font-weight: 750; }
+    footer { color: var(--muted); font-size: .9rem; padding: 0 0 36px; }
+
+    @media (max-width: 780px) {
+      .grid { grid-template-columns: 1fr; }
+      .full { grid-column: auto; }
+      .summary { grid-template-columns: 1fr; }
+      header { padding-top: 32px; }
+      .card { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <h1>Diskonteerimise kalkulaator</h1>
+    <p>Vaata, kuidas tulevikus saadav raha muutub tänases väärtuses väiksemaks, ning arvuta projekti neto nüüdisväärtus (NPV).</p>
+  </header>
+
+  <main class="wrap">
+    <section class="grid">
+      <article class="card">
+        <h2>1. Ühe tulevase summa nüüdisväärtus</h2>
+        <p class="sub">Valem: PV = FV / (1 + r)<sup>t</sup></p>
+
+        <label for="futureValue">Tulevane väärtus (FV)</label>
+        <div class="input-wrap"><input id="futureValue" type="number" min="0" step="100" value="10000"><span class="unit">€</span></div>
+
+        <label for="discountRate">Diskontomäär (r)</label>
+        <div class="input-wrap"><input id="discountRate" type="number" min="0" step="0.1" value="5"><span class="unit">%</span></div>
+
+        <label for="years">Aastate arv (t)</label>
+        <div class="input-wrap"><input id="years" type="number" min="0" step="1" value="5"><span class="unit">a</span></div>
+
+        <div class="result" aria-live="polite">
+          <div class="label">Nüüdisväärtus</div>
+          <div class="value" id="pvResult">–</div>
+          <div class="formula" id="pvFormula"></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <h2>2. Kui palju tulevikuraha „kaob”?</h2>
+        <p class="sub">See ei ole raamatupidamislik kahju, vaid raha ajaväärtuse mõju.</p>
+        <div class="result" style="margin-top:0">
+          <div class="label">Erinevus tulevase ja tänase väärtuse vahel</div>
+          <div class="value" id="lossResult">–</div>
+        </div>
+        <div class="result">
+          <div class="label">Nüüdisväärtus tulevasest summast</div>
+          <div class="value" id="shareResult">–</div>
+        </div>
+        <p class="sub" id="interpretation" style="margin-top:16px"></p>
+      </article>
+
+      <article class="card full">
+        <h2>3. Projekti NPV</h2>
+        <p class="sub">Lisa projekti kulud ja tulud aastate kaupa. Negatiivne rahavoog on kulu, positiivne rahavoog on kasu.</p>
+
+        <div class="toolbar">
+          <label for="npvRate" style="margin:0">Diskontomäär</label>
+          <div class="input-wrap" style="width:150px"><input id="npvRate" type="number" min="0" step="0.1" value="5"><span class="unit">%</span></div>
+          <button id="addRow" type="button">+ Lisa aasta</button>
+          <button id="loadExample" type="button" class="secondary">Laadi näide</button>
+          <button id="clearRows" type="button" class="danger">Tühjenda</button>
+        </div>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th>Aasta</th><th>Rahavoog (€)</th><th>Diskontotegur</th><th>Nüüdisväärtus (€)</th><th></th></tr>
+            </thead>
+            <tbody id="cashflowBody"></tbody>
+          </table>
+        </div>
+
+        <div class="summary">
+          <div class="metric"><span>Diskonteerimata rahavoogude summa</span><strong id="rawTotal">–</strong></div>
+          <div class="metric"><span>NPV</span><strong id="npvTotal">–</strong></div>
+          <div class="metric"><span>Otsustusreegel</span><strong id="decision">–</strong></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="card lesson">
+      <h2>Õppimiseks</h2>
+      <details open>
+        <summary>Miks diskonteeritakse?</summary>
+        <p>Üks euro täna on üldjuhul väärtuslikum kui üks euro tulevikus. Tänast raha saab kasutada kohe, investeerida või jätta kasutamata mõne muu võimaluse — see seostub alternatiivkuluga.</p>
+      </details>
+      <details>
+        <summary>Kuidas diskontomäär tulemust mõjutab?</summary>
+        <p>Mida kõrgem diskontomäär, seda väiksem on kaugete tulevaste tulude ja kulude nüüdisväärtus. Seetõttu võib diskontomäära valik pika elueaga avaliku sektori projektide tulemust oluliselt muuta.</p>
+      </details>
+      <details>
+        <summary>Kuidas NPV-d tõlgendada?</summary>
+        <p>NPV &gt; 0 tähendab, et diskonteeritud kasud ületavad diskonteeritud kulusid. NPV &lt; 0 tähendab vastupidist. Avalikus sektoris ei asenda NPV siiski mitterahaliste, jaotuslike ja eetiliste mõjude hindamist.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="wrap">Õppevahend. Arvutused toimuvad brauseris ja andmeid ei saadeta kuhugi.</footer>
+
+  <script>
+    const euro = new Intl.NumberFormat('et-EE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 2 });
+    const pct = new Intl.NumberFormat('et-EE', { maximumFractionDigits: 1 });
+
+    const $ = id => document.getElementById(id);
+    const num = id => Number($(id).value) || 0;
+
+    function updatePV() {
+      const fv = num('futureValue');
+      const r = num('discountRate') / 100;
+      const t = Math.max(0, num('years'));
+      const pv = fv / Math.pow(1 + r, t);
+      const loss = fv - pv;
+      const share = fv === 0 ? 0 : (pv / fv) * 100;
+
+      $('pvResult').textContent = euro.format(pv);
+      $('lossResult').textContent = euro.format(loss);
+      $('shareResult').textContent = pct.format(share) + '%';
+      $('pvFormula').textContent = `${euro.format(fv)} / (1 + ${pct.format(r * 100)}%)^${t} = ${euro.format(pv)}`;
+      $('interpretation').textContent = `${t} aasta pärast saadava ${euro.format(fv)} väärtus täna on ${euro.format(pv)}, kui diskontomäär on ${pct.format(r * 100)}%.`;
+    }
+
+    ['futureValue', 'discountRate', 'years'].forEach(id => $(id).addEventListener('input', updatePV));
+
+    let rows = [];
+
+    function addCashflow(year = rows.length, amount = 0) {
+      rows.push({ year, amount });
+      renderRows();
+    }
+
+    function renderRows() {
+      const body = $('cashflowBody');
+      body.innerHTML = '';
+      const rate = num('npvRate') / 100;
+      let raw = 0;
+      let npv = 0;
+
+      rows.sort((a, b) => a.year - b.year);
+      rows.forEach((row, index) => {
+        const factor = 1 / Math.pow(1 + rate, row.year);
+        const pv = row.amount * factor;
+        raw += row.amount;
+        npv += pv;
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><input type="number" min="0" step="1" value="${row.year}" aria-label="Aasta"></td>
+          <td><input type="number" step="100" value="${row.amount}" aria-label="Rahavoog"></td>
+          <td>${factor.toFixed(4)}</td>
+          <td>${euro.format(pv)}</td>
+          <td><button type="button" class="danger" aria-label="Eemalda rida">×</button></td>`;
+
+        const inputs = tr.querySelectorAll('input');
+        inputs[0].addEventListener('input', e => { row.year = Math.max(0, Number(e.target.value) || 0); renderRows(); });
+        inputs[1].addEventListener('input', e => { row.amount = Number(e.target.value) || 0; renderRows(); });
+        tr.querySelector('button').addEventListener('click', () => { rows.splice(index, 1); renderRows(); });
+        body.appendChild(tr);
+      });
+
+      $('rawTotal').textContent = euro.format(raw);
+      $('npvTotal').textContent = euro.format(npv);
+      $('npvTotal').className = npv >= 0 ? 'positive' : 'negative';
+      $('decision').textContent = npv > 0 ? 'NPV > 0' : npv < 0 ? 'NPV < 0' : 'NPV = 0';
+      $('decision').className = npv >= 0 ? 'positive' : 'negative';
+    }
+
+    $('npvRate').addEventListener('input', renderRows);
+    $('addRow').addEventListener('click', () => addCashflow(rows.length ? Math.max(...rows.map(r => r.year)) + 1 : 0, 0));
+    $('clearRows').addEventListener('click', () => { rows = []; renderRows(); });
+    $('loadExample').addEventListener('click', () => {
+      rows = [
+        { year: 0, amount: -1000000 },
+        { year: 1, amount: 260000 },
+        { year: 2, amount: 280000 },
+        { year: 3, amount: 300000 },
+        { year: 4, amount: 320000 },
+        { year: 5, amount: 340000 }
+      ];
+      renderRows();
+    });
+
+    updatePV();
+    $('loadExample').click();
+  </script>
+</body>
+</html>
