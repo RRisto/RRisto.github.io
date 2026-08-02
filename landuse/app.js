@@ -2,12 +2,13 @@
 
 const SCENARIOS = [
   { id: 'balanced', label: 'Tasakaalustatud' },
-  { id: 'food_security', label: 'Toidujulgeolek' },
+  { id: 'food_security', label: 'Põllumaa säilitamine' },
   { id: 'green_maximum', label: 'Roheline maksimum' },
   { id: 'low_budget', label: 'Väike eelarve' },
-  { id: 'sustainable_agriculture', label: 'Kestlik põllumajandus' },
+  { id: 'sustainable_agriculture', label: 'Põllumajanduse kasv' },
   { id: 'wetland_priority', label: 'Märgalade eelistus' },
 ];
+const SCENARIO_LABELS = Object.fromEntries(SCENARIOS.map(({ id, label }) => [id, label]));
 const ACTION_COLORS = { forest: '#2d7d46', wetland: '#1f78b4', grassland: '#b2df8a', agriculture: '#f4a261', no_change: '#dddddd' };
 const METRICS = [
   ['Biodiversity gain', 'Elurikkuse muutus', percent], ['Carbon gain', 'Süsiniku muutus', percent], ['Cost', 'Kulu', decimal],
@@ -27,7 +28,7 @@ function renderTabs() {
 }
 function renderComparison() {
   const head = `<tr><th>Stsenaarium</th>${METRICS.map(([, label]) => `<th>${label}</th>`).join('')}</tr>`;
-  const body = summaryRows.map(row => `<tr class="${row['Selection rule'] === selectedScenario ? 'selected' : ''}"><td>${row.Scenario}</td>${METRICS.map(([field,, format]) => `<td>${format(row[field])}</td>`).join('')}</tr>`).join('');
+  const body = summaryRows.map(row => `<tr class="${row['Selection rule'] === selectedScenario ? 'selected' : ''}"><td>${SCENARIO_LABELS[row['Selection rule']] || row.Scenario}</td>${METRICS.map(([field,, format]) => `<td>${format(row[field])}</td>`).join('')}</tr>`).join('');
   document.getElementById('comparison-table').innerHTML = `<table><thead>${head}</thead><tbody>${body}</tbody></table>`;
 }
 function renderActionMap() {
