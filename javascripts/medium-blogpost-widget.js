@@ -108,8 +108,15 @@ class MediumBlogpost extends HTMLElement {
         this._shadowRoot.appendChild(template.content.cloneNode(true)); 
     }
     async fetchPosts(username) {
-        const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@${username}`)
+        if (!/^[a-zA-Z0-9_-]{1,50}$/.test(username)) {
+            throw new Error('Invalid Medium username')
+        }
+        const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(`https://medium.com/feed/@${username}`)}`)
+        if (!response.ok) throw new Error('Unable to load Medium feed')
         const data = await response.json()
+        if (data.status !== 'ok' || !data.feed || !Array.isArray(data.items)) {
+            throw new Error('Invalid Medium feed response')
+        }
         return data
     }
     connectedCallback(){
@@ -117,14 +124,57 @@ class MediumBlogpost extends HTMLElement {
         this.render()
     }
     renderUser(data){
-        this._shadowRoot.querySelector('.medium-blogpost-author-img').innerHTML = `<img src="${data.feed.image}" alt="${this.name}"/>`
-        this._shadowRoot.querySelector('.medium-blogpost-author-info').innerHTML = `<h3>${data.items[0].author}</h3><p>@${this.username}</p><a href="https://medium.com/@${this.username}" target="_blank"><button class="medium-follow-button">Follow</button></a>`
+        const imageUrl = this.safeHttpsUrl(data.feed.image)
+        if (imageUrl) {
+            const image = document.createElement('img')
+            image.src = imageUrl
+            image.alt = 'Medium author'
+            this._shadowRoot.querySelector('.medium-blogpost-author-img').replaceChildren(image)
+        }
+
+        const info = this._shadowRoot.querySelector('.medium-blogpost-author-info')
+        const name = document.createElement('h3')
+        name.textContent = data.items[0]?.author || this.username
+        const username = document.createElement('p')
+        username.textContent = `@${this.username}`
+        const follow = document.createElement('a')
+        follow.href = `https://medium.com/@${encodeURIComponent(this.username)}`
+        follow.target = '_blank'
+        follow.rel = 'noopener noreferrer'
+        const button = document.createElement('button')
+        button.className = 'medium-follow-button'
+        button.textContent = 'Follow'
+        follow.append(button)
+        info.replaceChildren(name, username, follow)
     }
 
     renderArticles(data=[]){
-        data.forEach(data =>{
-            this._shadowRoot.querySelector('.medium-blogpost-articles').innerHTML +=`<a style="background: linear-gradient(to bottom,rgba(37, 37, 37, 0.349), rgba(27, 27, 27, 0.678)), url('${data.thumbnail}');background-size: contain;"class="medium-blogpost-single-article" href="${data.link}" target="_blank"><h3>${data.title}</h3><p>${this.parseDate(data.pubDate)}</p></a>`
+        const articles = data.slice(0, 10).map(article => {
+            const linkUrl = this.safeHttpsUrl(article.link)
+            if (!linkUrl) return null
+
+            const link = document.createElement('a')
+            link.className = 'medium-blogpost-single-article'
+            link.href = linkUrl
+            link.target = '_blank'
+            link.rel = 'noopener noreferrer'
+            const title = document.createElement('h3')
+            title.textContent = article.title || 'Untitled article'
+            const date = document.createElement('p')
+            date.textContent = this.parseDate(article.pubDate)
+            link.append(title, date)
+            return link
         })
+        this._shadowRoot.querySelector('.medium-blogpost-articles').replaceChildren(...articles.filter(Boolean))
+    }
+
+    safeHttpsUrl(value) {
+        try {
+            const url = new URL(value)
+            return url.protocol === 'https:' ? url.href : null
+        } catch {
+            return null
+        }
     }
     parseDate(date) {
         const IsoStringToDate = new Date(date);
@@ -133,9 +183,16 @@ class MediumBlogpost extends HTMLElement {
       };
 
     async render(){
-        const data =  await this.fetchPosts(this.username)
-        this.renderUser(data)
-        this.renderArticles(data.items)
+        try {
+            const data = await this.fetchPosts(this.username)
+            this.renderUser(data)
+            this.renderArticles(data.items)
+        } catch (error) {
+            const message = document.createElement('p')
+            message.textContent = 'Articles are temporarily unavailable.'
+            this._shadowRoot.querySelector('.medium-blogpost-articles').replaceChildren(message)
+            console.error('Unable to render Medium posts:', error)
+        }
     }
 }
 
