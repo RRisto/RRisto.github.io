@@ -1,5 +1,5 @@
 # Jobnet interactive page
 
-This page is served as part of the personal website at `/jobnet/`, with links from the English and Estonian Projects pages. Chart files are stored alongside the page under `charts/`.
+This page is published at [ristohinno.com/jobnet](https://ristohinno.com/jobnet/). The same page and its chart files are kept in this analysis repository under `site/jobnet/`; the personal website serves those files directly from its own `jobnet/` path.
 
-Plotly.js 3.0.1 is loaded from the public Plotly CDN.
+Plotly.js is loaded from the public Plotly CDN. The visualizations use the original Frey–Osborne analysis and article data; no ILO comparison is included.
