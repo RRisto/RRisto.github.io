@@ -1,5 +1,5 @@
 # Jobnet interactive page
 
-This page is published at [ristohinno.com/jobnet](https://ristohinno.com/jobnet/). The same page and its chart files are kept in this analysis repository under `site/jobnet/`; the personal website serves those files directly from its own `jobnet/` path.
+The bilingual page is published at `/jobnet/`. Use the EN / ET switch to change language. Estonian chart labels are in `charts/et/`.
 
-Plotly.js is loaded from the public Plotly CDN. The visualizations use the original Frey–Osborne analysis and article data; no ILO comparison is included.
+Plotly.js is loaded from the public Plotly CDN. The analysis uses the original Frey–Osborne scenario and links to the source article.
