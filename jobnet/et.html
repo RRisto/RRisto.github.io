@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f4f6f8">
-  <meta name="description" content="Interaktiivsed visualiseeringud ametigruppide vahelisest liikumisest ja automatiseerimise mõjust.">
+  <meta name="description" content="Interaktiivsed visualiseeringud ametirühmade vahelisest liikumisest ja automatiseerimise mõjust.">
   <title>Ametialane liikumine ja automatiseerimine</title>
   <style>
     :root { color-scheme: light; --ink:#192b3a; --muted:#61717f; --line:#dce3e8; --paper:#fff; --bg:#f4f6f8; --blue:#315b74; --accent:#d36b4e; }
@@ -57,7 +57,7 @@
       <div class="language-switch" aria-label="Keel"><a href="index.html" lang="en">EN</a><a class="active" aria-current="page" href="et.html">ET</a></div>
       <p class="eyebrow">Töö, automatiseerimine ja ametialane liikumine</p>
       <h1>Kuidas liiguvad töötajad automatiseeruvas majanduses?</h1>
-      <p class="intro">Interaktiivsed vaated ametigruppide vahelisest liikumisest ja Frey–Osborne’i automatiseerimisstsenaariumidest.</p>
+      <p class="intro">Interaktiivsed vaated ametirühmade vahelisest liikumisest ja Frey–Osborne’i automatiseerimisstsenaariumidest.</p>
       <nav aria-label="On this page">
         <a href="#figure-1b">Ametite võrgustik</a>
         <a href="#figure-6">Võrgustiku mõju</a>
@@ -69,8 +69,8 @@
   </header>
   <main class="wrap">
     <section id="figure-1b">
-      <div class="section-head"><div><h2>Ametigruppide liikuvuse võrgustik</h2><p class="caption">Iga punkt tähistab ametigruppi ja jooned näitavad inimeste liikumist ametirühmade vahel. Värv näitab Frey–Osborne’i arvutiseerimistõenäosust.</p></div><span class="tag">464 ametigruppi</span></div>
-      <iframe title="Interaktiivne ametigruppide liikuvuse võrgustik" src="charts/et/figure_1b_occupation_network.html" loading="lazy"></iframe>
+      <div class="section-head"><div><h2>Ametirühmade liikuvuse võrgustik</h2><p class="caption">Iga punkt tähistab ametirühma ja jooned näitavad inimeste liikumist ametirühmade vahel. Värv näitab Frey–Osborne’i arvutiseerimistõenäosust.</p></div><span class="tag">464 ametirühma</span></div>
+      <iframe title="Interaktiivne ametirühmade liikuvuse võrgustik" src="charts/et/figure_1b_occupation_network.html" loading="lazy"></iframe>
     </section>
     <section id="figure-6">
       <div class="section-head"><div><h2>Võrgustiku mõju versus median earnings</h2><p class="caption">Võrdle modelleeritud töötuse ja pikaajalise töötuse muutusi ametite lõikes.</p></div><span class="tag">Frey–Osborne</span></div>
@@ -98,19 +98,23 @@
       
       function resizeChart(frame) {
         const height = frame.clientHeight;
+        const width = frame.clientWidth;
         const doc = frame.contentDocument;
         const win = frame.contentWindow;
         const graph = doc?.querySelector(".plotly-graph-div");
-        if (!height || !graph || !win?.Plotly) return;
+        if (!height || !width || !graph || !win?.Plotly) return;
         doc.documentElement.style.overflow = "hidden";
         doc.body.style.overflow = "hidden";
         graph.style.height = `${height}px`;
-        win.Plotly.relayout(graph, {height});
+        graph.style.width = `${width}px`;
+        win.Plotly.relayout(graph, {height, width});
       }
-      document.querySelectorAll("main iframe").forEach(frame => {
+      const frames = [...document.querySelectorAll("main iframe")];
+      frames.forEach(frame => {
         frame.addEventListener("load", () => resizeChart(frame));
         if (frame.contentDocument?.readyState === "complete") resizeChart(frame);
       });
+      window.addEventListener("resize", () => frames.forEach(resizeChart));
     })();
   </script>
 </body>
