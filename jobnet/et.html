@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f4f6f8">
-  <meta name="description" content="Interaktiivsed visualiseeringud ametialasest liikuvusest ja automatiseerimise mõjust.">
+  <meta name="description" content="Interaktiivsed visualiseeringud ametigruppide vahelisest liikumisest ja automatiseerimise mõjust.">
   <title>Ametialane liikumine ja automatiseerimine</title>
   <style>
     :root { color-scheme: light; --ink:#192b3a; --muted:#61717f; --line:#dce3e8; --paper:#fff; --bg:#f4f6f8; --blue:#315b74; --accent:#d36b4e; }
@@ -30,11 +30,11 @@
     .caption { margin:5px 0 0; color:var(--muted); font-size:.92rem; }
     .tag { flex:none; padding:4px 9px; border-radius:999px; background:#edf3f5; color:var(--blue); font-size:.73rem; font-weight:700; }
     iframe { display:block; width:100%; border:0; border-radius:8px; background:white; }
-    #figure-1b iframe { height:700px; }
-    #figure-6 iframe { height:680px; }
-    #shock iframe { height:680px; }
-    #traps iframe { height:600px; }
-    #beveridge iframe { height:560px; }
+    #figure-1b iframe { height:500px; }
+    #figure-6 iframe { height:480px; }
+    #shock iframe { height:480px; }
+    #traps iframe { height:440px; }
+    #beveridge iframe { height:440px; }
     footer { padding:20px 0 36px; border-top:1px solid var(--line); color:var(--muted); font-size:.84rem; }
     footer p { margin:5px 0; }
     @media (max-width:650px) {
@@ -43,11 +43,11 @@
       section { padding:15px; }
       .section-head { display:block; }
       .tag { display:inline-block; margin-top:9px; }
-      #figure-1b iframe { height:700px; }
-      #figure-6 iframe { height:680px; }
-      #shock iframe { height:680px; }
-      #traps iframe { height:600px; }
-      #beveridge iframe { height:560px; }
+      #figure-1b iframe { height:420px; }
+      #figure-6 iframe { height:400px; }
+      #shock iframe { height:400px; }
+      #traps iframe { height:380px; }
+      #beveridge iframe { height:380px; }
     }
   </style>
 </head>
@@ -57,7 +57,7 @@
       <div class="language-switch" aria-label="Keel"><a href="index.html" lang="en">EN</a><a class="active" aria-current="page" href="et.html">ET</a></div>
       <p class="eyebrow">Töö, automatiseerimine ja ametialane liikumine</p>
       <h1>Kuidas liiguvad töötajad automatiseeruvas majanduses?</h1>
-      <p class="intro">Interaktiivsed vaated ametialasest liikuvusest ja Frey–Osborne’i automatiseerimisstsenaariumidest.</p>
+      <p class="intro">Interaktiivsed vaated ametigruppide vahelisest liikumisest ja Frey–Osborne’i automatiseerimisstsenaariumidest.</p>
       <nav aria-label="On this page">
         <a href="#figure-1b">Ametite võrgustik</a>
         <a href="#figure-6">Võrgustiku mõju</a>
@@ -69,8 +69,8 @@
   </header>
   <main class="wrap">
     <section id="figure-1b">
-      <div class="section-head"><div><h2>Ametialase liikuvuse võrgustik</h2><p class="caption">Iga punkt tähistab ametit ja jooned näitavad inimeste liikumist ametite vahel. Värv näitab Frey–Osborne’i arvutiseerimistõenäosust.</p></div><span class="tag">464 occupations</span></div>
-      <iframe title="Interaktiivne ametialase liikuvuse võrgustik" src="charts/et/figure_1b_occupation_network.html" loading="lazy"></iframe>
+      <div class="section-head"><div><h2>Ametigruppide liikuvuse võrgustik</h2><p class="caption">Iga punkt tähistab ametigruppi ja jooned näitavad inimeste liikumist ametirühmade vahel. Värv näitab Frey–Osborne’i arvutiseerimistõenäosust.</p></div><span class="tag">464 ametigruppi</span></div>
+      <iframe title="Interaktiivne ametigruppide liikuvuse võrgustik" src="charts/et/figure_1b_occupation_network.html" loading="lazy"></iframe>
     </section>
     <section id="figure-6">
       <div class="section-head"><div><h2>Võrgustiku mõju versus median earnings</h2><p class="caption">Võrdle modelleeritud töötuse ja pikaajalise töötuse muutusi ametite lõikes.</p></div><span class="tag">Frey–Osborne</span></div>
@@ -95,9 +95,9 @@
   </div></footer>
   <script>
     (() => {
-      const heights = {"figure-1b":700, "figure-6":680, "shock":680, "traps":600, "beveridge":560};
+      
       function resizeChart(frame) {
-        const height = heights[frame.closest("section")?.id];
+        const height = frame.clientHeight;
         const doc = frame.contentDocument;
         const win = frame.contentWindow;
         const graph = doc?.querySelector(".plotly-graph-div");
@@ -115,4 +115,3 @@
   </script>
 </body>
 </html>
-
