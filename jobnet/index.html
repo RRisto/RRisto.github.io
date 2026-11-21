@@ -43,11 +43,11 @@
       section { padding:15px; }
       .section-head { display:block; }
       .tag { display:inline-block; margin-top:9px; }
-      #figure-1b iframe { height:700px; }
-      #figure-6 iframe { height:680px; }
-      #shock iframe { height:680px; }
-      #traps iframe { height:600px; }
-      #beveridge iframe { height:560px; }
+      #figure-1b iframe { height:500px; }
+      #figure-6 iframe { height:500px; }
+      #shock iframe { height:520px; }
+      #traps iframe { height:460px; }
+      #beveridge iframe { height:460px; }
     }
   </style>
 </head>
@@ -70,23 +70,23 @@
   <main class="wrap">
     <section id="figure-1b">
       <div class="section-head"><div><h2>Occupation mobility network</h2><p class="caption">Each point is an occupation; links show observed worker mobility. Color shows Frey–Osborne computerization probability.</p></div><span class="tag">464 occupations</span></div>
-      <iframe title="Interactive occupation mobility network" src="charts/figure_1b_occupation_network.html" loading="lazy"></iframe>
+      <iframe title="Interactive occupation mobility network" src="charts/figure_1b_occupation_network.html?v=mobile-title-fix-1" loading="lazy"></iframe>
     </section>
     <section id="figure-6">
       <div class="section-head"><div><h2>Network effects versus median earnings</h2><p class="caption">Compare unemployment and long-term-unemployment effects across occupations.</p></div><span class="tag">Frey–Osborne</span></div>
-      <iframe title="Interactive network effects versus median earnings" src="charts/figure6-network-effects.html" loading="lazy"></iframe>
+      <iframe title="Interactive network effects versus median earnings" src="charts/figure6-network-effects.html?v=label-fit-1" loading="lazy"></iframe>
     </section>
     <section id="shock">
       <div class="section-head"><div><h2>Impact of the Frey–Osborne automation shock</h2><p class="caption">Modeled unemployment effects of the Frey–Osborne shock across two mobility-network assumptions.</p></div><span class="tag">Scenario simulation</span></div>
-      <iframe title="Interactive unemployment paths following automation shocks" src="charts/frey-osborne-shock.html" loading="lazy"></iframe>
+      <iframe title="Interactive unemployment paths following automation shocks" src="charts/frey-osborne-shock.html?v=label-fit-1" loading="lazy"></iframe>
     </section>
     <section id="traps">
       <div class="section-head"><div><h2>Potential automation traps</h2><p class="caption">High exposure combined with limited mobility toward less-exposed occupations.</p></div><span class="tag">Frey–Osborne</span></div>
-      <iframe title="Interactive potential automation traps chart" src="charts/automation-traps.html" loading="lazy"></iframe>
+      <iframe title="Interactive potential automation traps chart" src="charts/automation-traps.html?v=mobile-fit-1" loading="lazy"></iframe>
     </section>
     <section id="beveridge">
       <div class="section-head"><div><h2>Beveridge curve</h2><p class="caption">The article’s sinusoidal-demand model cycle alongside the historical U.S. curve.</p></div><span class="tag">Figure 3c method</span></div>
-      <iframe title="Interactive article-style Beveridge curve" src="charts/beveridge-curve.html" loading="lazy"></iframe>
+      <iframe title="Interactive article-style Beveridge curve" src="charts/beveridge-curve.html?v=title-fix-1" loading="lazy"></iframe>
     </section>
   </main>
   <footer><div class="wrap">
@@ -96,8 +96,9 @@
   <script>
     (() => {
       const heights = {"figure-1b":700, "figure-6":680, "shock":680, "traps":600, "beveridge":560};
+      const mobileHeights = {"figure-1b":500, "figure-6":500, "shock":520, "traps":460, "beveridge":460};
       function resizeChart(frame) {
-        const height = heights[frame.closest("section")?.id];
+        const height = (window.matchMedia("(max-width:650px)").matches ? mobileHeights : heights)[frame.closest("section")?.id];
         const doc = frame.contentDocument;
         const win = frame.contentWindow;
         const graph = doc?.querySelector(".plotly-graph-div");
